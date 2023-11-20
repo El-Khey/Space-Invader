@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "stdlib.h": "c",
+        "mlv_all.h": "c",
+        "main.h": "c",
+        "window.h": "c",
+        "stdio.h": "c",
+        "animation.h": "c",
+        "position.h": "c",
+        "dimension.h": "c",
+        "image.h": "c"
+    }
+}
