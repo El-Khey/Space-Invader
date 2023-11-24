@@ -5,18 +5,21 @@
 #include <stdlib.h>
 #include <MLV/MLV_all.h>
 
-#include "../utils/dimension/dimension.h"
-#include "../utils/position/position.h"
+#include "../../../utils/dimension/dimension.h"
+#include "../../../utils/position/position.h"
+#include "../../../utils/image/image.h"
 
 typedef struct
 {
     Dimension dimension;
     Position position;
-    MLV_Image *background;
-    MLV_Image *next_background;
+
+    Image background;
+    Image next_background;
 } Window;
 
 Window construct_window(int width, int height);
-void draw_window_background(Window window);
+
+void update_background_position(Window *window);
 
 #endif

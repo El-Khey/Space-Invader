@@ -8,6 +8,10 @@
         "animation.h": "c",
         "position.h": "c",
         "dimension.h": "c",
-        "image.h": "c"
+        "image.h": "c",
+        "heros.h": "c",
+        "event_manager.h": "c",
+        "creature.h": "c",
+        "objet.h": "c"
     }
 }

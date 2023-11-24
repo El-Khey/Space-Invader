@@ -9,4 +9,6 @@
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 1200
 
+#define MAX_PLAYERS 2
+
 #endif /** MAIN_H */

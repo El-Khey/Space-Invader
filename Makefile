@@ -3,15 +3,16 @@ CFLAGS = -W -Wall -std=c89 -pedantic -O2
 CLIBS = -lm -lMLV
 
 # List of object files
-MODEL = window.o 
+MANAGER = event_manager.o keyboard_manager.o mouse_manager.o
+MODEL = window.o objet.o creature.o heros.o
 UTILS = utils.o dimension.o position.o animation.o image.o text.o
-
+CONTROLLERS = player_controller.o
 
 
 all: build simple-clean
 
-build: main.o $(MODEL) $(UTILS)
-	$(CC) main.o $(MODEL) $(UTILS) -o main $(CLIBS)
+build: main.o $(MODEL) $(UTILS) $(MANAGER) $(CONTROLLERS)
+	$(CC) main.o $(MODEL) $(UTILS) $(MANAGER) $(CONTROLLERS) -o main $(CLIBS)
 
 # ----------- #
 # Main file 
@@ -27,6 +28,15 @@ main.o: ./src/main.c
 
 window.o: ./src/game/model/window/window.c
 	$(CC) $(CFLAGS) -c ./src/game/model/window/window.c
+
+objet.o: ./src/game/model/objet/objet.c
+	$(CC) $(CFLAGS) -c ./src/game/model/objet/objet.c
+
+heros.o: ./src/game/model/objet/heros/heros.c
+	$(CC) $(CFLAGS) -c ./src/game/model/objet/heros/heros.c
+	
+creature.o: ./src/game/model/objet/creature/creature.c
+	$(CC) $(CFLAGS) -c ./src/game/model/objet/creature/creature.c
 
 # ------------------ #
 # Utils
@@ -49,6 +59,27 @@ image.o: ./src/utils/image/image.c
 text.o: ./src/utils/text/text.c
 	$(CC) $(CFLAGS) -c ./src/utils/text/text.c
 
+
+# ------------------ #
+# Manager
+# ------------------ #
+
+event_manager.o: ./src/game/manager/event_manager/event_manager.c
+	$(CC) $(CFLAGS) -c ./src/game/manager/event_manager/event_manager.c
+
+keyboard_manager.o: ./src/game/manager/event_manager/keyboard_manager/keyboard_manager.c
+	$(CC) $(CFLAGS) -c ./src/game/manager/event_manager/keyboard_manager/keyboard_manager.c
+
+mouse_manager.o: ./src/game/manager/event_manager/mouse_manager/mouse_manager.c
+	$(CC) $(CFLAGS) -c ./src/game/manager/event_manager/mouse_manager/mouse_manager.c
+
+
+# ------------------ #
+# Controller
+# ------------------ #
+
+player_controller.o: ./src/game/controller/player_controller/player_controller.c
+	$(CC) $(CFLAGS) -c ./src/game/controller/player_controller/player_controller.c
 
 	
 # simple-clean removes all the .o files

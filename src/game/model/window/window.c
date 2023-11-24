@@ -1,26 +1,38 @@
-#include "../../../../include/model/window.h"
-#include "../../../../include/utils/image/image.h"
+#include "../../../../include/game/model/window/window.h"
 
 Window construct_window(int width, int height)
 {
     Window window;
 
-    MLV_Image *loaded_image = MLV_load_image("assets/background/map1.jpg");
-    is_image_loaded_successfully(loaded_image, "assets/background/map1.jpg");
+    window.background = load_image("assets/background/map3.jpg", construct_dimension(width, height));
+    window.next_background = load_image("assets/background/map3.jpg", construct_dimension(width, height));
 
-    window.dimension.height = height;
-    window.dimension.width = width;
+    set_image_position(&window.next_background, construct_position(0, -height));
+    MLV_horizontal_image_mirror(window.next_background.image);
 
-    MLV_resize_image(loaded_image, width, height);
+    window.dimension.height = WINDOW_HEIGHT;
+    window.dimension.width = WINDOW_WIDTH;
 
-    window.background = loaded_image;
     window.position.x = 0;
     window.position.y = 0;
 
     return window;
 }
 
-void draw_window_background(Window window)
+void update_background_position(Window *window)
 {
-    MLV_draw_image(window.background, window.position.x, window.position.y);
+    move_position(&window->background.position, 0, 1);
+    move_position(&window->next_background.position, 0, 1);
+
+    if (get_y(window->background.position) >= get_height(window->background.dimension))
+    {
+        set_image_position(&window->background, construct_position(0, -get_height(window->background.dimension)));
+    }
+    else if (get_y(window->next_background.position) >= get_height(window->next_background.dimension))
+    {
+        set_image_position(&window->next_background, construct_position(0, get_y(window->background.position) - get_height(window->next_background.dimension)));
+    }
+
+    draw_image(&window->background);
+    draw_image(&window->next_background);
 }
