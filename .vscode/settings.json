@@ -1,6 +1,11 @@
 {
     "files.associations": {
         "heros.h": "c",
-        "projectile.h": "c"
+        "projectile.h": "c",
+        "event_manager.h": "c",
+        "dimension.h": "c",
+        "player_controller.h": "c",
+        "window.h": "c",
+        "utils.h": "c"
     }
 }
