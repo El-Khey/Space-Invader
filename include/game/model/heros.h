@@ -6,11 +6,22 @@
 
 #include "../../utils/position/position.h"
 #include "../../utils/dimension/dimension.h"
+#include "./projectile.h"
+
+#define MAX_PROJECTILES 200
+
+typedef struct
+{
+    Projectile projectiles[MAX_PROJECTILES];
+    int projectiles_count;
+} Projectiles;
 
 typedef struct
 {
     Position position;
     Dimension dimension;
+
+    Projectiles list;
 
     int speed;
 } Heros;

@@ -4,7 +4,7 @@ CLIBS = -lm -lMLV
 
 # List of object files
 MANAGER = event_manager.o keyboard_manager.o mouse_manager.o
-MODEL = window.o heros.o
+MODEL = window.o heros.o projectile.o
 UTILS = utils.o dimension.o position.o animation.o image.o text.o
 CONTROLLERS = player_controller.o
 
@@ -31,6 +31,9 @@ window.o: ./src/game/model/window/window.c
 
 heros.o: ./src/game/model/heros.c
 	$(CC) $(CFLAGS) -c ./src/game/model/heros.c
+
+projectile.o: ./src/game/model/projectile.c
+	$(CC) $(CFLAGS) -c ./src/game/model/projectile.c
 	
 
 # ------------------ #

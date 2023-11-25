@@ -10,6 +10,7 @@ int main()
     EventManager eventManager;
     Window window;
     Heros heros;
+    int i;
 
     MLV_create_window("Space Invader", "Space Invader", WINDOW_WIDTH, WINDOW_HEIGHT);
     MLV_change_frame_rate(60);
@@ -25,9 +26,15 @@ int main()
         update_background_position(&window);
         draw_heros(heros);
 
-        if (eventManager.keyboard_manager.event[0].attack_keys.key_attack_1)
+        if (eventManager.keyboard_manager.event[0].attack_keys.key_attack_1 && heros.list.projectiles_count < MAX_PROJECTILES)
         {
-            MLV_draw_filled_rectangle(get_x(heros.position) + get_width(heros.dimension) / 2 - 5, get_y(heros.position) - 10, 10, 10, MLV_COLOR_GREEN1);
+            heros.list.projectiles[heros.list.projectiles_count] = construct_projectile(heros.position, heros.dimension);
+            heros.list.projectiles_count += 1;
+        }
+
+        for (i = 0; i < heros.list.projectiles_count; i++)
+        {
+            move_position(&heros.list.projectiles[i].position, 0, -heros.list.projectiles[i].speed);
         }
 
         MLV_actualise_window(window.background);
