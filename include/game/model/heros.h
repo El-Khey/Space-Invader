@@ -17,4 +17,14 @@ typedef struct
 
 Heros construct_heros();
 
+void move_heros_up(Heros *Heros);
+
+void move_heros_down(Heros *Heros);
+
+void move_heros_left(Heros *Heros);
+
+void move_heros_right(Heros *Heros);
+
+void draw_heros(Heros heros);
+
 #endif

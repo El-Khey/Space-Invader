@@ -18,12 +18,12 @@ int main()
     window = construct_window(WINDOW_WIDTH, WINDOW_HEIGHT);
     heros = construct_heros(5);
 
-    while (!0)
+    while (!is_escape_key_pressed(eventManager.keyboard_manager))
     {
-        handle_player_movement(&heros, &eventManager);
+        handle_heros_movement(&heros, &eventManager);
 
         update_background_position(&window);
-        MLV_draw_filled_rectangle(get_x(heros.position), get_y(heros.position), get_width(heros.dimension), get_height(heros.dimension), MLV_COLOR_RED);
+        draw_heros(heros);
 
         if (eventManager.keyboard_manager.event[0].attack_keys.key_attack_1)
         {
