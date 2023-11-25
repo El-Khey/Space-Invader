@@ -4,7 +4,7 @@ CLIBS = -lm -lMLV
 
 # List of object files
 MANAGER = event_manager.o keyboard_manager.o mouse_manager.o
-MODEL = window.o objet.o creature.o heros.o
+MODEL = window.o heros.o
 UTILS = utils.o dimension.o position.o animation.o image.o text.o
 CONTROLLERS = player_controller.o
 
@@ -29,14 +29,9 @@ main.o: ./src/main.c
 window.o: ./src/game/model/window/window.c
 	$(CC) $(CFLAGS) -c ./src/game/model/window/window.c
 
-objet.o: ./src/game/model/objet/objet.c
-	$(CC) $(CFLAGS) -c ./src/game/model/objet/objet.c
-
-heros.o: ./src/game/model/objet/heros/heros.c
-	$(CC) $(CFLAGS) -c ./src/game/model/objet/heros/heros.c
+heros.o: ./src/game/model/heros.c
+	$(CC) $(CFLAGS) -c ./src/game/model/heros.c
 	
-creature.o: ./src/game/model/objet/creature/creature.c
-	$(CC) $(CFLAGS) -c ./src/game/model/objet/creature/creature.c
 
 # ------------------ #
 # Utils

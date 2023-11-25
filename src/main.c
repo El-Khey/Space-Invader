@@ -3,7 +3,7 @@
 #include "../include/game/model/window/window.h"
 #include "../include/game/manager/event_manager/event_manager.h"
 #include "../include/game/controller/player_controller.h"
-#include "../include/game/model/objet/creature/heros/heros.h"
+#include "../include/game/model/heros.h"
 
 int main()
 {
@@ -23,12 +23,11 @@ int main()
         handle_player_movement(&heros, &eventManager);
 
         update_background_position(&window);
-
-        MLV_draw_filled_rectangle(get_x(heros.creature.objet.position), get_y(heros.creature.objet.position), get_width(heros.creature.objet.dimension), get_height(heros.creature.objet.dimension), MLV_COLOR_RED);
+        MLV_draw_filled_rectangle(get_x(heros.position), get_y(heros.position), get_width(heros.dimension), get_height(heros.dimension), MLV_COLOR_RED);
 
         if (eventManager.keyboard_manager.event[0].attack_keys.key_attack_1)
         {
-            MLV_draw_filled_rectangle(get_x(heros.creature.objet.position) + get_width(heros.creature.objet.dimension) / 2 - 5, get_y(heros.creature.objet.position) - 10, 10, 10, MLV_COLOR_GREEN1);
+            MLV_draw_filled_rectangle(get_x(heros.position) + get_width(heros.dimension) / 2 - 5, get_y(heros.position) - 10, 10, 10, MLV_COLOR_GREEN1);
         }
 
         MLV_actualise_window(window.background);

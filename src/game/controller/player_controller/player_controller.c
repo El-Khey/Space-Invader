@@ -1,24 +1,24 @@
 #include "../../../../include/game/manager/event_manager/event_manager.h"
-#include "../../../../include/game/model/objet/creature/heros/heros.h"
+#include "../../../../include/game/model/heros.h"
 
 void move_heros_up(Heros *Heros)
 {
-    move_position(&Heros->creature.objet.position, 0, -Heros->speed);
+    move_position(&Heros->position, 0, -Heros->speed);
 }
 
 void move_heros_down(Heros *Heros)
 {
-    move_position(&Heros->creature.objet.position, 0, Heros->speed);
+    move_position(&Heros->position, 0, Heros->speed);
 }
 
 void move_heros_left(Heros *Heros)
 {
-    move_position(&Heros->creature.objet.position, -Heros->speed, 0);
+    move_position(&Heros->position, -Heros->speed, 0);
 }
 
 void move_heros_right(Heros *Heros)
 {
-    move_position(&Heros->creature.objet.position, Heros->speed, 0);
+    move_position(&Heros->position, Heros->speed, 0);
 }
 
 void handle_player_movement(Heros *heros, EventManager *event_manager)
