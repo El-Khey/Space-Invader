@@ -21,15 +21,21 @@ typedef struct
 {
     Position position;
     Dimension dimension;
-    Animation animation;
+
+    Animation ship;
+    Animation engine;
+    Animation engine_effect_idle;
+    Animation engine_effect_boost;
+
     Projectiles list;
 
+    int is_boost_activated;
     int speed;
 } Heros;
 
 Heros construct_heros();
 
-void move_heros_up(Heros *Heros);
+void move_heros_up(Heros *heros);
 
 void move_heros_down(Heros *Heros);
 

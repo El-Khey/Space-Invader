@@ -13,7 +13,12 @@ void handle_heros_movement(Heros *heros, EventManager event_manager)
     }
     if (is_position_with_dimension_inside_rect(construct_position(heros->position.x, heros->position.y - heros->speed), heros->dimension, construct_position(0, 0), construct_dimension(WINDOW_WIDTH, WINDOW_HEIGHT)) && event_manager.keyboard_manager.event[0].arrow_keys.key_up)
     {
+        heros->is_boost_activated = 1;
         move_heros_up(heros);
+    }
+    else
+    {
+        heros->is_boost_activated = 0;
     }
     if (is_position_with_dimension_inside_rect(construct_position(heros->position.x, heros->position.y + heros->speed), heros->dimension, construct_position(0, 0), construct_dimension(WINDOW_WIDTH, WINDOW_HEIGHT)) && event_manager.keyboard_manager.event[0].arrow_keys.key_down)
     {

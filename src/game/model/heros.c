@@ -6,17 +6,25 @@ Heros construct_heros()
 
     heros.dimension = construct_dimension(150, 150);
     heros.position = construct_position(WINDOW_WIDTH / 2 - get_width(heros.dimension) / 2, WINDOW_HEIGHT - get_height(heros.dimension) - 25);
-    heros.speed = 5;
+    heros.speed = 3;
 
     heros.list.projectiles_count = 0;
-    heros.animation = construct_animation("assets/sprites/Ships/MainShip/Bases/Full health.png", 1, heros.dimension, FORWARD);
+    heros.ship = construct_animation("assets/sprites/Ships/MainShip/Bases/Full health.png", 1, heros.dimension, FORWARD);
+    heros.engine = construct_animation("assets/sprites/Ships/MainShip/Engines/Big Pulse Engine.png", 1, heros.dimension, FORWARD);
+    heros.engine_effect_idle = construct_animation("assets/sprites/Ships/MainShip/Engine Effects/Big Pulse Engine - Idle.png", 4, heros.dimension, FORWARD);
+    heros.engine_effect_boost = construct_animation("assets/sprites/Ships/MainShip/Engine Effects/Big Pulse Engine - Powering.png", 4, heros.dimension, FORWARD);
+
+    heros.is_boost_activated = 0;
+
+    play_animation(&heros.engine_effect_idle);
+    play_animation(&heros.engine_effect_boost);
 
     return heros;
 }
 
-void move_heros_up(Heros *Heros)
+void move_heros_up(Heros *heros)
 {
-    move_position(&Heros->position, 0, -Heros->speed);
+    move_position(&heros->position, 0, -heros->speed);
 }
 
 void move_heros_down(Heros *Heros)
@@ -46,5 +54,16 @@ static void draw_heros_projectiles(Projectiles list)
 void draw_heros(Heros heros)
 {
     draw_heros_projectiles(heros.list);
-    draw_animation(heros.animation, heros.position);
+
+    draw_animation(heros.engine, heros.position);
+    if (heros.is_boost_activated)
+    {
+        draw_animation(heros.engine_effect_boost, heros.position);
+    }
+    else
+    {
+        draw_animation(heros.engine_effect_idle, heros.position);
+    }
+
+    draw_animation(heros.ship, heros.position);
 }
