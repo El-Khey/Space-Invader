@@ -3,19 +3,19 @@
 
 void handle_heros_movement(Heros *heros, EventManager event_manager)
 {
-    if (event_manager.keyboard_manager.event[0].arrow_keys.key_right)
+    if (is_position_with_dimension_inside_rect(construct_position(heros->position.x + heros->speed, heros->position.y), heros->dimension, construct_position(0, 0), construct_dimension(WINDOW_WIDTH, WINDOW_HEIGHT)) && event_manager.keyboard_manager.event[0].arrow_keys.key_right)
     {
         move_heros_right(heros);
     }
-    if (event_manager.keyboard_manager.event[0].arrow_keys.key_left)
+    if (is_position_with_dimension_inside_rect(construct_position(heros->position.x - heros->speed, heros->position.y), heros->dimension, construct_position(0, 0), construct_dimension(WINDOW_WIDTH, WINDOW_HEIGHT)) && event_manager.keyboard_manager.event[0].arrow_keys.key_left)
     {
         move_heros_left(heros);
     }
-    if (event_manager.keyboard_manager.event[0].arrow_keys.key_up)
+    if (is_position_with_dimension_inside_rect(construct_position(heros->position.x, heros->position.y - heros->speed), heros->dimension, construct_position(0, 0), construct_dimension(WINDOW_WIDTH, WINDOW_HEIGHT)) && event_manager.keyboard_manager.event[0].arrow_keys.key_up)
     {
         move_heros_up(heros);
     }
-    if (event_manager.keyboard_manager.event[0].arrow_keys.key_down)
+    if (is_position_with_dimension_inside_rect(construct_position(heros->position.x, heros->position.y + heros->speed), heros->dimension, construct_position(0, 0), construct_dimension(WINDOW_WIDTH, WINDOW_HEIGHT)) && event_manager.keyboard_manager.event[0].arrow_keys.key_down)
     {
         move_heros_down(heros);
     }
