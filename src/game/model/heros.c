@@ -9,7 +9,7 @@ Heros construct_heros()
     heros.speed = 5;
 
     heros.list.projectiles_count = 0;
-    heros.animation = construct_animation("assets/image.png", 1, heros.dimension, FORWARD);
+    heros.animation = construct_animation("assets/sprites/Ships/MainShip/Bases/Full health.png", 1, heros.dimension, FORWARD);
 
     return heros;
 }

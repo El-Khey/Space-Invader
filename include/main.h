@@ -6,8 +6,8 @@
 
 #include <MLV/MLV_all.h>
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 1200
+#define WINDOW_WIDTH 1400
+#define WINDOW_HEIGHT 800
 
 #define MAX_PLAYERS 2
 
