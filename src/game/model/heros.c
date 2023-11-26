@@ -4,11 +4,12 @@ Heros construct_heros()
 {
     Heros heros;
 
-    heros.dimension = construct_dimension(50, 50);
+    heros.dimension = construct_dimension(150, 150);
     heros.position = construct_position(WINDOW_WIDTH / 2 - get_width(heros.dimension) / 2, WINDOW_HEIGHT - get_height(heros.dimension) - 25);
     heros.speed = 5;
 
     heros.list.projectiles_count = 0;
+    heros.animation = construct_animation("assets/image.png", 1, heros.dimension, FORWARD);
 
     return heros;
 }
@@ -44,6 +45,6 @@ static void draw_heros_projectiles(Projectiles list)
 
 void draw_heros(Heros heros)
 {
-    MLV_draw_filled_rectangle(get_x(heros.position), get_y(heros.position), get_width(heros.dimension), get_height(heros.dimension), MLV_COLOR_RED);
     draw_heros_projectiles(heros.list);
+    draw_animation(heros.animation, heros.position);
 }

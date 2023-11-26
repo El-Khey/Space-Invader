@@ -6,8 +6,8 @@
 
 #include "../../utils/position/position.h"
 #include "../../utils/dimension/dimension.h"
-
 #include "./projectile.h"
+#include "../../utils/animation/animation.h"
 
 #define MAX_PROJECTILES 200
 
@@ -21,7 +21,7 @@ typedef struct
 {
     Position position;
     Dimension dimension;
-
+    Animation animation;
     Projectiles list;
 
     int speed;
