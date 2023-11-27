@@ -17,15 +17,31 @@ typedef struct
     int projectiles_count;
 } Projectiles;
 
+typedef enum
+{
+    BASE_ENGINE,
+    BIG_PULSE_ENGINE,
+    BURST_ENGINE,
+    SUPERCHARGED_ENGINE,
+    nb_engine_animations
+} EngineType;
+
+typedef struct
+{
+    Animation engine;
+    Animation engine_effect_idle;
+    Animation engine_effect_boost;
+} EngineAnimation;
+
 typedef struct
 {
     Position position;
     Dimension dimension;
 
     Animation ship;
-    Animation engine;
-    Animation engine_effect_idle;
-    Animation engine_effect_boost;
+
+    EngineAnimation engine_animations[nb_engine_animations];
+    EngineType active_engine;
 
     Projectiles list;
 

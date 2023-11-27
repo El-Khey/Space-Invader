@@ -24,6 +24,12 @@ void handle_heros_movement(Heros *heros, EventManager event_manager)
     {
         move_heros_down(heros);
     }
+
+    /** TODO : a supprier les moteurs ce change depuis l'ecran */
+    if (event_manager.keyboard_manager.event[0].attack_keys.key_attack_2)
+    {
+        heros->active_engine = (heros->active_engine + 1) % nb_engine_animations;
+    }
 }
 
 static void remove_out_of_screen_projectiles(Heros *heros, int index)
