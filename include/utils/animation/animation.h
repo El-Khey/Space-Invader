@@ -73,6 +73,13 @@ void play_revert_animation(Animation *animation);
 void stop_animation(Animation *animation);
 
 /**
+ * @brief Rewind the animation
+ *
+ * @param animation The animation to rewind
+ */
+void rewind_animation(Animation *animation);
+
+/**
  * @brief Check if the given animation is finished
  *
  * @param animation The animation to check

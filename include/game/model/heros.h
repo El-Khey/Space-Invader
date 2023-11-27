@@ -26,12 +26,27 @@ typedef enum
     nb_engine_animations
 } EngineType;
 
+typedef enum
+{
+    AUTO_CANNON,
+    BIG_SPACE,
+    ROCKETS,
+    ZAPPER,
+    nb_weapon
+} Weapon_Type;
+
 typedef struct
 {
     Animation engine;
     Animation engine_effect_idle;
     Animation engine_effect_boost;
 } EngineAnimation;
+
+typedef struct
+{
+    Animation weapon_shooting;
+    Animation weapon_bullet;
+} WeaponAnimation;
 
 typedef struct
 {
@@ -43,9 +58,14 @@ typedef struct
     EngineAnimation engine_animations[nb_engine_animations];
     EngineType active_engine;
 
+    WeaponAnimation weapons_animations[nb_weapon];
+    Weapon_Type active_weapon;
+
     Projectiles list;
 
     int is_boost_activated;
+    int is_firing;
+
     int speed;
 } Heros;
 

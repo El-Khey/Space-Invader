@@ -60,6 +60,15 @@ void set_width(Dimension *dimension, int width);
 void set_height(Dimension *dimension, int height);
 
 /**
+ * @brief
+ *
+ * @param dimension
+ * @param factor
+ * @return Dimension
+ */
+Dimension scale_down_dimension(Dimension dimension, int factor);
+
+/**
  * @brief Print the given dimension on the screen
  * The dimension is printed in the following format: Dimension: widthxheight
  * Should be used for debugging purposes only

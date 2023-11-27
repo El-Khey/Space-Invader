@@ -30,6 +30,11 @@ void handle_heros_movement(Heros *heros, EventManager event_manager)
     {
         heros->active_engine = (heros->active_engine + 1) % nb_engine_animations;
     }
+
+    if (event_manager.keyboard_manager.event[0].attack_keys.key_attack_3)
+    {
+        heros->active_weapon = (heros->active_weapon + 1) % nb_weapon;
+    }
 }
 
 static void remove_out_of_screen_projectiles(Heros *heros, int index)
@@ -50,8 +55,22 @@ void handle_heros_projectiles(Heros *heros, EventManager event_manager)
     int i = 0;
     if (event_manager.keyboard_manager.event[0].attack_keys.key_attack_1 && heros->list.projectiles_count < MAX_PROJECTILES)
     {
-        heros->list.projectiles[heros->list.projectiles_count] = construct_projectile(heros->position, heros->dimension);
+        if (!heros->is_firing)
+        {
+            play_animation(&heros->weapons_animations[heros->active_weapon].weapon_shooting);
+            heros->is_firing = 1;
+        }
+
+        heros->list.projectiles[heros->list.projectiles_count] = construct_projectile(heros->position, heros->dimension, heros->weapons_animations[heros->active_weapon].weapon_bullet);
         heros->list.projectiles_count += 1;
+    }
+
+    if (is_animation_finished(heros->weapons_animations[heros->active_weapon].weapon_shooting, MLV_get_time()) && heros->is_firing)
+    {
+        rewind_animation(&heros->weapons_animations[heros->active_weapon].weapon_shooting);
+        stop_animation(&heros->weapons_animations[heros->active_weapon].weapon_shooting);
+
+        heros->is_firing = 0;
     }
 
     for (; i < heros->list.projectiles_count; i++)

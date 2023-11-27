@@ -37,6 +37,11 @@ void set_height(Dimension *dimension, int height)
     dimension->height = height;
 }
 
+Dimension scale_down_dimension(Dimension dimension, int factor)
+{
+    return construct_dimension(get_width(dimension) / factor, get_height(dimension) / factor);
+}
+
 void print_dimension(Dimension dimension)
 {
     printf("Dimension: %dx%d\n", dimension.width, dimension.height);

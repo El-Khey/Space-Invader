@@ -1,6 +1,7 @@
 #include "../../../include/game/model/heros.h"
 
 static void initialize_engine_animations(EngineAnimation *engine_animations, Dimension dimension);
+static void initialize_weapon_animation(Heros *heros, Dimension dimension);
 
 Heros construct_heros()
 {
@@ -14,8 +15,14 @@ Heros construct_heros()
     heros.is_boost_activated = 0;
 
     heros.ship = construct_animation("assets/sprites/Ships/MainShip/Bases/Full health.png", 1, heros.dimension, FORWARD);
+
     initialize_engine_animations(heros.engine_animations, heros.dimension);
     heros.active_engine = BASE_ENGINE;
+
+    initialize_weapon_animation(&heros, heros.dimension);
+    heros.active_weapon = AUTO_CANNON;
+
+    heros.is_firing = 0;
 
     return heros;
 }
@@ -49,6 +56,26 @@ static void initialize_engine_animations(EngineAnimation *engine_animations, Dim
 
     play_animation(&engine_animations[SUPERCHARGED_ENGINE].engine_effect_idle);
     play_animation(&engine_animations[SUPERCHARGED_ENGINE].engine_effect_boost);
+}
+
+static void initialize_weapon_animation(Heros *heros, Dimension dimension)
+{
+    heros->weapons_animations[AUTO_CANNON].weapon_shooting = construct_animation("assets/sprites/Ships/MainShip/Weapons/Auto Cannon.png", 7, dimension, FORWARD);
+    heros->weapons_animations[AUTO_CANNON].weapon_bullet = construct_animation("assets/sprites/Ships/MainShip/Projectiles/Auto Cannon.png", 4, dimension, FORWARD);
+
+    heros->weapons_animations[BIG_SPACE].weapon_shooting = construct_animation("assets/sprites/Ships/MainShip/Weapons/Big Space Gun.png", 6, dimension, FORWARD);
+    heros->weapons_animations[BIG_SPACE].weapon_bullet = construct_animation("assets/sprites/Ships/MainShip/Projectiles/Big Space Gun.png", 10, dimension, FORWARD);
+
+    heros->weapons_animations[ROCKETS].weapon_shooting = construct_animation("assets/sprites/Ships/MainShip/Weapons/Rockets.png", 17, dimension, FORWARD);
+    heros->weapons_animations[ROCKETS].weapon_bullet = construct_animation("assets/sprites/Ships/MainShip/Projectiles/Rockets.png", 3, dimension, FORWARD);
+
+    heros->weapons_animations[ZAPPER].weapon_shooting = construct_animation("assets/sprites/Ships/MainShip/Weapons/Zapper.png", 7, dimension, FORWARD);
+    heros->weapons_animations[ZAPPER].weapon_bullet = construct_animation("assets/sprites/Ships/MainShip/Projectiles/Zapper.png", 8, dimension, FORWARD);
+
+    play_animation(&heros->weapons_animations[AUTO_CANNON].weapon_bullet);
+    play_animation(&heros->weapons_animations[BIG_SPACE].weapon_bullet);
+    play_animation(&heros->weapons_animations[ROCKETS].weapon_bullet);
+    play_animation(&heros->weapons_animations[ZAPPER].weapon_bullet);
 }
 
 void move_heros_up(Heros *heros)
@@ -88,5 +115,6 @@ void draw_heros(Heros heros)
     (heros.is_boost_activated) ? draw_animation(heros.engine_animations[heros.active_engine].engine_effect_boost, heros.position)
                                : draw_animation(heros.engine_animations[heros.active_engine].engine_effect_idle, heros.position);
 
+    draw_animation(heros.weapons_animations[heros.active_weapon].weapon_shooting, heros.position);
     draw_animation(heros.ship, heros.position);
 }
