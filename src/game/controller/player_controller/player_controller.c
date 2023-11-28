@@ -84,7 +84,10 @@ void handle_heros_projectiles(Heros *heros, EventManager event_manager)
         for (j = 0; j < heros->list.projectiles[i].list.bullets_count; j++)
         {
             remove_out_of_screen_projectiles(heros, i, j);
-            move_position(&heros->list.projectiles[i].list.bullets[j].position, 0, -heros->list.projectiles[i].speed);
+            if (MLV_get_time() >= heros->list.projectiles[i].list.bullets[j].start_fire_time)
+            {
+                move_position(&heros->list.projectiles[i].list.bullets[j].position, 0, -heros->list.projectiles[i].speed);
+            }
         }
     }
 }

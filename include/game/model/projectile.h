@@ -23,6 +23,7 @@ typedef struct
     Position position;
 
     Animation bullet_animation;
+    int start_fire_time;
 } Bullet;
 
 typedef struct
@@ -34,7 +35,6 @@ typedef struct
 typedef struct
 {
     Bullets list;
-
     Weapon_Type active_bullet_type;
 
     int delay_fire_bullet;
