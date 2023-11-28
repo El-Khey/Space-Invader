@@ -1,21 +1,102 @@
 #include "../../../include/game/model/projectile.h"
 
-Projectile construct_projectile(Position position, Dimension dimension, Animation animation)
+static void initialize_bullet_animation_from_weapon_type(Weapon_Type type, Projectile *projectile, Dimension dimension, Position position);
+
+Projectile construct_projectile(Position position, Dimension dimension, Weapon_Type type)
 {
     Projectile projectile;
 
-    projectile.bullet_animation = animation;
-    resize_animation(&projectile.bullet_animation, construct_dimension(64, 64));
-
-    projectile.dimension = dimension;
-    projectile.position = construct_position(position.x + dimension.width / 2 - 32, position.y);
+    initialize_bullet_animation_from_weapon_type(type, &projectile, dimension, position);
 
     projectile.speed = 7;
+    projectile.active_bullet_type = type;
 
     return projectile;
 }
 
+static void initialize_bullet_animation_from_weapon_type(Weapon_Type type, Projectile *projectile, Dimension dimension, Position position)
+{
+    switch (type)
+    {
+    case BIG_SPACE:
+        projectile->list.bullets_count = 2;
+        projectile->active_bullet_type = BIG_SPACE;
+
+        projectile->damage = 5;
+        projectile->speed = 2;
+        projectile->delay_fire_bullet = 15;
+
+        projectile->list.bullets[0].bullet_animation = construct_animation("assets/sprites/Ships/MainShip/Projectiles/Big Space Gun.png", 10, dimension, FORWARD);
+        resize_animation(&projectile->list.bullets[0].bullet_animation, construct_dimension(64, 64));
+
+        projectile->list.bullets[0].dimension = dimension;
+        projectile->list.bullets[0].position = construct_position(position.x + dimension.width / 2 - 32, position.y);
+
+        projectile->list.bullets[1].bullet_animation = construct_animation("assets/sprites/Ships/MainShip/Projectiles/Big Space Gun.png", 10, dimension, FORWARD);
+        projectile->list.bullets[1].bullet_animation = construct_animation("assets/sprites/Ships/MainShip/Projectiles/Big Space Gun.png", 10, dimension, FORWARD);
+        resize_animation(&projectile->list.bullets[1].bullet_animation, construct_dimension(64, 64));
+
+        projectile->list.bullets[1].dimension = dimension;
+        projectile->list.bullets[1].position = construct_position(position.x + dimension.width / 2, position.y);
+
+        break;
+
+    case ROCKETS:
+        projectile->list.bullets_count = 2;
+        projectile->active_bullet_type = ROCKETS;
+
+        projectile->damage = 5;
+        projectile->speed = 2;
+        projectile->delay_fire_bullet = 15;
+
+        projectile->list.bullets[0].bullet_animation = construct_animation("assets/sprites/Ships/MainShip/Projectiles/Rockets.png", 3, dimension, FORWARD);
+        projectile->list.bullets[0].bullet_animation = construct_animation("assets/sprites/Ships/MainShip/Projectiles/Rockets.png", 3, dimension, FORWARD);
+        resize_animation(&projectile->list.bullets[0].bullet_animation, construct_dimension(64, 64));
+
+        projectile->list.bullets[0].dimension = dimension;
+        projectile->list.bullets[0].position = construct_position(position.x + dimension.width / 2 - 32, position.y);
+
+        projectile->list.bullets[1].bullet_animation = construct_animation("assets/sprites/Ships/MainShip/Projectiles/Rockets.png", 3, dimension, FORWARD);
+        projectile->list.bullets[1].bullet_animation = construct_animation("assets/sprites/Ships/MainShip/Projectiles/Rockets.png", 3, dimension, FORWARD);
+        resize_animation(&projectile->list.bullets[1].bullet_animation, construct_dimension(64, 64));
+
+        projectile->list.bullets[1].dimension = dimension;
+        projectile->list.bullets[1].position = construct_position(position.x + dimension.width / 2, position.y);
+
+        break;
+
+    default:
+        projectile->list.bullets_count = 2;
+        projectile->active_bullet_type = BIG_SPACE;
+
+        projectile->damage = 5;
+        projectile->speed = 2;
+        projectile->delay_fire_bullet = 15;
+
+        projectile->list.bullets[0].bullet_animation = construct_animation("assets/sprites/Ships/MainShip/Projectiles/Big Space Gun.png", 10, dimension, FORWARD);
+        resize_animation(&projectile->list.bullets[0].bullet_animation, construct_dimension(64, 64));
+
+        projectile->list.bullets[0].dimension = dimension;
+        projectile->list.bullets[0].position = construct_position(position.x + dimension.width / 2 - 32, position.y);
+
+        projectile->list.bullets[1].bullet_animation = construct_animation("assets/sprites/Ships/MainShip/Projectiles/Big Space Gun.png", 10, dimension, FORWARD);
+        projectile->list.bullets[1].bullet_animation = construct_animation("assets/sprites/Ships/MainShip/Projectiles/Big Space Gun.png", 10, dimension, FORWARD);
+        resize_animation(&projectile->list.bullets[1].bullet_animation, construct_dimension(64, 64));
+
+        projectile->list.bullets[1].dimension = dimension;
+        projectile->list.bullets[1].position = construct_position(position.x + dimension.width / 2, position.y);
+        break;
+    }
+
+    play_animation(&projectile->list.bullets[0].bullet_animation);
+    play_animation(&projectile->list.bullets[1].bullet_animation);
+}
+
 void draw_projectile(Projectile projectile)
 {
-    draw_animation(projectile.bullet_animation, projectile.position);
+    int i = 0;
+    for (; i < projectile.list.bullets_count; i++)
+    {
+        draw_animation(projectile.list.bullets[i].bullet_animation, projectile.list.bullets[i].position);
+    }
 }

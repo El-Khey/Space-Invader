@@ -9,14 +9,6 @@
 #include "./projectile.h"
 #include "../../utils/animation/animation.h"
 
-#define MAX_PROJECTILES 200
-
-typedef struct
-{
-    Projectile projectiles[MAX_PROJECTILES];
-    int projectiles_count;
-} Projectiles;
-
 typedef enum
 {
     BASE_ENGINE,
@@ -25,15 +17,6 @@ typedef enum
     SUPERCHARGED_ENGINE,
     nb_engine_animations
 } EngineType;
-
-typedef enum
-{
-    AUTO_CANNON,
-    BIG_SPACE,
-    ROCKETS,
-    ZAPPER,
-    nb_weapon
-} Weapon_Type;
 
 typedef struct
 {
@@ -45,7 +28,6 @@ typedef struct
 typedef struct
 {
     Animation weapon_shooting;
-    Animation weapon_bullet;
 } WeaponAnimation;
 
 typedef struct
