@@ -102,22 +102,15 @@ static void initialize_bullet_animation_from_weapon_type(Weapon_Type type, Proje
         resize_animation(&projectile->list.bullets[4].bullet_animation, construct_dimension(64, 64));
 
         projectile->list.bullets[4].dimension = dimension;
-        projectile->list.bullets[4].position = construct_position(position.x + dimension.width / 2 - 75, position.y + 80);
-        projectile->list.bullets[4].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet + 250;
+        projectile->list.bullets[4].position = construct_position(position.x + dimension.width / 2 - 75, position.y + 70);
+        projectile->list.bullets[4].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet + 300;
 
         projectile->list.bullets[5].bullet_animation = construct_animation("assets/sprites/Ships/MainShip/Projectiles/Rockets.png", 3, dimension, FORWARD);
         resize_animation(&projectile->list.bullets[5].bullet_animation, construct_dimension(64, 64));
 
         projectile->list.bullets[5].dimension = dimension;
-        projectile->list.bullets[5].position = construct_position(position.x + dimension.width / 2 + 15, position.y + 80);
-        projectile->list.bullets[5].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet + 325;
-
-        projectile->list.bullets[6].bullet_animation = construct_animation("assets/sprites/Ships/MainShip/Projectiles/Rockets.png", 3, dimension, FORWARD);
-        resize_animation(&projectile->list.bullets[6].bullet_animation, construct_dimension(64, 64));
-
-        projectile->list.bullets[6].dimension = dimension;
-        projectile->list.bullets[6].position = construct_position(position.x + dimension.width / 2 + 6, position.y - 10);
-        projectile->list.bullets[6].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet;
+        projectile->list.bullets[5].position = construct_position(position.x + dimension.width / 2 + 15, position.y + 70);
+        projectile->list.bullets[5].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet + 500;
 
         break;
 
