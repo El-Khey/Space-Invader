@@ -126,14 +126,14 @@ static void initialize_bullet_animation_from_weapon_type(Weapon_Type type, Proje
         resize_animation(&projectile->list.bullets[0].bullet_animation, construct_dimension(64, 64));
 
         projectile->list.bullets[0].dimension = dimension;
-        projectile->list.bullets[0].position = construct_position(position.x + dimension.width / 2 - 70, position.y - 10);
+        projectile->list.bullets[0].position = construct_position(position.x + dimension.width / 2 - 70, position.y + 15);
         projectile->list.bullets[0].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet - 50;
 
         projectile->list.bullets[1].bullet_animation = construct_animation("assets/sprites/Ships/MainShip/Projectiles/Zapper.png", 8, dimension, FORWARD);
         resize_animation(&projectile->list.bullets[1].bullet_animation, construct_dimension(64, 64));
 
         projectile->list.bullets[1].dimension = dimension;
-        projectile->list.bullets[1].position = construct_position(position.x + dimension.width / 2 + 6, position.y - 10);
+        projectile->list.bullets[1].position = construct_position(position.x + dimension.width / 2 + 6, position.y + 15);
         projectile->list.bullets[1].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet;
         break;
     }
