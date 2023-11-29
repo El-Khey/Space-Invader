@@ -38,7 +38,7 @@ void init_animation_player(Animation *animation, Dimension dimension)
 
     if (animation->direction == BACKWARD)
     {
-        MLV_vertical_image_mirror(animation->sprite);
+        MLV_horizontal_image_mirror(animation->sprite);
     }
 
     for (; i < animation->frame_count; i++)
