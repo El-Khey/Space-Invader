@@ -16,7 +16,7 @@ int main()
 
     event_manager = construct_event_manager();
     window = construct_window(WINDOW_WIDTH, WINDOW_HEIGHT);
-    heros = construct_heros(5);
+    heros = construct_heros();
 
     while (!is_escape_key_pressed(event_manager.keyboard_manager))
     {
@@ -28,7 +28,7 @@ int main()
         update_background_position(&window);
         draw_heros(heros);
 
-        MLV_actualise_window(window.background);
+        MLV_actualise_window();
         MLV_delay_according_to_frame_rate();
     }
 

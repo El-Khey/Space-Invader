@@ -6,6 +6,11 @@
         "dimension.h": "c",
         "player_controller.h": "c",
         "window.h": "c",
-        "utils.h": "c"
+        "utils.h": "c",
+        "stdlib.h": "c",
+        "position.h": "c",
+        "image.h": "c",
+        "main.h": "c",
+        "animation.h": "c"
     }
 }

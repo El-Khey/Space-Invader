@@ -87,7 +87,7 @@ void play_animation(Animation *animation)
     MLV_rewind_animation_player(animation->player);
 
     animation->start_time = MLV_get_time();
-    animation->end_time = animation->start_time + (animation->frame_duration * animation->frame_count * MLV_get_frame_rate());
+    animation->end_time = animation->start_time + (animation->frame_count * MLV_get_frame_rate());
 
     MLV_play_animation_player(animation->player);
 }
@@ -100,6 +100,11 @@ void play_revert_animation(Animation *animation)
 void stop_animation(Animation *animation)
 {
     MLV_stop_animation_player(animation->player);
+}
+
+void rewind_animation(Animation *animation)
+{
+    MLV_rewind_animation_player(animation->player);
 }
 
 int is_animation_finished(Animation animation, int current_time)
