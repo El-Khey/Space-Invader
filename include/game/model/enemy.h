@@ -16,17 +16,21 @@ typedef struct
     Position position;
     Dimension dimension;
     int speed;
-    Animation animation_ennemy;
+    Animation ship;
 } Enemy;
 
 typedef struct
 {
     Enemy enemy[MAX_ENEMYS];
-
+    int nb_enemy;
+    int max_enemy;
 } Enemys;
 
 Enemy construct_enemy();
-void draw_enemy(Enemy enemy);
-void handle_enemy(Enemy *enemy);
+Enemys construct_enemys();
+
+void draw_enemys(Enemys *enemys);
+
+void handle_enemy(Enemys *enemys);
 
 #endif

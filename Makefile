@@ -6,7 +6,7 @@ CLIBS = -lm -lMLV
 MANAGER = event_manager.o keyboard_manager.o mouse_manager.o
 MODEL = window.o heros.o projectile.o enemy.o
 UTILS = utils.o dimension.o position.o animation.o image.o text.o
-CONTROLLERS = player_controller.o
+CONTROLLERS = player_controller.o enemy_controller.o
 
 
 all: build simple-clean
@@ -80,6 +80,9 @@ mouse_manager.o: ./src/game/manager/event_manager/mouse_manager/mouse_manager.c
 
 player_controller.o: ./src/game/controller/player_controller/player_controller.c
 	$(CC) $(CFLAGS) -c ./src/game/controller/player_controller/player_controller.c
+
+enemy_controller.o: ./src/game/controller/enemy_controller/enemy_controller.c
+	$(CC) $(CFLAGS) -c ./src/game/controller/enemy_controller/enemy_controller.c
 
 	
 # simple-clean removes all the .o files

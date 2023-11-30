@@ -13,17 +13,17 @@ int main()
     EventManager event_manager;
     Window window;
     Heros heros;
-    Enemy enemy;
+    Enemys enemys;
 
     srand(time(NULL));
 
     MLV_create_window("Space Invader", "Space Invader", WINDOW_WIDTH, WINDOW_HEIGHT);
     MLV_change_frame_rate(60);
 
-    event_manager = construct_event_manager();
     window = construct_window(WINDOW_WIDTH, WINDOW_HEIGHT);
+    event_manager = construct_event_manager();
     heros = construct_heros();
-    enemy = construct_enemy();
+    enemys = construct_enemys();
 
     while (!is_escape_key_pressed(event_manager.keyboard_manager))
     {
@@ -31,12 +31,12 @@ int main()
 
         handle_heros_movement(&heros, event_manager);
         handle_heros_projectiles(&heros, event_manager);
-        handle_enemy(&enemy);
 
         update_background_position(&window);
-
+        handle_enemy_spawn(&enemys, 1);
+        update_enemy_positions(&enemys);
         draw_heros(heros);
-        draw_enemy(enemy);
+        draw_enemys(&enemys);
 
         MLV_actualise_window();
         MLV_delay_according_to_frame_rate();

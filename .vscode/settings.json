@@ -11,6 +11,7 @@
         "position.h": "c",
         "image.h": "c",
         "main.h": "c",
-        "animation.h": "c"
+        "animation.h": "c",
+        "enemy.h": "c"
     }
 }
