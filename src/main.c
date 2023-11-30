@@ -36,7 +36,7 @@ int main()
 
         update_background_position(&window);
 
-        handle_enemy_spawn(&enemys, 1);
+        handle_enemy_spawn(&enemys, 3);
         update_enemy_positions(&enemys);
         draw_heros(heros);
         draw_enemys(&enemys);

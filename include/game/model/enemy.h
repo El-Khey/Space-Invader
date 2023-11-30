@@ -17,6 +17,7 @@ typedef struct
     Dimension dimension;
     int speed;
     Animation ship;
+    Animation engine_effect_boost;
 } Enemy;
 
 typedef struct
