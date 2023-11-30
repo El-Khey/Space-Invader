@@ -12,6 +12,7 @@
         "image.h": "c",
         "main.h": "c",
         "animation.h": "c",
-        "enemy.h": "c"
+        "enemy.h": "c",
+        "enemy_controller.h": "c"
     }
 }

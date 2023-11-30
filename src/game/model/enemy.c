@@ -20,24 +20,6 @@ Enemy construct_enemy()
     return enemy;
 }
 
-void handle_enemy(Enemys *enemys)
-{
-    if (enemys->nb_enemy < MAX_ENEMYS)
-    {
-        enemys->enemy[enemys->nb_enemy] = construct_enemy();
-        enemys->nb_enemy++;
-    }
-}
-
-void update_enemy_positions(Enemys *enemys)
-{
-    int i;
-    for (i = 0; i < enemys->nb_enemy; ++i)
-    {
-        move_position(&enemys->enemy[i].position, 0, enemys->enemy[i].speed);
-    }
-}
-
 void draw_enemys(Enemys *enemys)
 {
     int i = 0;

@@ -3,6 +3,8 @@
 #include "../include/game/model/window/window.h"
 #include "../include/game/manager/event_manager/event_manager.h"
 #include "../include/game/controller/player_controller.h"
+#include "../include/game/controller/enemy_controller.h"
+
 #include "../include/game/model/heros.h"
 #include "../include/game/model/enemy.h"
 
@@ -33,6 +35,7 @@ int main()
         handle_heros_projectiles(&heros, event_manager);
 
         update_background_position(&window);
+
         handle_enemy_spawn(&enemys, 1);
         update_enemy_positions(&enemys);
         draw_heros(heros);

@@ -31,6 +31,4 @@ Enemys construct_enemys();
 
 void draw_enemys(Enemys *enemys);
 
-void handle_enemy(Enemys *enemys);
-
 #endif
