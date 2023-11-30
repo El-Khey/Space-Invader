@@ -11,13 +11,26 @@
 #include "./projectile.h"
 #include "../../utils/animation/animation.h"
 
+typedef enum
+{
+    KLAED,
+    NAIRAN,
+    NAUTOLAN
+} EnemyType;
+
+typedef struct
+{
+    Animation ship;
+    Animation engine_effect_boost;
+} EnemyAnimation;
+
 typedef struct
 {
     Position position;
     Dimension dimension;
     int speed;
-    Animation ship;
-    Animation engine_effect_boost;
+    EnemyType type;
+    EnemyAnimation enemy_animation;
 } Enemy;
 
 typedef struct
