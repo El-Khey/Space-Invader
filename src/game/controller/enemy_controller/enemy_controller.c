@@ -28,6 +28,27 @@ static int is_enemy_out_of_screen(Enemy enemy)
     return get_y(enemy.position) > WINDOW_HEIGHT + get_height(enemy.dimension);
 }
 
+/**
+ * x0 = position of the enemy ship
+ * x1 = position of the player's ship
+ * w0 = width of the enemy ship
+ * w1 = width of the player's ship
+ *
+ * x0 < (x1 + w1) / 2 < x0 + w0
+ *
+ * We check that the center of the player's ship is between the left and right edges of the enemy ship
+ * and that the player's ship is below the enemy ship.
+ *
+ * TODO : Add a margin of error for the enemy ship to fire.
+ */
+static int can_ship_fire(Position heros_position, Dimension heros_dimension, Position enemy_position, Dimension enemy_dimension, int projectiles_count)
+{
+    return get_y(heros_position) > get_y(enemy_position) + get_height(enemy_dimension) &&
+           get_x(heros_position) + get_width(heros_dimension) / 2 > get_x(enemy_position) &&
+           get_x(heros_position) + get_width(heros_dimension) / 2 < get_x(enemy_position) + get_width(enemy_dimension) &&
+           projectiles_count < MAX_PROJECTILES;
+}
+
 void update_enemies(enemy_controller *controller, Heros heros)
 {
     int i = 0;
@@ -36,7 +57,7 @@ void update_enemies(enemy_controller *controller, Heros heros)
         move_enemy(&controller->enemies[i]);
         draw_enemy(controller->enemies[i]);
 
-        if (get_y(heros.position) > get_y(controller->enemies[i].position) && abs(get_x(controller->enemies[i].position) - get_x(heros.position)) < 10 && controller->enemies[i].list.projectiles_count < MAX_PROJECTILES)
+        if (can_ship_fire(heros.position, heros.dimension, controller->enemies[i].position, controller->enemies[i].dimension, controller->enemies[i].list.projectiles_count))
         {
             if (!controller->enemies[i].is_firing)
             {

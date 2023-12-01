@@ -136,9 +136,9 @@ static void initialize_bullet_animation_from_weapon_type(Projectile *projectile,
         projectile->list.bullets[1].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet;
         break;
 
-    case RED_BIG_BULLET:
+    case RED_RAY:
         projectile->list.bullets_count = 1;
-        projectile->active_bullet_type = RED_BIG_BULLET;
+        projectile->active_bullet_type = RED_RAY;
 
         projectile->damage = 5;
         projectile->speed = 5;
@@ -152,6 +152,7 @@ static void initialize_bullet_animation_from_weapon_type(Projectile *projectile,
         projectile->list.bullets[0].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet - 50;
         break;
 
+    /**
     case RED_BULLET:
         projectile->list.bullets_count = 1;
         projectile->active_bullet_type = RED_BULLET;
@@ -167,7 +168,7 @@ static void initialize_bullet_animation_from_weapon_type(Projectile *projectile,
         projectile->list.bullets[0].position = construct_position(position.x + dimension.width / 2 - 70, position.y + 15);
         projectile->list.bullets[0].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet - 50;
         break;
-
+    */
     default:
         fprintf(stderr, "Error: unknown projectile type %d\n", projectile->active_bullet_type);
         break;
