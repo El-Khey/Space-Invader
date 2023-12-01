@@ -32,9 +32,18 @@ typedef enum
     nb_enemy_type
 } EnemyType;
 
+typedef enum
+{
+    BASE,
+    DESTRUCTION,
+    ATTACK,
+    nb_enemy_animation_state
+} EnemyAnimationState;
+
 typedef struct
 {
-    Animation ship;
+    EnemyAnimationState active_state;
+    Animation ship[nb_enemy_animation_state];
     Animation engine_effect_boost;
 } EnemyAnimation;
 
@@ -46,6 +55,9 @@ typedef struct
     int speed;
     int damage;
     int health;
+
+    Projectiles list;
+    int is_firing;
 
     EnemyType enemy_type;
     EnemyClass enemy_class;

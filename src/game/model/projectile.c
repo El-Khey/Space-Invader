@@ -136,6 +136,38 @@ static void initialize_bullet_animation_from_weapon_type(Projectile *projectile,
         projectile->list.bullets[1].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet;
         break;
 
+    case RED_BIG_BULLET:
+        projectile->list.bullets_count = 1;
+        projectile->active_bullet_type = RED_BIG_BULLET;
+
+        projectile->damage = 5;
+        projectile->speed = 5;
+        projectile->delay_fire_bullet = 150;
+
+        projectile->list.bullets[0].bullet_animation = construct_animation("assets/sprites/Ships/EnemyFleet/Kla'ed/Projectiles/Red Big Bullet.png", 1, dimension, FORWARD);
+        resize_animation(&projectile->list.bullets[0].bullet_animation, construct_dimension(64, 64));
+
+        projectile->list.bullets[0].dimension = dimension;
+        projectile->list.bullets[0].position = construct_position(position.x + dimension.width / 2 - 70, position.y + 15);
+        projectile->list.bullets[0].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet - 50;
+        break;
+
+    case RED_BULLET:
+        projectile->list.bullets_count = 1;
+        projectile->active_bullet_type = RED_BULLET;
+
+        projectile->damage = 5;
+        projectile->speed = 5;
+        projectile->delay_fire_bullet = 150;
+
+        projectile->list.bullets[0].bullet_animation = construct_animation("assets/sprites/Ships/EnemyFleet/Kla'ed/Projectiles/Red Bullet.png", 1, dimension, FORWARD);
+        resize_animation(&projectile->list.bullets[0].bullet_animation, construct_dimension(64, 64));
+
+        projectile->list.bullets[0].dimension = dimension;
+        projectile->list.bullets[0].position = construct_position(position.x + dimension.width / 2 - 70, position.y + 15);
+        projectile->list.bullets[0].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet - 50;
+        break;
+
     default:
         fprintf(stderr, "Error: unknown projectile type %d\n", projectile->active_bullet_type);
         break;

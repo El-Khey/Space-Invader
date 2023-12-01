@@ -22,7 +22,7 @@ static void launch_game()
         update_heros(&heros, event_manager);
 
         generate_enemies(&enemy_controller);
-        update_enemies(&enemy_controller);
+        update_enemies(&enemy_controller, heros);
 
         MLV_delay_according_to_frame_rate();
         MLV_actualise_window();

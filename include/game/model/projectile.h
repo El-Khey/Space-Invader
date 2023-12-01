@@ -14,6 +14,25 @@ typedef enum
     BIG_SPACE,
     ROCKETS,
     ZAPPER,
+
+    RED_BIG_BULLET,
+    RED_BULLET,
+    RED_RAY,
+    RED_TORPEDO,
+    RED_WAVE,
+
+    GREEN_BOLT,
+    GREEN_RAY,
+    GREEN_ROCKET,
+    GREEN_TORPEDO,
+
+    WHITE_BOMB,
+    WHITE_BULLET,
+    WHITE_RAY,
+    WHITE_ROCKET,
+    WHTIE_SPINNING,
+    WHITE_WAVE,
+
     nb_weapon
 } Weapon_Type;
 

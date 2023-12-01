@@ -2,6 +2,8 @@
 #define PLAYER_H
 
 #include "../manager/event_manager/event_manager.h"
+#include "./projectile_controller/projectile_controller.h"
+
 #include "../model/heros.h"
 #include "../../utils/utils.h"
 
