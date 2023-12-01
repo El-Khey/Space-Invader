@@ -2,10 +2,10 @@
 #define ENEMY_CONTROLLER_H
 
 #include "../manager/event_manager/event_manager.h"
-#include "../model/enemy.h"
+#include "../model/enemy/enemy.h"
 #include "../../utils/utils.h"
 
-#define MAX_ENEMY_SPAWN_COUNT 15
+#define MAX_ENEMY_SPAWN_COUNT 10
 
 typedef struct
 {

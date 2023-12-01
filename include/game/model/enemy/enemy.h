@@ -6,10 +6,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../../utils/position/position.h"
-#include "../../utils/dimension/dimension.h"
-#include "./projectile.h"
-#include "../../utils/animation/animation.h"
+#include "../../../utils/position/position.h"
+#include "../../../utils/dimension/dimension.h"
+#include "../projectile.h"
+#include "../../../utils/animation/animation.h"
 
 typedef enum
 {
@@ -44,6 +44,8 @@ typedef struct
     Dimension dimension;
 
     int speed;
+    int damage;
+    int health;
 
     EnemyType enemy_type;
     EnemyClass enemy_class;

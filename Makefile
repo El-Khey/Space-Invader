@@ -4,7 +4,7 @@ CLIBS = -lm -lMLV
 
 # List of object files
 MANAGER = event_manager.o keyboard_manager.o mouse_manager.o
-MODEL = window.o heros.o projectile.o enemy.o
+MODEL = window.o heros.o projectile.o enemy.o klaed.o nairan.o nautolan.o
 UTILS = utils.o dimension.o position.o animation.o image.o text.o
 CONTROLLERS = player_controller.o enemy_controller.o
 
@@ -35,8 +35,17 @@ heros.o: ./src/game/model/heros.c
 projectile.o: ./src/game/model/projectile.c
 	$(CC) $(CFLAGS) -c ./src/game/model/projectile.c
 	
-enemy.o: ./src/game/model/enemy.c
-	$(CC) $(CFLAGS) -c ./src/game/model/enemy.c
+enemy.o: ./src/game/model/enemy/enemy.c
+	$(CC) $(CFLAGS) -c ./src/game/model/enemy/enemy.c
+
+klaed.o: ./src/game/model/enemy/klaed.c
+	$(CC) $(CFLAGS) -c ./src/game/model/enemy/klaed.c
+
+nairan.o: ./src/game/model/enemy/nairan.c
+	$(CC) $(CFLAGS) -c ./src/game/model/enemy/nairan.c
+
+nautolan.o: ./src/game/model/enemy/nautolan.c
+	$(CC) $(CFLAGS) -c ./src/game/model/enemy/nautolan.c
 
 # ------------------ #
 # Utils

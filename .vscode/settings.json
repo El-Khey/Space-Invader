@@ -6,6 +6,9 @@
         "enemy_controller.h": "c",
         "projectile.h": "c",
         "enemy.h": "c",
-        "utils.h": "c"
+        "utils.h": "c",
+        "klaed.h": "c",
+        "nairan.h": "c",
+        "nautolan.h": "c"
     }
 }
