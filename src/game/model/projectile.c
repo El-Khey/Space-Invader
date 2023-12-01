@@ -1,22 +1,21 @@
 #include "../../../include/game/model/projectile.h"
 
-static void initialize_bullet_animation_from_weapon_type(Weapon_Type type, Projectile *projectile, Dimension dimension, Position position);
+static void initialize_bullet_animation_from_weapon_type(Projectile *projectile, Position position, Dimension dimension);
 
 Projectile construct_projectile(Position position, Dimension dimension, Weapon_Type type)
 {
     Projectile projectile;
 
-    initialize_bullet_animation_from_weapon_type(type, &projectile, dimension, position);
     projectile.active_bullet_type = type;
+    initialize_bullet_animation_from_weapon_type(&projectile, position, dimension);
 
     return projectile;
 }
 
-static void initialize_bullet_animation_from_weapon_type(Weapon_Type type, Projectile *projectile, Dimension dimension, Position position)
+static void initialize_bullet_animation_from_weapon_type(Projectile *projectile, Position position, Dimension dimension)
 {
     int i = 0;
-
-    switch (type)
+    switch (projectile->active_bullet_type)
     {
     case AUTO_CANNON:
         projectile->list.bullets_count = 2;
@@ -135,6 +134,10 @@ static void initialize_bullet_animation_from_weapon_type(Weapon_Type type, Proje
         projectile->list.bullets[1].dimension = dimension;
         projectile->list.bullets[1].position = construct_position(position.x + dimension.width / 2 + 6, position.y + 15);
         projectile->list.bullets[1].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet;
+        break;
+
+    default:
+        fprintf(stderr, "Error: unknown projectile type %d\n", projectile->active_bullet_type);
         break;
     }
 

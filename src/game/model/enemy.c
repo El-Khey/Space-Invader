@@ -1,6 +1,6 @@
 #include "../../../include/game/model/enemy.h"
 
-void initialize_enemy_animation_from_ship_type(EnemyType type, EnemyAnimation *enemy, Dimension dimension, Position position);
+static void initialize_enemy_animation_from_ship_type(EnemyAnimation *enemy, Dimension dimension);
 
 Enemys construct_enemys()
 {
@@ -18,7 +18,7 @@ Enemy construct_enemy()
     enemy.position = construct_position(rand() % WINDOW_WIDTH - get_width(enemy.dimension), -get_height(enemy.dimension));
     enemy.speed = 3;
     enemy.type = KLAED;
-    initialize_enemy_animation_from_ship_type(enemy.type, &enemy.enemy_animation, enemy.dimension, enemy.position);
+    initialize_enemy_animation_from_ship_type(&enemy.enemy_animation, enemy.dimension);
 
     return enemy;
 }
@@ -33,7 +33,7 @@ void draw_enemys(Enemys *enemys)
     }
 }
 
-void initialize_enemy_animation_from_ship_type(EnemyType type, EnemyAnimation *enemy, Dimension dimension, Position position)
+static void initialize_enemy_animation_from_ship_type(EnemyAnimation *enemy, Dimension dimension)
 {
     enemy->ship = construct_animation("assets/sprites/Ships/EnemyFleet/Kla'ed/Base/Frigate - Base.png", 1, dimension, BACKWARD);
     enemy->engine_effect_boost = construct_animation("assets/sprites/Ships/EnemyFleet/Kla'ed/Engine/Frigate - Engine.png", 12, dimension, BACKWARD);

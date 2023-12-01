@@ -1,18 +1,7 @@
 {
     "files.associations": {
-        "heros.h": "c",
-        "projectile.h": "c",
-        "event_manager.h": "c",
-        "dimension.h": "c",
+        "*.rmd": "markdown",
         "player_controller.h": "c",
-        "window.h": "c",
-        "utils.h": "c",
-        "stdlib.h": "c",
-        "position.h": "c",
-        "image.h": "c",
-        "main.h": "c",
-        "animation.h": "c",
-        "enemy.h": "c",
-        "enemy_controller.h": "c"
+        "animation.h": "c"
     }
 }

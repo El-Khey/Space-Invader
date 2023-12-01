@@ -5,8 +5,6 @@
 #include "../model/heros.h"
 #include "../../utils/utils.h"
 
-void handle_heros_movement(Heros *heros, EventManager event_manager);
-
-void handle_heros_projectiles(Heros *heros, EventManager event_manager);
+void update_heros(Heros *heros, EventManager event_manager);
 
 #endif

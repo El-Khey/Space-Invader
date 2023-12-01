@@ -1,7 +1,7 @@
 
 #include "../../../../include/game/controller/player_controller.h"
 
-void handle_heros_movement(Heros *heros, EventManager event_manager)
+static void handle_heros_movement(Heros *heros, EventManager event_manager)
 {
     if (is_position_with_dimension_inside_rect(construct_position(heros->position.x + heros->speed, heros->position.y), heros->dimension, construct_position(0, 0), construct_dimension(WINDOW_WIDTH, WINDOW_HEIGHT)) && event_manager.keyboard_manager.event[0].arrow_keys.key_right)
     {
@@ -56,7 +56,7 @@ static void remove_out_of_screen_projectiles(Heros *heros, int index_projectile,
     }
 }
 
-void handle_heros_projectiles(Heros *heros, EventManager event_manager)
+static void handle_heros_projectiles(Heros *heros, EventManager event_manager)
 {
     int i, j;
     if (event_manager.keyboard_manager.event[0].attack_keys.key_attack_1 && heros->list.projectiles_count < MAX_PROJECTILES)
@@ -90,4 +90,11 @@ void handle_heros_projectiles(Heros *heros, EventManager event_manager)
             }
         }
     }
+}
+
+void update_heros(Heros *heros, EventManager event_manager)
+{
+    handle_heros_movement(heros, event_manager);
+    handle_heros_projectiles(heros, event_manager);
+    draw_heros(*heros);
 }
