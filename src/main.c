@@ -11,6 +11,8 @@
 static void launch_game()
 {
     EventManager event_manager = construct_event_manager();
+    enemy_controller enemy_controller = construct_enemy_controller();
+
     Window window = construct_window();
     Heros heros = construct_heros();
 
@@ -20,6 +22,9 @@ static void launch_game()
 
         handle_events(&event_manager, 0);
         update_heros(&heros, event_manager);
+
+        generate_enemies(&enemy_controller);
+        update_enemies(&enemy_controller);
 
         MLV_actualise_window();
         MLV_delay_according_to_frame_rate();
@@ -31,7 +36,7 @@ int main()
     srand(time(NULL));
 
     MLV_create_window("Space Invader", "Space Invader", WINDOW_WIDTH, WINDOW_HEIGHT);
-    MLV_change_frame_rate(30);
+    MLV_change_frame_rate(60);
 
     launch_game();
     exit(EXIT_SUCCESS);

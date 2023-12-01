@@ -5,8 +5,23 @@
 #include "../model/enemy.h"
 #include "../../utils/utils.h"
 
-void handle_enemy_spawn(Enemys *enemys, int interval_seconds);
-void handle_enemy(Enemys *enemys);
-void update_enemy_positions(Enemys *enemys);
+#define MAX_ENEMY_SPAWN_COUNT 10
+
+typedef struct
+{
+    Enemy enemies[MAX_ENEMY_SPAWN_COUNT];
+
+    int enemy_spawn_count; /** The number of enemy to spawn */
+    int enemy_spawned;     /** The number of enemy spawned */
+
+    int last_enemy_spawn_time; /** The last time a enemy was spawned */
+    int delay_between_spawn;   /** The delay between each enemy spawn */
+} enemy_controller;
+
+enemy_controller construct_enemy_controller();
+
+void generate_enemies(enemy_controller *controller);
+
+void update_enemies(enemy_controller *controller);
 
 #endif

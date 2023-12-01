@@ -1,55 +1,48 @@
 #include "../../../../include/game/controller/enemy_controller.h"
 
-void remove_ennemys(Enemys *enemys);
-void update_enemy_positions(Enemys *enemys);
-void handle_enemy(Enemys *enemys);
-
-static int last_generated_time = 0;
-
-void handle_enemy_spawn(Enemys *enemys, int interval_seconds)
+enemy_controller construct_enemy_controller()
 {
-    int current_time = MLV_get_time();
+    enemy_controller enemy_controller;
 
-    if (current_time - last_generated_time >= interval_seconds * 1000)
-    {
-        handle_enemy(enemys);
-        last_generated_time = current_time;
-    }
-    remove_ennemys(enemys);
+    enemy_controller.last_enemy_spawn_time = 0;
+    enemy_controller.delay_between_spawn = 1000;
+
+    enemy_controller.enemy_spawned = 0;
+    enemy_controller.enemy_spawn_count = MAX_ENEMY_SPAWN_COUNT;
+
+    return enemy_controller;
 }
 
-void remove_ennemys(Enemys *enemys)
+void generate_enemies(enemy_controller *controller)
 {
-    int i;
-
-    for (i = 0; i < enemys->nb_enemy; ++i)
+    if (controller->last_enemy_spawn_time + controller->delay_between_spawn < MLV_get_time() && controller->enemy_spawned < controller->enemy_spawn_count)
     {
-        if (get_y(enemys->enemy[i].position) > WINDOW_HEIGHT)
+        controller->last_enemy_spawn_time = MLV_get_time();
+        controller->enemies[controller->enemy_spawned] = construct_enemy(rand() % nb_enemy_type);
+        controller->enemy_spawned++;
+    }
+}
+
+static int is_enemy_out_of_screen(Enemy enemy)
+{
+    return get_y(enemy.position) > WINDOW_HEIGHT + get_height(enemy.dimension);
+}
+
+void update_enemies(enemy_controller *controller)
+{
+    int i = 0;
+    for (; i < controller->enemy_spawned; i++)
+    {
+        move_enemy(&controller->enemies[i]);
+        draw_enemy(controller->enemies[i]);
+
+        /** TODO: si collision entre deux vaisseau explosion */
+        if (is_enemy_out_of_screen(controller->enemies[i]))
         {
-            enemys->nb_enemy--;
+            controller->enemy_spawned--;
+            controller->enemies[i] = controller->enemies[controller->enemy_spawned];
 
-            if (i < enemys->nb_enemy)
-            {
-                enemys->enemy[i] = enemys->enemy[enemys->nb_enemy];
-            }
+            /** TODO: enelver une vie au joeur quand un enemy traverse l'ecran */
         }
-    }
-}
-
-void update_enemy_positions(Enemys *enemys)
-{
-    int i;
-    for (i = 0; i < enemys->nb_enemy; ++i)
-    {
-        move_position(&enemys->enemy[i].position, 0, enemys->enemy[i].speed);
-    }
-}
-
-void handle_enemy(Enemys *enemys)
-{
-    if (enemys->nb_enemy < MAX_ENEMYS)
-    {
-        enemys->enemy[enemys->nb_enemy] = construct_enemy();
-        enemys->nb_enemy++;
     }
 }

@@ -15,7 +15,8 @@ typedef enum
 {
     KLAED,
     NAIRAN,
-    NAUTOLAN
+    NAUTOLAN,
+    nb_enemy_type
 } EnemyType;
 
 typedef struct
@@ -28,21 +29,17 @@ typedef struct
 {
     Position position;
     Dimension dimension;
+
     int speed;
-    EnemyType type;
+
+    EnemyType enemy_type;
     EnemyAnimation enemy_animation;
 } Enemy;
 
-typedef struct
-{
-    Enemy enemy[MAX_ENEMYS];
-    int nb_enemy;
-    int max_enemy;
-} Enemys;
+Enemy construct_enemy(EnemyType type);
 
-Enemy construct_enemy();
-Enemys construct_enemys();
+void move_enemy(Enemy *enemy);
 
-void draw_enemys(Enemys *enemys);
+void draw_enemy(Enemy enemy);
 
 #endif
