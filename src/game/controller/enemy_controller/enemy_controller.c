@@ -18,7 +18,7 @@ void generate_enemies(enemy_controller *controller)
     if (controller->last_enemy_spawn_time + controller->delay_between_spawn < MLV_get_time() && controller->enemy_spawned < controller->enemy_spawn_count)
     {
         controller->last_enemy_spawn_time = MLV_get_time();
-        controller->enemies[controller->enemy_spawned] = construct_enemy(rand() % nb_enemy_type);
+        controller->enemies[controller->enemy_spawned] = construct_enemy(rand() % nb_enemy_class);
         controller->enemy_spawned++;
     }
 }

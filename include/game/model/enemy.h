@@ -16,6 +16,19 @@ typedef enum
     KLAED,
     NAIRAN,
     NAUTOLAN,
+    nb_enemy_class
+} EnemyClass;
+
+typedef enum
+{
+    BATTLECRUISER,
+    BOMBER,
+    DREADNOUGHT,
+    FIGHTER,
+    FRIGATE,
+    SCOUT,
+    SUPPORT,
+    TORPEDO,
     nb_enemy_type
 } EnemyType;
 
@@ -33,10 +46,12 @@ typedef struct
     int speed;
 
     EnemyType enemy_type;
+    EnemyClass enemy_class;
+
     EnemyAnimation enemy_animation;
 } Enemy;
 
-Enemy construct_enemy(EnemyType type);
+Enemy construct_enemy(EnemyClass class);
 
 void move_enemy(Enemy *enemy);
 

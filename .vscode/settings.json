@@ -4,6 +4,8 @@
         "player_controller.h": "c",
         "animation.h": "c",
         "enemy_controller.h": "c",
-        "projectile.h": "c"
+        "projectile.h": "c",
+        "enemy.h": "c",
+        "utils.h": "c"
     }
 }
