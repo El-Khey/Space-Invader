@@ -10,6 +10,7 @@
         "klaed.h": "c",
         "nairan.h": "c",
         "nautolan.h": "c",
-        "projectile_controller.h": "c"
+        "projectile_controller.h": "c",
+        "heros.h": "c"
     }
 }

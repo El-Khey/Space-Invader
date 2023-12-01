@@ -16,6 +16,8 @@ Enemy construct_enemy(EnemyClass class)
     enemy.enemy_class = class;
     enemy.enemy_type = rand() % nb_enemy_type;
     enemy.enemy_animation.active_state = BASE;
+
+    enemy.list.projectiles_count = 0;
     enemy.is_firing = 0;
 
     initialize_enemy_class(&enemy);
