@@ -11,6 +11,7 @@ Heros construct_heros()
     heros.position = construct_position(WINDOW_WIDTH / 2 - get_width(heros.dimension) / 2, WINDOW_HEIGHT - get_height(heros.dimension) - 25);
     heros.speed = 3;
 
+    heros.list.active_bullet_type = AUTO_CANNON;
     heros.list.projectiles_count = 0;
     heros.is_boost_activated = 0;
 

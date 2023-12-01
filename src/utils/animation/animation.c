@@ -1,8 +1,6 @@
 #include "../../../include/utils/animation/animation.h"
 
-#define FRAME_RATE 24
-
-void init_animation_player(Animation *animation, Dimension dimension);
+static void init_animation_player(Animation *animation, Dimension dimension);
 
 Animation construct_animation(char *path, int frame_count, Dimension dimension, AnimationDirection direction)
 {
@@ -30,7 +28,7 @@ Animation construct_animation(char *path, int frame_count, Dimension dimension, 
     return animation;
 }
 
-void init_animation_player(Animation *animation, Dimension dimension)
+static void init_animation_player(Animation *animation, Dimension dimension)
 {
     int i = 0;
     animation->frames = (MLV_Image **)malloc(animation->frame_count * sizeof(MLV_Image *));

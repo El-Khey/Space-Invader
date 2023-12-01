@@ -31,7 +31,7 @@ int main()
     srand(time(NULL));
 
     MLV_create_window("Space Invader", "Space Invader", WINDOW_WIDTH, WINDOW_HEIGHT);
-    MLV_change_frame_rate(60);
+    MLV_change_frame_rate(30);
 
     launch_game();
     exit(EXIT_SUCCESS);
