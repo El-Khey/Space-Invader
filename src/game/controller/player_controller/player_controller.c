@@ -47,7 +47,7 @@ static void handle_heros_projectiles(Heros *heros, EventManager event_manager)
             play_animation(&heros->weapons_animations[heros->active_weapon].weapon_shooting);
             heros->is_firing = 1;
 
-            heros->list.projectiles[heros->list.projectiles_count] = construct_projectile(heros->position, heros->dimension, heros->list.active_bullet_type);
+            heros->list.projectiles[heros->list.projectiles_count] = construct_heros_projectile(heros->list.active_bullet_type, heros->position, heros->dimension);
             heros->list.projectiles_count += 1;
         }
     }

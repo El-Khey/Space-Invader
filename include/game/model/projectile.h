@@ -70,8 +70,31 @@ typedef struct
     Weapon_Type active_bullet_type;
 } Projectiles;
 
-Projectile construct_projectile(Position position, Dimension dimension, Weapon_Type type);
+/**
+ * @brief Construct a new Projectile object for the heros
+ *
+ * @param type The type of the projectile
+ * @param position The position of the heros
+ * @param dimension The dimension of the heros
+ * @return Projectile
+ */
+Projectile construct_heros_projectile(Weapon_Type type, Position position, Dimension dimension);
 
+/**
+ * @brief Construct a new Projectile object for the enemy
+ *
+ * @param type The type of the projectile
+ * @param position The position of the enemy
+ * @param dimension The dimension of the enemy
+ * @return Projectile
+ */
+Projectile construct_enemy_projectile(Weapon_Type type, Position position, Dimension dimension);
+
+/**
+ * @brief Draw the projectile
+ *
+ * @param projectile The projectile to draw
+ */
 void draw_projectile(Projectile projectile);
 
 #endif

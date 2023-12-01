@@ -61,7 +61,7 @@ void update_enemies(enemy_controller *controller, Heros heros)
         {
             if (!controller->enemies[i].is_firing)
             {
-                controller->enemies[i].list.projectiles[controller->enemies[i].list.projectiles_count] = construct_projectile(controller->enemies[i].position, controller->enemies[i].dimension, controller->enemies[i].list.active_bullet_type);
+                controller->enemies[i].list.projectiles[controller->enemies[i].list.projectiles_count] = construct_enemy_projectile(controller->enemies[i].list.active_bullet_type, controller->enemies[i].position, controller->enemies[i].dimension);
                 controller->enemies[i].list.projectiles[controller->enemies[i].list.projectiles_count].speed = -controller->enemies[i].list.projectiles[controller->enemies[i].list.projectiles_count].speed;
                 controller->enemies[i].list.projectiles_count++;
 
