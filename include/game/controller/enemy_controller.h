@@ -5,7 +5,7 @@
 #include "../model/enemy.h"
 #include "../../utils/utils.h"
 
-#define MAX_ENEMY_SPAWN_COUNT 10
+#define MAX_ENEMY_SPAWN_COUNT 15
 
 typedef struct
 {

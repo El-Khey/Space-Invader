@@ -7,7 +7,7 @@ Enemy construct_enemy(EnemyType type)
     Enemy enemy;
 
     enemy.dimension = construct_dimension(150, 150);
-    enemy.position = construct_position(rand() % WINDOW_WIDTH - get_width(enemy.dimension), -get_height(enemy.dimension));
+    enemy.position = construct_position(rand() % (WINDOW_WIDTH - get_width(enemy.dimension)), -get_height(enemy.dimension));
 
     enemy.speed = 3;
     enemy.enemy_type = type;

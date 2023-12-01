@@ -18,9 +18,9 @@ static void launch_game()
 
     while (!is_escape_key_pressed(event_manager.keyboard_manager))
     {
-        update_background_position(&window);
-
         handle_events(&event_manager, 0);
+
+        update_background_position(&window);
         update_heros(&heros, event_manager);
 
         generate_enemies(&enemy_controller);
