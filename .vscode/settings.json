@@ -16,6 +16,7 @@
         "hitbox.h": "c",
         "dimension.h": "c",
         "position.h": "c",
-        "collision_controller.h": "c"
+        "collision_controller.h": "c",
+        "asteroid.h": "c"
     }
 }

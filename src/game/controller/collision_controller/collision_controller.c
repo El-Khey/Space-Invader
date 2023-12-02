@@ -65,9 +65,23 @@ static void handle_enemy_projectiles_collision(enemy_controller *enemy_controlle
     }
 }
 
-void handle_collision(Heros *heros, enemy_controller *enemy_controller)
+void handle_heros_and_enemy_collision(Heros *heros, enemy_controller *enemy_controller)
 {
     handle_close_range_collision(heros, enemy_controller);
     handle_heros_projectiles_collision(&heros->list, enemy_controller);
     handle_enemy_projectiles_collision(enemy_controller, heros);
+}
+
+void handle_asteroid_and_heros_collision(Heros *heros, asteroid_controller *asteroid_controller)
+{
+    int i = 0;
+    for (; i < asteroid_controller->asteroid_spawned; i++)
+    {
+        if (is_hitbox_colliding(heros->hitbox, asteroid_controller->asteroids[i].hitbox))
+        {
+            asteroid_controller->asteroids[i].health = 0;
+            heros->health -= asteroid_controller->asteroids[i].damage;
+            update_heros_active_ship(heros);
+        }
+    }
 }

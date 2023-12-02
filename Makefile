@@ -4,9 +4,9 @@ CLIBS = -lm -lMLV
 
 # List of object files
 MANAGER = event_manager.o keyboard_manager.o mouse_manager.o
-MODEL = window.o heros.o projectile.o enemy.o klaed.o nairan.o nautolan.o
+MODEL = window.o heros.o projectile.o enemy.o klaed.o nairan.o nautolan.o asteroid.o
 UTILS = utils.o dimension.o position.o animation.o image.o text.o hitbox.o
-CONTROLLERS = player_controller.o enemy_controller.o projectile_controller.o collision_controller.o
+CONTROLLERS = player_controller.o enemy_controller.o projectile_controller.o collision_controller.o asteroid_controller.o
 
 
 all: build simple-clean
@@ -46,6 +46,9 @@ nairan.o: ./src/game/model/enemy/nairan.c
 
 nautolan.o: ./src/game/model/enemy/nautolan.c
 	$(CC) $(CFLAGS) -c ./src/game/model/enemy/nautolan.c
+
+asteroid.o: ./src/game/model/asteroid/asteroid.c
+	$(CC) $(CFLAGS) -c ./src/game/model/asteroid/asteroid.c
 
 # ------------------ #
 # Utils
@@ -102,7 +105,9 @@ projectile_controller.o: ./src/game/controller/projectile_controller/projectile_
 collision_controller.o: ./src/game/controller/collision_controller/collision_controller.c
 	$(CC) $(CFLAGS) -c ./src/game/controller/collision_controller/collision_controller.c
 
-	
+asteroid_controller.o: ./src/game/controller/asteroid_controller/asteroid_controller.c
+	$(CC) $(CFLAGS) -c ./src/game/controller/asteroid_controller/asteroid_controller.c
+
 # simple-clean removes all the .o files
 simple-clean:
 	rm -rf *.o

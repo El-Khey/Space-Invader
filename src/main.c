@@ -6,11 +6,13 @@
 #include "../include/game/controller/enemy_controller.h"
 #include "../include/game/controller/collision_controller/collision_controller.h"
 #include "../include/game/model/heros.h"
+#include "../include/game/controller/asteroid_controller/asteroid_controller.h"
 
 static void launch_game()
 {
     EventManager event_manager = construct_event_manager();
     enemy_controller enemy_controller = construct_enemy_controller();
+    asteroid_controller asteroid_controller = construct_asteroid_controller();
 
     Window window = construct_window();
     Heros heros = construct_heros();
@@ -25,7 +27,12 @@ static void launch_game()
         generate_enemies(&enemy_controller);
         update_enemies(&enemy_controller, heros);
 
-        handle_collision(&heros, &enemy_controller);
+        handle_heros_and_enemy_collision(&heros, &enemy_controller);
+
+        generate_asteroids(&asteroid_controller);
+        update_asteroids(&asteroid_controller);
+
+        handle_asteroid_and_heros_collision(&heros, &asteroid_controller);
 
         MLV_delay_according_to_frame_rate();
         MLV_actualise_window();

@@ -19,7 +19,9 @@ typedef enum
 typedef enum
 {
     FORWARD,
-    BACKWARD
+    BACKWARD,
+    VERTICAL,
+    ROTATION_90
 } AnimationDirection;
 
 typedef struct
