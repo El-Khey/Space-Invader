@@ -9,6 +9,7 @@
 #include "../../utils/position/position.h"
 #include "../../utils/hitbox/hitbox.h"
 #include "./projectile.h"
+#include "./shield.h"
 
 typedef enum
 {
@@ -46,6 +47,7 @@ typedef struct
     Position position;
     Dimension dimension;
 
+    Shield shield;
     Animation ship[nb_ship_health_state];
     int active_ship;
 

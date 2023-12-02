@@ -78,6 +78,5 @@ void move_bonus(Bonus *bonus)
 
 void draw_bonus(Bonus bonus)
 {
-    draw_hitbox(bonus.hitbox, MLV_COLOR_RED);
     draw_animation(bonus.animation, bonus.position);
 }

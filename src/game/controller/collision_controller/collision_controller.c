@@ -13,7 +13,10 @@ static void handle_heros_and_enemy_close_range_collision(Heros *heros, enemy_con
             }
 
             enemy_controller->enemies[i].health = 0;
-            heros->health -= enemy_controller->enemies[i].damage;
+            if (!heros->shield.is_active)
+            {
+                heros->health -= enemy_controller->enemies[i].damage;
+            }
             update_heros_active_ship(heros);
         }
     }
@@ -52,7 +55,10 @@ static void handle_enemy_projectiles_collision(enemy_controller *enemy_controlle
             {
                 if (is_hitbox_colliding(enemy_controller->enemies[i].list.projectiles[j].list.bullets[k].hitbox, heros->hitbox))
                 {
-                    heros->health -= enemy_controller->enemies[i].list.projectiles[j].damage;
+                    if (!heros->shield.is_active)
+                    {
+                        heros->health -= enemy_controller->enemies[i].list.projectiles[j].damage;
+                    }
 
                     enemy_controller->enemies[i].list.projectiles[j].list.bullets[k] = enemy_controller->enemies[i].list.projectiles[j].list.bullets[enemy_controller->enemies[i].list.projectiles[j].list.bullets_count - 1];
                     enemy_controller->enemies[i].list.projectiles[j].list.bullets_count--;
@@ -64,6 +70,40 @@ static void handle_enemy_projectiles_collision(enemy_controller *enemy_controlle
     }
 }
 
+static void handle_bonus_selection(Heros *heros, Bonus bonus)
+{
+    switch (bonus.type)
+    {
+    case BONUS_TYPE_SHIELD_ALL_AROUND:
+        heros->shield = construct_shield(SHIELD_ALL_AROUND, heros->position, heros->dimension);
+        break;
+
+    case BONUS_TYPE_SHIELD_FRONT_AND_SIDE:
+        heros->shield = construct_shield(SHIELD_FRONT_AND_SIDE, heros->position, heros->dimension);
+        break;
+
+    case BONUS_TYPE_SHIELD_FRONT:
+        heros->shield = construct_shield(SHIELD_FRONT, heros->position, heros->dimension);
+        break;
+
+    case BONUS_TYPE_SHIELD_INVINCIBILITY:
+        heros->shield = construct_shield(SHIELD_INVINCIBILITY, heros->position, heros->dimension);
+        break;
+
+    case BONUS_TYPE_LIFE:
+        heros->health += 50;
+        break;
+
+    case BONUS_TYPE_SPEED:
+        heros->speed += 1;
+        break;
+
+    default:
+        fprintf(stderr, "Error: unknown bonus type\n");
+        break;
+    }
+}
+
 static void handle_heros_and_bonus_collision(Player *player, bonus_controller *bonus_controller)
 {
     int i;
@@ -72,33 +112,27 @@ static void handle_heros_and_bonus_collision(Player *player, bonus_controller *b
         if (is_hitbox_colliding(player->heros.hitbox, bonus_controller->bonus[i].hitbox))
         {
             bonus_controller->bonus[i].is_selected = 1;
-
-            /**
-             * TODO : set the bonus to the player or heros
-             */
+            handle_bonus_selection(&player->heros, bonus_controller->bonus[i]);
         }
     }
 }
 
-static void handle_heros_projectiles_and_bonus_collision(Projectiles *list, bonus_controller *bonus_controller)
+static void handle_heros_projectiles_and_bonus_collision(Heros *heros, bonus_controller *bonus_controller)
 {
     int i, j, k;
-    for (i = 0; i < list->projectiles_count; i++)
+    for (i = 0; i < heros->list.projectiles_count; i++)
     {
         for (j = 0; j < bonus_controller->bonus_spawned; j++)
         {
-            for (k = 0; k < list->projectiles[i].list.bullets_count; k++)
+            for (k = 0; k < heros->list.projectiles[i].list.bullets_count; k++)
             {
-                if (is_hitbox_colliding(list->projectiles[i].list.bullets[k].hitbox, bonus_controller->bonus[j].hitbox))
+                if (is_hitbox_colliding(heros->list.projectiles[i].list.bullets[k].hitbox, bonus_controller->bonus[j].hitbox))
                 {
                     bonus_controller->bonus[j].is_selected = 1;
+                    handle_bonus_selection(heros, bonus_controller->bonus[j]);
 
-                    /**
-                     * TODO : set the bonus to the player or heros
-                     */
-
-                    list->projectiles[i].list.bullets[k] = list->projectiles[i].list.bullets[list->projectiles[i].list.bullets_count - 1];
-                    list->projectiles[i].list.bullets_count--;
+                    heros->list.projectiles[i].list.bullets[k] = heros->list.projectiles[i].list.bullets[heros->list.projectiles[i].list.bullets_count - 1];
+                    heros->list.projectiles[i].list.bullets_count--;
                 }
             }
         }
@@ -113,7 +147,11 @@ static void handle_asteroid_and_heros_close_range_collision(Player *player, aste
         if (is_hitbox_colliding(player->heros.hitbox, asteroid_controller->asteroids[i].hitbox))
         {
             asteroid_controller->asteroids[i].health = 0;
-            player->heros.health -= asteroid_controller->asteroids[i].damage;
+            if (!player->heros.shield.is_active)
+            {
+                player->heros.health -= asteroid_controller->asteroids[i].damage;
+            }
+
             update_heros_active_ship(&player->heros);
         }
     }
@@ -150,7 +188,7 @@ static void handle_heros_asteroid_collision(Player *player, asteroid_controller 
 static void handle_heros_bonus_collision(Player *player, bonus_controller *bonus_controller)
 {
     handle_heros_and_bonus_collision(player, bonus_controller);
-    handle_heros_projectiles_and_bonus_collision(&player->heros.list, bonus_controller);
+    handle_heros_projectiles_and_bonus_collision(&player->heros, bonus_controller);
 }
 
 static void handle_heros_enemy_collision(Player *player, enemy_controller *enemy_controller)

@@ -39,6 +39,7 @@ Heros construct_heros()
     heros.is_firing = 0;
     heros.health = 100;
 
+    heros.shield = construct_shield(SHIELD_NONE, heros.position, heros.dimension);
     return heros;
 }
 
@@ -120,4 +121,6 @@ void draw_heros(Heros heros)
 
     draw_animation(heros.weapons_animations[heros.active_weapon].weapon_shooting, heros.position);
     draw_animation(heros.ship[heros.active_ship], heros.position);
+
+    draw_shield(heros.shield);
 }

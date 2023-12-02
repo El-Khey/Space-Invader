@@ -64,6 +64,21 @@ static void handle_player_projectiles(Player *player, EventManager event_manager
     update_projectiles(&player->heros.list);
 }
 
+static void handle_player_bonus(Player *player)
+{
+    if (player->heros.shield.is_active)
+    {
+        if (player->heros.shield.active_time <= MLV_get_time())
+        {
+            player->heros.shield = construct_shield(SHIELD_NONE, player->heros.position, player->heros.dimension);
+        }
+    }
+
+    /**
+     * TODO : handle speed bonus time
+     */
+}
+
 void update_players(Players *players, EventManager event_manager)
 {
     int i = 0;
@@ -71,6 +86,8 @@ void update_players(Players *players, EventManager event_manager)
     {
         handle_heros_actions(&players->players[i], event_manager);
         handle_player_projectiles(&players->players[i], event_manager);
+
+        handle_player_bonus(&players->players[i]);
 
         draw_heros(players->players[i].heros);
     }
