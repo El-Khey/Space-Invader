@@ -11,6 +11,10 @@ static void handle_heros_movement(Heros *heros, EventManager event_manager)
     {
         move_heros_left(heros);
     }
+    if (is_position_with_dimension_inside_rect(construct_position(heros->position.x, heros->position.y + heros->speed), heros->dimension, construct_position(0, 0), construct_dimension(WINDOW_WIDTH, WINDOW_HEIGHT)) && event_manager.keyboard_manager.event[0].arrow_keys.key_down)
+    {
+        move_heros_down(heros);
+    }
     if (is_position_with_dimension_inside_rect(construct_position(heros->position.x, heros->position.y - heros->speed), heros->dimension, construct_position(0, 0), construct_dimension(WINDOW_WIDTH, WINDOW_HEIGHT)) && event_manager.keyboard_manager.event[0].arrow_keys.key_up)
     {
         heros->is_boost_activated = 1;
@@ -20,12 +24,10 @@ static void handle_heros_movement(Heros *heros, EventManager event_manager)
     {
         heros->is_boost_activated = 0;
     }
-    if (is_position_with_dimension_inside_rect(construct_position(heros->position.x, heros->position.y + heros->speed), heros->dimension, construct_position(0, 0), construct_dimension(WINDOW_WIDTH, WINDOW_HEIGHT)) && event_manager.keyboard_manager.event[0].arrow_keys.key_down)
-    {
-        move_heros_down(heros);
-    }
 
-    /** TODO : a supprimer les moteurs se change depuis l'ecran */
+    /**
+     * TODO : a supprimer les moteurs se change depuis l'ecran
+     */
     if (event_manager.keyboard_manager.event[0].attack_keys.key_attack_2)
     {
         heros->active_engine = (heros->active_engine + 1) % nb_engine_animations;

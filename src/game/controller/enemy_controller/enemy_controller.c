@@ -49,6 +49,52 @@ static int can_ship_fire(Position heros_position, Dimension heros_dimension, Pos
            projectiles_count < MAX_PROJECTILES;
 }
 
+static void handle_enemy_attacks(Enemy *enemy, Heros heros)
+{
+    if (can_ship_fire(heros.position, heros.dimension, enemy->position, enemy->dimension, enemy->list.projectiles_count))
+    {
+        if (enemy->event_in_process != ATTACKING)
+        {
+            enemy->list.projectiles[enemy->list.projectiles_count] = construct_enemy_projectile(enemy->list.active_bullet_type, enemy->position, enemy->dimension);
+            enemy->list.projectiles[enemy->list.projectiles_count].speed = -enemy->list.projectiles[enemy->list.projectiles_count].speed;
+            enemy->list.projectiles_count++;
+
+            enemy->event_in_process = ATTACKING;
+            enemy->enemy_animation.active_state = ATTACK;
+            play_animation(&enemy->enemy_animation.ship[enemy->enemy_animation.active_state]);
+        }
+    }
+
+    if (is_animation_finished(enemy->enemy_animation.ship[enemy->enemy_animation.active_state], MLV_get_time()) && enemy->event_in_process == ATTACKING)
+    {
+        rewind_animation(&enemy->enemy_animation.ship[enemy->enemy_animation.active_state]);
+        stop_animation(&enemy->enemy_animation.ship[enemy->enemy_animation.active_state]);
+
+        enemy->event_in_process = NOTHING;
+        enemy->enemy_animation.active_state = BASE;
+    }
+}
+
+static void handle_enemy_death(enemy_controller *controller, int index)
+{
+    if (is_enemy_dead(controller->enemies[index]))
+    {
+        if (controller->enemies[index].event_in_process != DYING)
+        {
+            controller->enemies[index].event_in_process = DYING;
+            controller->enemies[index].enemy_animation.active_state = DESTRUCTION;
+            play_animation(&controller->enemies[index].enemy_animation.ship[controller->enemies[index].enemy_animation.active_state]);
+        }
+
+        if (is_animation_finished(controller->enemies[index].enemy_animation.ship[controller->enemies[index].enemy_animation.active_state], MLV_get_time()) && controller->enemies[index].event_in_process == DYING)
+        {
+            controller->enemy_spawned--;
+            controller->enemies[index] = controller->enemies[controller->enemy_spawned];
+            controller->enemies[index].event_in_process = NOTHING;
+        }
+    }
+}
+
 void update_enemies(enemy_controller *controller, Heros heros)
 {
     int i = 0;
@@ -57,38 +103,18 @@ void update_enemies(enemy_controller *controller, Heros heros)
         move_enemy(&controller->enemies[i]);
         draw_enemy(controller->enemies[i]);
 
-        if (can_ship_fire(heros.position, heros.dimension, controller->enemies[i].position, controller->enemies[i].dimension, controller->enemies[i].list.projectiles_count))
-        {
-            if (!controller->enemies[i].is_firing)
-            {
-                controller->enemies[i].list.projectiles[controller->enemies[i].list.projectiles_count] = construct_enemy_projectile(controller->enemies[i].list.active_bullet_type, controller->enemies[i].position, controller->enemies[i].dimension);
-                controller->enemies[i].list.projectiles[controller->enemies[i].list.projectiles_count].speed = -controller->enemies[i].list.projectiles[controller->enemies[i].list.projectiles_count].speed;
-                controller->enemies[i].list.projectiles_count++;
-
-                controller->enemies[i].is_firing = 1;
-                controller->enemies[i].enemy_animation.active_state = ATTACK;
-                play_animation(&controller->enemies[i].enemy_animation.ship[controller->enemies[i].enemy_animation.active_state]);
-            }
-        }
-
-        if (is_animation_finished(controller->enemies[i].enemy_animation.ship[controller->enemies[i].enemy_animation.active_state], MLV_get_time()) && controller->enemies[i].is_firing)
-        {
-            rewind_animation(&controller->enemies[i].enemy_animation.ship[controller->enemies[i].enemy_animation.active_state]);
-            stop_animation(&controller->enemies[i].enemy_animation.ship[controller->enemies[i].enemy_animation.active_state]);
-
-            controller->enemies[i].is_firing = 0;
-            controller->enemies[i].enemy_animation.active_state = BASE;
-        }
-
+        handle_enemy_attacks(&controller->enemies[i], heros);
         update_projectiles(&controller->enemies[i].list);
+        handle_enemy_death(controller, i);
 
-        /** TODO: si collision entre deux vaisseau explosion */
         if (is_enemy_out_of_screen(controller->enemies[i]))
         {
             controller->enemy_spawned--;
             controller->enemies[i] = controller->enemies[controller->enemy_spawned];
 
-            /** TODO: enelver une vie au joeur quand un enemy traverse l'ecran */
+            /**
+             * TODO: enelver une vie au joeur quand un enemy traverse l'ecran
+             */
         }
     }
 }

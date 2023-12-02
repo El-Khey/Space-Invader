@@ -6,9 +6,17 @@ static void initialize_weapon_animation(Heros *heros, Dimension dimension);
 Heros construct_heros()
 {
     Heros heros;
+    int hitbox_width, hitbox_height, hitbox_x, hitbox_y;
 
     heros.dimension = construct_dimension(150, 150);
     heros.position = construct_position(WINDOW_WIDTH / 2 - get_width(heros.dimension) / 2, WINDOW_HEIGHT - get_height(heros.dimension) - 25);
+
+    hitbox_width = get_width(heros.dimension) - 50;
+    hitbox_height = get_height(heros.dimension) - 50;
+    hitbox_x = heros.position.x + (get_width(heros.dimension) - hitbox_width) / 2;
+    hitbox_y = heros.position.y + (get_height(heros.dimension) - hitbox_height) / 2;
+
+    heros.hitbox = construct_hitbox(construct_position(hitbox_x, hitbox_y), construct_dimension(hitbox_width, hitbox_height));
     heros.speed = 10;
 
     heros.list.active_bullet_type = AUTO_CANNON;
@@ -24,6 +32,7 @@ Heros construct_heros()
     heros.active_weapon = AUTO_CANNON;
 
     heros.is_firing = 0;
+    heros.health = 100;
 
     return heros;
 }
@@ -69,22 +78,26 @@ static void initialize_weapon_animation(Heros *heros, Dimension dimension)
 
 void move_heros_up(Heros *heros)
 {
+    move_position(&heros->hitbox.position, 0, -heros->speed);
     move_position(&heros->position, 0, -heros->speed);
 }
 
-void move_heros_down(Heros *Heros)
+void move_heros_down(Heros *heros)
 {
-    move_position(&Heros->position, 0, Heros->speed);
+    move_position(&heros->hitbox.position, 0, heros->speed);
+    move_position(&heros->position, 0, heros->speed);
 }
 
-void move_heros_left(Heros *Heros)
+void move_heros_left(Heros *heros)
 {
-    move_position(&Heros->position, -Heros->speed, 0);
+    move_position(&heros->hitbox.position, -heros->speed, 0);
+    move_position(&heros->position, -heros->speed, 0);
 }
 
-void move_heros_right(Heros *Heros)
+void move_heros_right(Heros *heros)
 {
-    move_position(&Heros->position, Heros->speed, 0);
+    move_position(&heros->hitbox.position, heros->speed, 0);
+    move_position(&heros->position, heros->speed, 0);
 }
 
 static void draw_heros_projectiles(Projectiles list)
@@ -98,6 +111,7 @@ static void draw_heros_projectiles(Projectiles list)
 
 void draw_heros(Heros heros)
 {
+    draw_hitbox(heros.hitbox, MLV_COLOR_RED);
     draw_heros_projectiles(heros.list);
 
     draw_animation(heros.engine_animations[heros.active_engine].engine, heros.position);

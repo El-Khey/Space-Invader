@@ -11,6 +11,11 @@
         "nairan.h": "c",
         "nautolan.h": "c",
         "projectile_controller.h": "c",
-        "heros.h": "c"
+        "heros.h": "c",
+        "event_manager.h": "c",
+        "hitbox.h": "c",
+        "dimension.h": "c",
+        "position.h": "c",
+        "collision_controller.h": "c"
     }
 }

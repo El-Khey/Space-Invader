@@ -6,10 +6,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../../../utils/position/position.h"
 #include "../../../utils/dimension/dimension.h"
-#include "../projectile.h"
 #include "../../../utils/animation/animation.h"
+#include "../../../utils/position/position.h"
+#include "../../../utils/hitbox/hitbox.h"
+#include "../projectile.h"
 
 typedef enum
 {
@@ -49,8 +50,17 @@ typedef struct
     Animation engine_effect_boost;
 } EnemyAnimation;
 
+typedef enum
+{
+    ATTACKING,
+    NOTHING,
+    DYING
+} EnemyState;
+
 typedef struct
 {
+    Hitbox hitbox;
+
     Position position;
     Dimension dimension;
 
@@ -59,7 +69,7 @@ typedef struct
     int health;
 
     Projectiles list;
-    int is_firing;
+    EnemyState event_in_process;
 
     EnemyType enemy_type;
     EnemyClass enemy_class;
@@ -68,6 +78,8 @@ typedef struct
 } Enemy;
 
 Enemy construct_enemy(EnemyClass class);
+
+int is_enemy_dead(Enemy enemy);
 
 void move_enemy(Enemy *enemy);
 

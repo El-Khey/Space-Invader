@@ -4,6 +4,7 @@
 #include "../include/game/manager/event_manager/event_manager.h"
 #include "../include/game/controller/player_controller.h"
 #include "../include/game/controller/enemy_controller.h"
+#include "../include/game/controller/collision_controller/collision_controller.h"
 #include "../include/game/model/heros.h"
 
 static void launch_game()
@@ -23,6 +24,8 @@ static void launch_game()
 
         generate_enemies(&enemy_controller);
         update_enemies(&enemy_controller, heros);
+
+        handle_collision(&heros, &enemy_controller);
 
         MLV_delay_according_to_frame_rate();
         MLV_actualise_window();

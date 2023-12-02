@@ -28,7 +28,7 @@ void update_projectiles(Projectiles *list)
             remove_out_of_screen_projectiles(list, i, j);
             if (MLV_get_time() >= list->projectiles[i].list.bullets[j].start_fire_time)
             {
-                move_position(&list->projectiles[i].list.bullets[j].position, 0, -list->projectiles[i].speed);
+                move_bullet(&list->projectiles[i].list.bullets[j], -list->projectiles[i].speed);
             }
         }
     }

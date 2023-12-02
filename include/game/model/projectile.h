@@ -1,9 +1,10 @@
 #ifndef PROJECTILE_H
 #define PROJECTILE_H
 
-#include "../../utils/position/position.h"
 #include "../../utils/dimension/dimension.h"
 #include "../../utils/animation/animation.h"
+#include "../../utils/position/position.h"
+#include "../../utils/hitbox/hitbox.h"
 
 #define MAX_PROJECTILES 200
 #define MAX_BULLETS 7
@@ -39,6 +40,8 @@ typedef enum
 
 typedef struct
 {
+    Hitbox hitbox;
+
     Dimension dimension;
     Position position;
 
@@ -89,6 +92,14 @@ Projectile construct_heros_projectile(Weapon_Type type, Position position, Dimen
  * @return Projectile
  */
 Projectile construct_enemy_projectile(Weapon_Type type, Position position, Dimension dimension);
+
+/**
+ * @brief Move the bullet on the screen
+ *
+ * @param bullet The bullet to move
+ * @param speed The speed of the bullet
+ */
+void move_bullet(Bullet *bullet, int speed);
 
 /**
  * @brief Draw the projectile
