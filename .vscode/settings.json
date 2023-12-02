@@ -21,6 +21,8 @@
         "player.h": "c",
         "window.h": "c",
         "heros_controller.h": "c",
-        "players_controller.h": "c"
+        "players_controller.h": "c",
+        "bonus.h": "c",
+        "bonus_controller.h": "c"
     }
 }

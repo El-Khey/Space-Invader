@@ -9,7 +9,7 @@ Asteroid construct_asteroid()
     asteroid.position = construct_position(rand() % (WINDOW_WIDTH - asteroid.dimension.width), -asteroid.dimension.height);
     asteroid.hitbox = construct_hitbox(asteroid.position, asteroid.dimension);
 
-    asteroid.speed = rand() % 6 + 4;
+    asteroid.speed = rand() % 1 + 4;
 
     asteroid.animation[NONE] = construct_animation("assets/sprites/Environment/Asteroids/Base.png", 1, asteroid.dimension, ROTATION_90);
     asteroid.animation[EXPLODE] = construct_animation("assets/sprites/Environment/Asteroids/Explode.png", 8, asteroid.dimension, FORWARD);

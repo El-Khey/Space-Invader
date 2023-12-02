@@ -1,6 +1,6 @@
 #include "../../../../include/game/controller/collision_controller/collision_controller.h"
 
-static void handle_close_range_collision(Heros *heros, enemy_controller *enemy_controller)
+static void handle_heros_and_enemy_close_range_collision(Heros *heros, enemy_controller *enemy_controller)
 {
     int i;
     for (i = 0; i < enemy_controller->enemy_spawned; i++)
@@ -19,10 +19,9 @@ static void handle_close_range_collision(Heros *heros, enemy_controller *enemy_c
     }
 }
 
-static void handle_heros_projectiles_collision(Projectiles *list, enemy_controller *enemy_controller)
+static void handle_heros_projectiles_and_enemy_collision(Projectiles *list, enemy_controller *enemy_controller)
 {
     int i, j, k;
-
     for (i = 0; i < list->projectiles_count; i++)
     {
         for (j = 0; j < enemy_controller->enemy_spawned; j++)
@@ -65,31 +64,109 @@ static void handle_enemy_projectiles_collision(enemy_controller *enemy_controlle
     }
 }
 
-void handle_heros_and_enemy_collision(Players *players, enemy_controller *enemy_controller)
+static void handle_heros_and_bonus_collision(Player *player, bonus_controller *bonus_controller)
+{
+    int i;
+    for (i = 0; i < bonus_controller->bonus_spawned; i++)
+    {
+        if (is_hitbox_colliding(player->heros.hitbox, bonus_controller->bonus[i].hitbox))
+        {
+            bonus_controller->bonus[i].is_selected = 1;
+
+            /**
+             * TODO : set the bonus to the player or heros
+             */
+        }
+    }
+}
+
+static void handle_heros_projectiles_and_bonus_collision(Projectiles *list, bonus_controller *bonus_controller)
+{
+    int i, j, k;
+    for (i = 0; i < list->projectiles_count; i++)
+    {
+        for (j = 0; j < bonus_controller->bonus_spawned; j++)
+        {
+            for (k = 0; k < list->projectiles[i].list.bullets_count; k++)
+            {
+                if (is_hitbox_colliding(list->projectiles[i].list.bullets[k].hitbox, bonus_controller->bonus[j].hitbox))
+                {
+                    bonus_controller->bonus[j].is_selected = 1;
+
+                    /**
+                     * TODO : set the bonus to the player or heros
+                     */
+
+                    list->projectiles[i].list.bullets[k] = list->projectiles[i].list.bullets[list->projectiles[i].list.bullets_count - 1];
+                    list->projectiles[i].list.bullets_count--;
+                }
+            }
+        }
+    }
+}
+
+static void handle_asteroid_and_heros_close_range_collision(Player *player, asteroid_controller *asteroid_controller)
+{
+    int i;
+    for (i = 0; i < asteroid_controller->asteroid_spawned; i++)
+    {
+        if (is_hitbox_colliding(player->heros.hitbox, asteroid_controller->asteroids[i].hitbox))
+        {
+            asteroid_controller->asteroids[i].health = 0;
+            player->heros.health -= asteroid_controller->asteroids[i].damage;
+            update_heros_active_ship(&player->heros);
+        }
+    }
+}
+
+static void handle_asteroid_and_heros_projectiles_collision(Projectiles *list, asteroid_controller *asteroid_controller)
+{
+    int i, j, k;
+    for (i = 0; i < list->projectiles_count; i++)
+    {
+        for (k = 0; k < asteroid_controller->asteroid_spawned; k++)
+        {
+            for (j = 0; j < list->projectiles[i].list.bullets_count; j++)
+            {
+                if (is_hitbox_colliding(list->projectiles[i].list.bullets[j].hitbox, asteroid_controller->asteroids[k].hitbox))
+                {
+                    asteroid_controller->asteroids[k].health = 0;
+
+                    list->projectiles[i].list.bullets[j] = list->projectiles[i].list.bullets[list->projectiles[i].list.bullets_count - 1];
+                    list->projectiles[i].list.bullets_count--;
+                    break;
+                }
+            }
+        }
+    }
+}
+
+static void handle_heros_asteroid_collision(Player *player, asteroid_controller *asteroid_controller)
+{
+    handle_asteroid_and_heros_close_range_collision(player, asteroid_controller);
+    handle_asteroid_and_heros_projectiles_collision(&player->heros.list, asteroid_controller);
+}
+
+static void handle_heros_bonus_collision(Player *player, bonus_controller *bonus_controller)
+{
+    handle_heros_and_bonus_collision(player, bonus_controller);
+    handle_heros_projectiles_and_bonus_collision(&player->heros.list, bonus_controller);
+}
+
+static void handle_heros_enemy_collision(Player *player, enemy_controller *enemy_controller)
+{
+    handle_heros_and_enemy_close_range_collision(&player->heros, enemy_controller);
+    handle_heros_projectiles_and_enemy_collision(&player->heros.list, enemy_controller);
+    handle_enemy_projectiles_collision(enemy_controller, &player->heros);
+}
+
+void handle_heros_collision(Players *players, enemy_controller *enemy_controller, bonus_controller *bonus_controller, asteroid_controller *asteroid_controller)
 {
     int i = 0;
     for (; i < players->nb_players; i++)
     {
-        handle_close_range_collision(&players->players[i].heros, enemy_controller);
-        handle_heros_projectiles_collision(&players->players[i].heros.list, enemy_controller);
-        handle_enemy_projectiles_collision(enemy_controller, &players->players[i].heros);
-    }
-}
-
-void handle_asteroid_and_heros_collision(Players *players, asteroid_controller *asteroid_controller)
-{
-    int i, j;
-
-    for (i = 0; i < players->nb_players; i++)
-    {
-        for (j = 0; j < asteroid_controller->asteroid_spawned; j++)
-        {
-            if (is_hitbox_colliding(players->players[i].heros.hitbox, asteroid_controller->asteroids[j].hitbox))
-            {
-                asteroid_controller->asteroids[j].health = 0;
-                players->players[i].heros.health -= asteroid_controller->asteroids[j].damage;
-                update_heros_active_ship(&players->players[i].heros);
-            }
-        }
+        handle_heros_enemy_collision(&players->players[i], enemy_controller);
+        handle_heros_bonus_collision(&players->players[i], bonus_controller);
+        handle_heros_asteroid_collision(&players->players[i], asteroid_controller);
     }
 }
