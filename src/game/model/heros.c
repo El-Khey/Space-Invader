@@ -111,7 +111,6 @@ static void draw_heros_projectiles(Projectiles list)
 
 void draw_heros(Heros heros)
 {
-    draw_hitbox(heros.hitbox, MLV_COLOR_RED);
     draw_heros_projectiles(heros.list);
 
     draw_animation(heros.engine_animations[heros.active_engine].engine, heros.position);

@@ -41,17 +41,18 @@ static int is_enemy_out_of_screen(Enemy enemy)
  *
  * TODO : Add a margin of error for the enemy ship to fire.
  */
-static int can_ship_fire(Position heros_position, Dimension heros_dimension, Position enemy_position, Dimension enemy_dimension, int projectiles_count)
+static int can_ship_fire(Position heros_position, Dimension heros_dimension, Enemy enemy)
 {
-    return get_y(heros_position) > get_y(enemy_position) + get_height(enemy_dimension) &&
-           get_x(heros_position) + get_width(heros_dimension) / 2 > get_x(enemy_position) &&
-           get_x(heros_position) + get_width(heros_dimension) / 2 < get_x(enemy_position) + get_width(enemy_dimension) &&
-           projectiles_count < MAX_PROJECTILES;
+    return get_y(heros_position) > get_y(enemy.position) + get_height(enemy.dimension) &&
+           get_x(heros_position) + get_width(heros_dimension) / 2 > get_x(enemy.position) &&
+           get_x(heros_position) + get_width(heros_dimension) / 2 < get_x(enemy.position) + get_width(enemy.dimension) &&
+           enemy.list.projectiles_count < MAX_PROJECTILES &&
+           !is_enemy_dead(enemy);
 }
 
 static void handle_enemy_attacks(Enemy *enemy, Heros heros)
 {
-    if (can_ship_fire(heros.position, heros.dimension, enemy->position, enemy->dimension, enemy->list.projectiles_count))
+    if (can_ship_fire(heros.position, heros.dimension, *enemy))
     {
         if (enemy->event_in_process != ATTACKING)
         {
@@ -83,6 +84,7 @@ static void handle_enemy_death(enemy_controller *controller, int index)
         {
             controller->enemies[index].event_in_process = DYING;
             controller->enemies[index].enemy_animation.active_state = DESTRUCTION;
+
             play_animation(&controller->enemies[index].enemy_animation.ship[controller->enemies[index].enemy_animation.active_state]);
         }
 

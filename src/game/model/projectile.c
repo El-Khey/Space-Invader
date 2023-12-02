@@ -32,7 +32,7 @@ static void initialize_heros_projectiles_from_weapon_type(Projectile *projectile
         projectile->list.bullets_count = 2;
         projectile->active_bullet_type = AUTO_CANNON;
 
-        projectile->damage = 5;
+        projectile->damage = 150;
         projectile->speed = 5;
         projectile->delay_fire_bullet = 150;
 
@@ -55,7 +55,7 @@ static void initialize_heros_projectiles_from_weapon_type(Projectile *projectile
         projectile->list.bullets_count = 2;
         projectile->active_bullet_type = BIG_SPACE;
 
-        projectile->damage = 5;
+        projectile->damage = 150;
         projectile->speed = 5;
         projectile->delay_fire_bullet = 150;
 
@@ -78,7 +78,7 @@ static void initialize_heros_projectiles_from_weapon_type(Projectile *projectile
         projectile->list.bullets_count = 6;
         projectile->active_bullet_type = ROCKETS;
 
-        projectile->damage = 5;
+        projectile->damage = 150;
         projectile->speed = 5;
         projectile->delay_fire_bullet = 150;
 
@@ -129,7 +129,7 @@ static void initialize_heros_projectiles_from_weapon_type(Projectile *projectile
         projectile->list.bullets_count = 2;
         projectile->active_bullet_type = ZAPPER;
 
-        projectile->damage = 5;
+        projectile->damage = 150;
         projectile->speed = 5;
         projectile->delay_fire_bullet = 150;
 
@@ -141,7 +141,7 @@ static void initialize_heros_projectiles_from_weapon_type(Projectile *projectile
         projectile->list.bullets[0].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet - 50;
 
         projectile->list.bullets[1].bullet_animation = construct_animation("assets/sprites/Ships/MainShip/Projectiles/Zapper.png", 8, dimension, FORWARD);
-        projectile->list.bullets[1].dimension = dimension;
+        projectile->list.bullets[1].dimension = construct_dimension(64, 64);
         resize_animation(&projectile->list.bullets[1].bullet_animation, projectile->list.bullets[1].dimension);
 
         projectile->list.bullets[1].position = construct_position(position.x + dimension.width / 2 + 6, position.y + 15);
@@ -176,7 +176,7 @@ static void initialize_enemy_projectiles_from_weapon_type(Projectile *projectile
         projectile->list.bullets_count = 1;
         projectile->active_bullet_type = RED_RAY;
 
-        projectile->damage = 5;
+        projectile->damage = 150;
         projectile->speed = 5;
         projectile->delay_fire_bullet = 150;
 
@@ -193,7 +193,7 @@ static void initialize_enemy_projectiles_from_weapon_type(Projectile *projectile
             projectile->list.bullets_count = 1;
             projectile->active_bullet_type = RED_BULLET;
 
-            projectile->damage = 5;
+            projectile->damage = 150;
             projectile->speed = 5;
             projectile->delay_fire_bullet = 150;
 
@@ -231,7 +231,6 @@ void draw_projectile(Projectile projectile)
     {
         if (MLV_get_time() >= projectile.list.bullets[i].start_fire_time)
         {
-            draw_hitbox(projectile.list.bullets[i].hitbox, MLV_COLOR_BLUE);
             draw_animation(projectile.list.bullets[i].bullet_animation, projectile.list.bullets[i].position);
         }
     }

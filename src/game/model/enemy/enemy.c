@@ -74,8 +74,6 @@ static void draw_enemy_projectiles(Enemy enemy)
 
 void draw_enemy(Enemy enemy)
 {
-    draw_hitbox(enemy.hitbox, MLV_COLOR_RED);
-
     draw_animation(enemy.enemy_animation.ship[enemy.enemy_animation.active_state], enemy.position);
     draw_animation(enemy.enemy_animation.engine_effect_boost, enemy.position);
 
