@@ -19,6 +19,15 @@ typedef enum
     nb_engine_animations
 } EngineType;
 
+typedef enum
+{
+    FULL_HEALTH,
+    SLIGHTLY_DAMAGED,
+    DAMAGED,
+    VERY_DAMAGED,
+    nb_ship_health_state
+} ShipHealthState;
+
 typedef struct
 {
     Animation engine;
@@ -37,7 +46,8 @@ typedef struct
     Position position;
     Dimension dimension;
 
-    Animation ship;
+    Animation ship[nb_ship_health_state];
+    int active_ship;
 
     EngineAnimation engine_animations[nb_engine_animations];
     EngineType active_engine;
@@ -63,6 +73,8 @@ void move_heros_down(Heros *heros);
 void move_heros_left(Heros *heros);
 
 void move_heros_right(Heros *heros);
+
+void update_heros_active_ship(Heros *heros);
 
 void draw_heros(Heros heros);
 

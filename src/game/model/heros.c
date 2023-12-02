@@ -23,7 +23,12 @@ Heros construct_heros()
     heros.list.projectiles_count = 0;
     heros.is_boost_activated = 0;
 
-    heros.ship = construct_animation("assets/sprites/Ships/MainShip/Bases/Full health.png", 1, heros.dimension, FORWARD);
+    heros.ship[FULL_HEALTH] = construct_animation("assets/sprites/Ships/MainShip/Bases/Full health.png", 1, heros.dimension, FORWARD);
+    heros.ship[SLIGHTLY_DAMAGED] = construct_animation("assets/sprites/Ships/MainShip/Bases/Slight damage.png", 1, heros.dimension, FORWARD);
+    heros.ship[DAMAGED] = construct_animation("assets/sprites/Ships/MainShip/Bases/Damaged.png", 1, heros.dimension, FORWARD);
+    heros.ship[VERY_DAMAGED] = construct_animation("assets/sprites/Ships/MainShip/Bases/Very damaged.png", 1, heros.dimension, FORWARD);
+
+    heros.active_ship = FULL_HEALTH;
 
     initialize_engine_animations(heros.engine_animations, heros.dimension);
     heros.active_engine = BASE_ENGINE;
@@ -109,6 +114,26 @@ static void draw_heros_projectiles(Projectiles list)
     }
 }
 
+void update_heros_active_ship(Heros *heros)
+{
+    if (heros->health <= 75 && heros->health > 50)
+    {
+        heros->active_ship = SLIGHTLY_DAMAGED;
+    }
+    else if (heros->health <= 50 && heros->health > 25)
+    {
+        heros->active_ship = DAMAGED;
+    }
+    else if (heros->health <= 25 && heros->health > 0)
+    {
+        heros->active_ship = VERY_DAMAGED;
+    }
+    else if (heros->health <= 0)
+    {
+        heros->active_ship = FULL_HEALTH;
+    }
+}
+
 void draw_heros(Heros heros)
 {
     draw_heros_projectiles(heros.list);
@@ -118,5 +143,5 @@ void draw_heros(Heros heros)
                                : draw_animation(heros.engine_animations[heros.active_engine].engine_effect_idle, heros.position);
 
     draw_animation(heros.weapons_animations[heros.active_weapon].weapon_shooting, heros.position);
-    draw_animation(heros.ship, heros.position);
+    draw_animation(heros.ship[heros.active_ship], heros.position);
 }
