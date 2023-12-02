@@ -97,26 +97,31 @@ static void handle_enemy_death(enemy_controller *controller, int index)
     }
 }
 
-void update_enemies(enemy_controller *controller, Heros heros)
+void update_enemies(enemy_controller *controller, Players *players)
 {
-    int i = 0;
-    for (; i < controller->enemy_spawned; i++)
+    int i, j;
+
+    for (j = 0; j < controller->enemy_spawned; j++)
     {
-        move_enemy(&controller->enemies[i]);
-        draw_enemy(controller->enemies[i]);
+        move_enemy(&controller->enemies[j]);
+        draw_enemy(controller->enemies[j]);
 
-        handle_enemy_attacks(&controller->enemies[i], heros);
-        update_projectiles(&controller->enemies[i].list);
-        handle_enemy_death(controller, i);
+        update_projectiles(&controller->enemies[j].list);
+        handle_enemy_death(controller, j);
 
-        if (is_enemy_out_of_screen(controller->enemies[i]))
+        if (is_enemy_out_of_screen(controller->enemies[j]))
         {
             controller->enemy_spawned--;
-            controller->enemies[i] = controller->enemies[controller->enemy_spawned];
+            controller->enemies[j] = controller->enemies[controller->enemy_spawned];
 
             /**
              * TODO: enelver une vie au joeur quand un enemy traverse l'ecran
              */
+        }
+
+        for (i = 0; i < players->nb_players; i++)
+        {
+            handle_enemy_attacks(&controller->enemies[j], players->players[i].heros);
         }
     }
 }

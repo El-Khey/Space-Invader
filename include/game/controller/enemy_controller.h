@@ -1,11 +1,11 @@
 #ifndef ENEMY_CONTROLLER_H
 #define ENEMY_CONTROLLER_H
 
-#include "../manager/event_manager/event_manager.h"
 #include "./projectile_controller/projectile_controller.h"
+#include "../manager/event_manager/event_manager.h"
 #include "../model/enemy/enemy.h"
-#include "../model/heros.h"
 #include "../../utils/utils.h"
+#include "../model/player.h"
 
 #define MAX_ENEMY_SPAWN_COUNT 15
 
@@ -24,6 +24,6 @@ enemy_controller construct_enemy_controller();
 
 void generate_enemies(enemy_controller *controller);
 
-void update_enemies(enemy_controller *controller, Heros heros);
+void update_enemies(enemy_controller *controller, Players *players);
 
 #endif

@@ -66,14 +66,6 @@ typedef struct
 
 Heros construct_heros();
 
-void move_heros_up(Heros *heros);
-
-void move_heros_down(Heros *heros);
-
-void move_heros_left(Heros *heros);
-
-void move_heros_right(Heros *heros);
-
 void update_heros_active_ship(Heros *heros);
 
 void draw_heros(Heros heros);

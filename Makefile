@@ -4,9 +4,9 @@ CLIBS = -lm -lMLV
 
 # List of object files
 MANAGER = event_manager.o keyboard_manager.o mouse_manager.o
-MODEL = window.o heros.o projectile.o enemy.o klaed.o nairan.o nautolan.o asteroid.o
+MODEL = window.o heros.o projectile.o enemy.o klaed.o nairan.o nautolan.o asteroid.o player.o
 UTILS = utils.o dimension.o position.o animation.o image.o text.o hitbox.o
-CONTROLLERS = player_controller.o enemy_controller.o projectile_controller.o collision_controller.o asteroid_controller.o
+CONTROLLERS = heros_controller.o enemy_controller.o projectile_controller.o collision_controller.o asteroid_controller.o players_controller.o
 
 
 all: build simple-clean
@@ -49,6 +49,9 @@ nautolan.o: ./src/game/model/enemy/nautolan.c
 
 asteroid.o: ./src/game/model/asteroid/asteroid.c
 	$(CC) $(CFLAGS) -c ./src/game/model/asteroid/asteroid.c
+
+player.o: ./src/game/model/player.c
+	$(CC) $(CFLAGS) -c ./src/game/model/player.c
 
 # ------------------ #
 # Utils
@@ -93,8 +96,8 @@ mouse_manager.o: ./src/game/manager/event_manager/mouse_manager/mouse_manager.c
 # Controller
 # ------------------ #
 
-player_controller.o: ./src/game/controller/player_controller/player_controller.c
-	$(CC) $(CFLAGS) -c ./src/game/controller/player_controller/player_controller.c
+heros_controller.o: ./src/game/controller/heros_controller/heros_controller.c
+	$(CC) $(CFLAGS) -c ./src/game/controller/heros_controller/heros_controller.c
 
 enemy_controller.o: ./src/game/controller/enemy_controller/enemy_controller.c
 	$(CC) $(CFLAGS) -c ./src/game/controller/enemy_controller/enemy_controller.c
@@ -107,6 +110,9 @@ collision_controller.o: ./src/game/controller/collision_controller/collision_con
 
 asteroid_controller.o: ./src/game/controller/asteroid_controller/asteroid_controller.c
 	$(CC) $(CFLAGS) -c ./src/game/controller/asteroid_controller/asteroid_controller.c
+
+players_controller.o: ./src/game/controller/players_controller.c
+	$(CC) $(CFLAGS) -c ./src/game/controller/players_controller.c
 
 # simple-clean removes all the .o files
 simple-clean:

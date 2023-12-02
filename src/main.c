@@ -1,12 +1,11 @@
-#include "../include/main.h"
-#include "../include/utils/image/image.h"
-#include "../include/game/model/window/window.h"
-#include "../include/game/manager/event_manager/event_manager.h"
-#include "../include/game/controller/player_controller.h"
-#include "../include/game/controller/enemy_controller.h"
 #include "../include/game/controller/collision_controller/collision_controller.h"
-#include "../include/game/model/heros.h"
 #include "../include/game/controller/asteroid_controller/asteroid_controller.h"
+#include "../include/game/manager/event_manager/event_manager.h"
+#include "../include/game/controller/players_controller.h"
+#include "../include/game/controller/enemy_controller.h"
+#include "../include/game/model/window/window.h"
+#include "../include/game/model/player.h"
+#include "../include/main.h"
 
 static void launch_game()
 {
@@ -15,24 +14,25 @@ static void launch_game()
     asteroid_controller asteroid_controller = construct_asteroid_controller();
 
     Window window = construct_window();
-    Heros heros = construct_heros();
+    Player player_1 = construct_player(0, "Player 1");
 
+    Players players = construct_players(player_1, construct_player(1, "Player 2"));
     while (!is_escape_key_pressed(event_manager.keyboard_manager))
     {
-        handle_events(&event_manager, 0);
+        handle_events(&event_manager, 1);
 
         update_background_position(&window);
-        update_heros(&heros, event_manager);
+        update_players(&players, event_manager);
 
         generate_enemies(&enemy_controller);
-        update_enemies(&enemy_controller, heros);
+        update_enemies(&enemy_controller, &players);
 
-        handle_heros_and_enemy_collision(&heros, &enemy_controller);
+        handle_heros_and_enemy_collision(&players, &enemy_controller);
 
         generate_asteroids(&asteroid_controller);
         update_asteroids(&asteroid_controller);
 
-        handle_asteroid_and_heros_collision(&heros, &asteroid_controller);
+        handle_asteroid_and_heros_collision(&players, &asteroid_controller);
 
         MLV_delay_according_to_frame_rate();
         MLV_actualise_window();

@@ -17,6 +17,10 @@
         "dimension.h": "c",
         "position.h": "c",
         "collision_controller.h": "c",
-        "asteroid.h": "c"
+        "asteroid.h": "c",
+        "player.h": "c",
+        "window.h": "c",
+        "heros_controller.h": "c",
+        "players_controller.h": "c"
     }
 }

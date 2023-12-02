@@ -81,30 +81,6 @@ static void initialize_weapon_animation(Heros *heros, Dimension dimension)
     heros->weapons_animations[ZAPPER].weapon_shooting = construct_animation("assets/sprites/Ships/MainShip/Weapons/Zapper.png", 7, dimension, FORWARD);
 }
 
-void move_heros_up(Heros *heros)
-{
-    move_position(&heros->hitbox.position, 0, -heros->speed);
-    move_position(&heros->position, 0, -heros->speed);
-}
-
-void move_heros_down(Heros *heros)
-{
-    move_position(&heros->hitbox.position, 0, heros->speed);
-    move_position(&heros->position, 0, heros->speed);
-}
-
-void move_heros_left(Heros *heros)
-{
-    move_position(&heros->hitbox.position, -heros->speed, 0);
-    move_position(&heros->position, -heros->speed, 0);
-}
-
-void move_heros_right(Heros *heros)
-{
-    move_position(&heros->hitbox.position, heros->speed, 0);
-    move_position(&heros->position, heros->speed, 0);
-}
-
 static void draw_heros_projectiles(Projectiles list)
 {
     int i = 0;

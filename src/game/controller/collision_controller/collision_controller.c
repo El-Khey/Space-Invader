@@ -65,23 +65,31 @@ static void handle_enemy_projectiles_collision(enemy_controller *enemy_controlle
     }
 }
 
-void handle_heros_and_enemy_collision(Heros *heros, enemy_controller *enemy_controller)
-{
-    handle_close_range_collision(heros, enemy_controller);
-    handle_heros_projectiles_collision(&heros->list, enemy_controller);
-    handle_enemy_projectiles_collision(enemy_controller, heros);
-}
-
-void handle_asteroid_and_heros_collision(Heros *heros, asteroid_controller *asteroid_controller)
+void handle_heros_and_enemy_collision(Players *players, enemy_controller *enemy_controller)
 {
     int i = 0;
-    for (; i < asteroid_controller->asteroid_spawned; i++)
+    for (; i < players->nb_players; i++)
     {
-        if (is_hitbox_colliding(heros->hitbox, asteroid_controller->asteroids[i].hitbox))
+        handle_close_range_collision(&players->players[i].heros, enemy_controller);
+        handle_heros_projectiles_collision(&players->players[i].heros.list, enemy_controller);
+        handle_enemy_projectiles_collision(enemy_controller, &players->players[i].heros);
+    }
+}
+
+void handle_asteroid_and_heros_collision(Players *players, asteroid_controller *asteroid_controller)
+{
+    int i, j;
+
+    for (i = 0; i < players->nb_players; i++)
+    {
+        for (j = 0; j < asteroid_controller->asteroid_spawned; j++)
         {
-            asteroid_controller->asteroids[i].health = 0;
-            heros->health -= asteroid_controller->asteroids[i].damage;
-            update_heros_active_ship(heros);
+            if (is_hitbox_colliding(players->players[i].heros.hitbox, asteroid_controller->asteroids[j].hitbox))
+            {
+                asteroid_controller->asteroids[j].health = 0;
+                players->players[i].heros.health -= asteroid_controller->asteroids[j].damage;
+                update_heros_active_ship(&players->players[i].heros);
+            }
         }
     }
 }
