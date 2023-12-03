@@ -73,10 +73,6 @@ static void handle_player_bonus(Player *player)
             player->heros.shield = construct_shield(SHIELD_NONE, player->heros.position, player->heros.dimension);
         }
     }
-
-    /**
-     * TODO : handle speed bonus time
-     */
 }
 
 void update_players(Players *players, EventManager event_manager)

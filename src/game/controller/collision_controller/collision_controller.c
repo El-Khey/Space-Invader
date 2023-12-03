@@ -94,10 +94,6 @@ static void handle_bonus_selection(Heros *heros, Bonus bonus)
         heros->health += 50;
         break;
 
-    case BONUS_TYPE_SPEED:
-        heros->speed += 1;
-        break;
-
     default:
         fprintf(stderr, "Error: unknown bonus type\n");
         break;

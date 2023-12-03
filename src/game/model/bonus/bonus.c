@@ -51,12 +51,6 @@ static void initialize_bonus(Bonus *bonus)
 
         break;
 
-    case BONUS_TYPE_SPEED:
-        bonus->hitbox = construct_hitbox(bonus->position, bonus->dimension);
-        bonus->animation = construct_animation("assets/sprites/Pickups/Bonus/speed.png", 1, bonus->dimension, FORWARD);
-
-        break;
-
     default:
         fprintf(stderr, "Error : unknown bonus type\n");
         break;
