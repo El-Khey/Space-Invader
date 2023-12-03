@@ -1,8 +1,6 @@
 #include "../../../include/utils/animation/animation.h"
 
-#define FRAME_RATE 24
-
-void init_animation_player(Animation *animation, Dimension dimension);
+static void init_animation_player(Animation *animation, Dimension dimension);
 
 Animation construct_animation(char *path, int frame_count, Dimension dimension, AnimationDirection direction)
 {
@@ -30,16 +28,29 @@ Animation construct_animation(char *path, int frame_count, Dimension dimension, 
     return animation;
 }
 
-void init_animation_player(Animation *animation, Dimension dimension)
+static void sprite_transformation(Animation *animation)
+{
+    if (animation->direction == BACKWARD)
+    {
+        MLV_horizontal_image_mirror(animation->sprite);
+    }
+    else if (animation->direction == VERTICAL)
+    {
+        MLV_vertical_image_mirror(animation->sprite);
+    }
+    else if (animation->direction == ROTATION_90)
+    {
+        MLV_rotate_image(animation->sprite, 90);
+    }
+}
+
+static void init_animation_player(Animation *animation, Dimension dimension)
 {
     int i = 0;
     animation->frames = (MLV_Image **)malloc(animation->frame_count * sizeof(MLV_Image *));
     animation->animation = MLV_create_animation(animation->frame_count, animation->nb_layers, animation->nb_channels);
 
-    if (animation->direction == BACKWARD)
-    {
-        MLV_vertical_image_mirror(animation->sprite);
-    }
+    sprite_transformation(animation);
 
     for (; i < animation->frame_count; i++)
     {

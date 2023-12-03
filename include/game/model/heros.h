@@ -4,10 +4,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../../utils/position/position.h"
 #include "../../utils/dimension/dimension.h"
-#include "./projectile.h"
 #include "../../utils/animation/animation.h"
+#include "../../utils/position/position.h"
+#include "../../utils/hitbox/hitbox.h"
+#include "./projectile.h"
+#include "./shield.h"
 
 typedef enum
 {
@@ -17,6 +19,15 @@ typedef enum
     SUPERCHARGED_ENGINE,
     nb_engine_animations
 } EngineType;
+
+typedef enum
+{
+    FULL_HEALTH,
+    SLIGHTLY_DAMAGED,
+    DAMAGED,
+    VERY_DAMAGED,
+    nb_ship_health_state
+} ShipHealthState;
 
 typedef struct
 {
@@ -32,10 +43,13 @@ typedef struct
 
 typedef struct
 {
+    Hitbox hitbox;
     Position position;
     Dimension dimension;
 
-    Animation ship;
+    Shield shield;
+    Animation ship[nb_ship_health_state];
+    int active_ship;
 
     EngineAnimation engine_animations[nb_engine_animations];
     EngineType active_engine;
@@ -49,17 +63,12 @@ typedef struct
     int is_firing;
 
     int speed;
+    int health;
 } Heros;
 
 Heros construct_heros();
 
-void move_heros_up(Heros *heros);
-
-void move_heros_down(Heros *Heros);
-
-void move_heros_left(Heros *Heros);
-
-void move_heros_right(Heros *Heros);
+void update_heros_active_ship(Heros *heros);
 
 void draw_heros(Heros heros);
 

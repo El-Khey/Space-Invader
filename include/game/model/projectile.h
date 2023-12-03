@@ -1,9 +1,10 @@
 #ifndef PROJECTILE_H
 #define PROJECTILE_H
 
-#include "../../utils/position/position.h"
 #include "../../utils/dimension/dimension.h"
 #include "../../utils/animation/animation.h"
+#include "../../utils/position/position.h"
+#include "../../utils/hitbox/hitbox.h"
 
 #define MAX_PROJECTILES 200
 #define MAX_BULLETS 7
@@ -14,11 +15,33 @@ typedef enum
     BIG_SPACE,
     ROCKETS,
     ZAPPER,
+
+    RED_RAY,
+    /**
+    RED_BIG_BULLET,
+    RED_BULLET,
+    RED_TORPEDO,
+    RED_WAVE,
+
+    GREEN_BOLT,
+    GREEN_RAY,
+    GREEN_ROCKET,
+    GREEN_TORPEDO,
+
+    WHITE_BOMB,
+    WHITE_BULLET,
+    WHITE_RAY,
+    WHITE_ROCKET,
+    WHTIE_SPINNING,
+    WHITE_WAVE,
+    */
     nb_weapon
 } Weapon_Type;
 
 typedef struct
 {
+    Hitbox hitbox;
+
     Dimension dimension;
     Position position;
 
@@ -50,8 +73,39 @@ typedef struct
     Weapon_Type active_bullet_type;
 } Projectiles;
 
-Projectile construct_projectile(Position position, Dimension dimension, Weapon_Type type);
+/**
+ * @brief Construct a new Projectile object for the heros
+ *
+ * @param type The type of the projectile
+ * @param position The position of the heros
+ * @param dimension The dimension of the heros
+ * @return Projectile
+ */
+Projectile construct_heros_projectile(Weapon_Type type, Position position, Dimension dimension);
 
+/**
+ * @brief Construct a new Projectile object for the enemy
+ *
+ * @param type The type of the projectile
+ * @param position The position of the enemy
+ * @param dimension The dimension of the enemy
+ * @return Projectile
+ */
+Projectile construct_enemy_projectile(Weapon_Type type, Position position, Dimension dimension);
+
+/**
+ * @brief Move the bullet on the screen
+ *
+ * @param bullet The bullet to move
+ * @param speed The speed of the bullet
+ */
+void move_bullet(Bullet *bullet, int speed);
+
+/**
+ * @brief Draw the projectile
+ *
+ * @param projectile The projectile to draw
+ */
 void draw_projectile(Projectile projectile);
 
 #endif

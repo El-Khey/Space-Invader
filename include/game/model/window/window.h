@@ -30,7 +30,7 @@ typedef struct
     AnimatedBackground animated_backgrounds[NUMBER_OF_BACKGROUNDS];
 } Window;
 
-Window construct_window(int width, int height);
+Window construct_window();
 
 void update_background_position(Window *window);
 

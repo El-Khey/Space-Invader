@@ -1,16 +1,28 @@
 {
     "files.associations": {
-        "heros.h": "c",
-        "projectile.h": "c",
-        "event_manager.h": "c",
-        "dimension.h": "c",
+        "*.rmd": "markdown",
         "player_controller.h": "c",
-        "window.h": "c",
+        "animation.h": "c",
+        "enemy_controller.h": "c",
+        "projectile.h": "c",
+        "enemy.h": "c",
         "utils.h": "c",
-        "stdlib.h": "c",
+        "klaed.h": "c",
+        "nairan.h": "c",
+        "nautolan.h": "c",
+        "projectile_controller.h": "c",
+        "heros.h": "c",
+        "event_manager.h": "c",
+        "hitbox.h": "c",
+        "dimension.h": "c",
         "position.h": "c",
-        "image.h": "c",
-        "main.h": "c",
-        "animation.h": "c"
+        "collision_controller.h": "c",
+        "asteroid.h": "c",
+        "player.h": "c",
+        "window.h": "c",
+        "heros_controller.h": "c",
+        "players_controller.h": "c",
+        "bonus.h": "c",
+        "bonus_controller.h": "c"
     }
 }

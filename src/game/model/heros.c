@@ -6,15 +6,29 @@ static void initialize_weapon_animation(Heros *heros, Dimension dimension);
 Heros construct_heros()
 {
     Heros heros;
+    int hitbox_width, hitbox_height, hitbox_x, hitbox_y;
 
     heros.dimension = construct_dimension(150, 150);
     heros.position = construct_position(WINDOW_WIDTH / 2 - get_width(heros.dimension) / 2, WINDOW_HEIGHT - get_height(heros.dimension) - 25);
-    heros.speed = 3;
 
+    hitbox_width = get_width(heros.dimension) - 50;
+    hitbox_height = get_height(heros.dimension) - 50;
+    hitbox_x = heros.position.x + (get_width(heros.dimension) - hitbox_width) / 2;
+    hitbox_y = heros.position.y + (get_height(heros.dimension) - hitbox_height) / 2;
+
+    heros.hitbox = construct_hitbox(construct_position(hitbox_x, hitbox_y), construct_dimension(hitbox_width, hitbox_height));
+    heros.speed = 10;
+
+    heros.list.active_bullet_type = AUTO_CANNON;
     heros.list.projectiles_count = 0;
     heros.is_boost_activated = 0;
 
-    heros.ship = construct_animation("assets/sprites/Ships/MainShip/Bases/Full health.png", 1, heros.dimension, FORWARD);
+    heros.ship[FULL_HEALTH] = construct_animation("assets/sprites/Ships/MainShip/Bases/Full health.png", 1, heros.dimension, FORWARD);
+    heros.ship[SLIGHTLY_DAMAGED] = construct_animation("assets/sprites/Ships/MainShip/Bases/Slight damage.png", 1, heros.dimension, FORWARD);
+    heros.ship[DAMAGED] = construct_animation("assets/sprites/Ships/MainShip/Bases/Damaged.png", 1, heros.dimension, FORWARD);
+    heros.ship[VERY_DAMAGED] = construct_animation("assets/sprites/Ships/MainShip/Bases/Very damaged.png", 1, heros.dimension, FORWARD);
+
+    heros.active_ship = FULL_HEALTH;
 
     initialize_engine_animations(heros.engine_animations, heros.dimension);
     heros.active_engine = BASE_ENGINE;
@@ -23,7 +37,9 @@ Heros construct_heros()
     heros.active_weapon = AUTO_CANNON;
 
     heros.is_firing = 0;
+    heros.health = 100;
 
+    heros.shield = construct_shield(SHIELD_NONE, heros.position, heros.dimension);
     return heros;
 }
 
@@ -66,32 +82,32 @@ static void initialize_weapon_animation(Heros *heros, Dimension dimension)
     heros->weapons_animations[ZAPPER].weapon_shooting = construct_animation("assets/sprites/Ships/MainShip/Weapons/Zapper.png", 7, dimension, FORWARD);
 }
 
-void move_heros_up(Heros *heros)
-{
-    move_position(&heros->position, 0, -heros->speed);
-}
-
-void move_heros_down(Heros *Heros)
-{
-    move_position(&Heros->position, 0, Heros->speed);
-}
-
-void move_heros_left(Heros *Heros)
-{
-    move_position(&Heros->position, -Heros->speed, 0);
-}
-
-void move_heros_right(Heros *Heros)
-{
-    move_position(&Heros->position, Heros->speed, 0);
-}
-
 static void draw_heros_projectiles(Projectiles list)
 {
     int i = 0;
     for (; i < list.projectiles_count; i++)
     {
         draw_projectile(list.projectiles[i]);
+    }
+}
+
+void update_heros_active_ship(Heros *heros)
+{
+    if (heros->health <= 75 && heros->health > 50)
+    {
+        heros->active_ship = SLIGHTLY_DAMAGED;
+    }
+    else if (heros->health <= 50 && heros->health > 25)
+    {
+        heros->active_ship = DAMAGED;
+    }
+    else if (heros->health <= 25 && heros->health > 0)
+    {
+        heros->active_ship = VERY_DAMAGED;
+    }
+    else if (heros->health <= 0)
+    {
+        heros->active_ship = FULL_HEALTH;
     }
 }
 
@@ -104,5 +120,7 @@ void draw_heros(Heros heros)
                                : draw_animation(heros.engine_animations[heros.active_engine].engine_effect_idle, heros.position);
 
     draw_animation(heros.weapons_animations[heros.active_weapon].weapon_shooting, heros.position);
-    draw_animation(heros.ship, heros.position);
+    draw_animation(heros.ship[heros.active_ship], heros.position);
+
+    draw_shield(heros.shield);
 }

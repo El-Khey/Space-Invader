@@ -2,7 +2,7 @@
 
 static AnimatedBackground construct_animated_background();
 
-Window construct_window(int width, int height)
+Window construct_window()
 {
     Window window;
 
@@ -16,7 +16,7 @@ Window construct_window(int width, int height)
     window.animated_backgrounds[0].layers_position = construct_position(0, 0);
 
     window.animated_backgrounds[1] = construct_animated_background();
-    window.animated_backgrounds[1].layers_position = construct_position(0, -height);
+    window.animated_backgrounds[1].layers_position = construct_position(0, -WINDOW_HEIGHT);
 
     return window;
 }
@@ -40,12 +40,15 @@ static AnimatedBackground construct_animated_background()
 
 void update_background_position(Window *window)
 {
+    static int background_iteration = 0;
+
     move_position(&window->animated_backgrounds[0].layers_position, 0, 1);
     move_position(&window->animated_backgrounds[1].layers_position, 0, 1);
 
     if (get_y(window->animated_backgrounds[0].layers_position) >= WINDOW_HEIGHT)
     {
         window->animated_backgrounds[0].layers_position = construct_position(0, -WINDOW_HEIGHT);
+        background_iteration++;
     }
     else if (get_y(window->animated_backgrounds[1].layers_position) >= WINDOW_HEIGHT)
     {
@@ -53,10 +56,13 @@ void update_background_position(Window *window)
     }
 
     draw_animation(window->animated_backgrounds[0].layer_01_void, window->animated_backgrounds[0].layers_position);
-    draw_animation(window->animated_backgrounds[0].layer_02_stars, window->animated_backgrounds[0].layers_position);
-    draw_animation(window->animated_backgrounds[0].layer_03_stars, window->animated_backgrounds[0].layers_position);
-
     draw_animation(window->animated_backgrounds[1].layer_01_void, window->animated_backgrounds[1].layers_position);
+
     draw_animation(window->animated_backgrounds[1].layer_02_stars, window->animated_backgrounds[1].layers_position);
-    draw_animation(window->animated_backgrounds[1].layer_03_stars, window->animated_backgrounds[1].layers_position);
+    draw_animation(window->animated_backgrounds[0].layer_02_stars, window->animated_backgrounds[0].layers_position);
+
+    if (background_iteration % 2)
+    {
+        draw_animation(window->animated_backgrounds[0].layer_03_stars, window->animated_backgrounds[0].layers_position);
+    }
 }
