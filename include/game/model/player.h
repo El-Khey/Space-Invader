@@ -2,6 +2,10 @@
 #define PLAYER_H
 
 #include "./heros.h"
+#include "../../utils/image/image.h"
+#include "../../utils/text/text.h"
+
+#include "../view/player_view.h"
 
 #define LEN_USERNAME_MAX 20
 #define NB_PLAYERS_MAX 2
@@ -16,6 +20,7 @@ typedef struct
     int gold;
 
     char username[LEN_USERNAME_MAX];
+    PlayerView view;
 } Player;
 
 typedef struct

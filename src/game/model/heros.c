@@ -3,13 +3,13 @@
 static void initialize_engine_animations(EngineAnimation *engine_animations, Dimension dimension);
 static void initialize_weapon_animation(Heros *heros, Dimension dimension);
 
-Heros construct_heros()
+Heros construct_heros(Position position, Dimension dimension)
 {
     Heros heros;
     int hitbox_width, hitbox_height, hitbox_x, hitbox_y;
 
-    heros.dimension = construct_dimension(150, 150);
-    heros.position = construct_position(WINDOW_WIDTH / 2 - get_width(heros.dimension) / 2, WINDOW_HEIGHT - get_height(heros.dimension) - 25);
+    heros.dimension = dimension;
+    heros.position = position;
 
     hitbox_width = get_width(heros.dimension) - 50;
     hitbox_height = get_height(heros.dimension) - 50;

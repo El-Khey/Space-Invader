@@ -23,6 +23,10 @@
         "heros_controller.h": "c",
         "players_controller.h": "c",
         "bonus.h": "c",
-        "bonus_controller.h": "c"
+        "bonus_controller.h": "c",
+        "text.h": "c",
+        "player_view.h": "c",
+        "image.h": "c",
+        "main.h": "c"
     }
 }

@@ -7,12 +7,13 @@ MANAGER = event_manager.o keyboard_manager.o mouse_manager.o game_manager.o
 MODEL = window.o heros.o projectile.o enemy.o klaed.o nairan.o nautolan.o asteroid.o player.o bonus.o shield.o
 UTILS = utils.o dimension.o position.o animation.o image.o text.o hitbox.o
 CONTROLLERS = heros_controller.o enemy_controller.o projectile_controller.o collision_controller.o asteroid_controller.o players_controller.o bonus_controller.o
+VIEW = player_view.o
 
 
 all: build simple-clean
 
-build: main.o $(MODEL) $(UTILS) $(MANAGER) $(CONTROLLERS)
-	$(CC) main.o $(MODEL) $(UTILS) $(MANAGER) $(CONTROLLERS) -o main $(CLIBS)
+build: main.o $(MODEL) $(UTILS) $(MANAGER) $(CONTROLLERS) $(VIEW)
+	$(CC) main.o $(MODEL) $(UTILS) $(MANAGER) $(CONTROLLERS) $(VIEW) -o main $(CLIBS)
 
 # ----------- #
 # Main file 
@@ -21,6 +22,13 @@ build: main.o $(MODEL) $(UTILS) $(MANAGER) $(CONTROLLERS)
 main.o: ./src/main.c
 	$(CC) $(CFLAGS) -c ./src/main.c
 
+
+# ------------------ #
+# Views
+# ------------------ #
+
+player_view.o: ./src/game/view/player_view.c
+	$(CC) $(CFLAGS) -c ./src/game/view/player_view.c
 
 # ------------------ #
 # Models

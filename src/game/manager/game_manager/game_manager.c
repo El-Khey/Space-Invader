@@ -9,14 +9,13 @@ GameManager construct_game_manager()
     game_manager.controllers.bonus_controller = construct_bonus_controller();
 
     game_manager.window = construct_window();
-    game_manager.players = construct_players(construct_player(0, "Player 1"), construct_player(1, "Player 2"));
+    game_manager.players = construct_players(construct_player(0, "zestones"), construct_player(1, "zsigmondy"));
     return game_manager;
 }
 
 void update_game(GameManager *game_manager, EventManager *event_manager)
 {
     update_background_position(&game_manager->window);
-    update_players(&game_manager->players, *event_manager);
 
     generate_enemies(&game_manager->controllers.enemy_controller);
     update_enemies(&game_manager->controllers.enemy_controller, &game_manager->players);
@@ -31,4 +30,6 @@ void update_game(GameManager *game_manager, EventManager *event_manager)
 
     generate_bonus(&game_manager->controllers.bonus_controller);
     update_bonus(&game_manager->controllers.bonus_controller);
+
+    update_players(&game_manager->players, *event_manager);
 }
