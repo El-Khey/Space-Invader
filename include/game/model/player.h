@@ -28,4 +28,6 @@ Player construct_player(int id, char *username);
 
 Players construct_players(Player player_1, Player player_2);
 
+void draw_player(Player player);
+
 #endif

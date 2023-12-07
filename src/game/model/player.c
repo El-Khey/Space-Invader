@@ -21,3 +21,8 @@ Players construct_players(Player player_1, Player player_2)
     players.nb_players = 2;
     return players;
 }
+
+void draw_player(Player player)
+{
+    draw_heros(player.heros);
+}

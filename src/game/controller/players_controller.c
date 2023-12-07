@@ -85,6 +85,6 @@ void update_players(Players *players, EventManager event_manager)
 
         handle_player_bonus(&players->players[i]);
 
-        draw_heros(players->players[i].heros);
+        draw_player(players->players[i]);
     }
 }
