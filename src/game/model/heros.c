@@ -37,7 +37,7 @@ Heros construct_heros(Position position, Dimension dimension)
     heros.active_weapon = AUTO_CANNON;
 
     heros.is_firing = 0;
-    heros.health = 100;
+    heros.health = MAX_PLAYER_LIFE;
 
     heros.shield = construct_shield(SHIELD_NONE, heros.position, heros.dimension);
     return heros;
@@ -93,15 +93,19 @@ static void draw_heros_projectiles(Projectiles list)
 
 void update_heros_active_ship(Heros *heros)
 {
-    if (heros->health <= 75 && heros->health > 50)
+    if (heros->health <= MAX_PLAYER_LIFE && heros->health > MAX_PLAYER_LIFE * 0.75)
+    {
+        heros->active_ship = FULL_HEALTH;
+    }
+    else if (heros->health <= MAX_PLAYER_LIFE * 0.75 && heros->health > MAX_PLAYER_LIFE * 0.5)
     {
         heros->active_ship = SLIGHTLY_DAMAGED;
     }
-    else if (heros->health <= 50 && heros->health > 25)
+    else if (heros->health <= MAX_PLAYER_LIFE * 0.5 && heros->health > MAX_PLAYER_LIFE * 0.25)
     {
         heros->active_ship = DAMAGED;
     }
-    else if (heros->health <= 25 && heros->health > 0)
+    else if (heros->health <= MAX_PLAYER_LIFE * 0.25 && heros->health > 0)
     {
         heros->active_ship = VERY_DAMAGED;
     }

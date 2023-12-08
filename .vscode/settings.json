@@ -27,6 +27,9 @@
         "text.h": "c",
         "player_view.h": "c",
         "image.h": "c",
-        "main.h": "c"
+        "main.h": "c",
+        "shape.h": "c",
+        "mlv_all.h": "c",
+        "game_manager.h": "c"
     }
 }

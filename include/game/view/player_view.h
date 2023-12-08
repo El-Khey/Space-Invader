@@ -4,10 +4,31 @@
 #include "../../utils/image/image.h"
 #include "../../utils/text/text.h"
 
+#include "../../gui/shape/shape.h"
+
+#define LIFE_BAR_WIDTH 280
+#define LIFE_BAR_HEIGTH 20
+
+#define BAR_LIFE_PADDING 4
+#define DETAILS_OFFSET_X 15
+
+typedef struct
+{
+    Rectangle background;
+    Rectangle bar;
+    int max_life;
+} LifeBar;
+
+typedef struct
+{
+    LifeBar life_bar;
+} player_view_details;
+
 typedef struct
 {
     Image avatar;
     Text username;
+    LifeBar life_bar;
 } PlayerView;
 
 PlayerView construct_player_view(int player_id);

@@ -10,6 +10,11 @@ GameManager construct_game_manager()
 
     game_manager.window = construct_window();
     game_manager.players = construct_players(construct_player(0, "zestones"), construct_player(1, "zsigmondy"));
+
+    /**
+    game_manager.players.players[0] = construct_player(0, "zestones");
+    game_manager.players.nb_players = 1;
+     */
     return game_manager;
 }
 

@@ -8,12 +8,13 @@ MODEL = window.o heros.o projectile.o enemy.o klaed.o nairan.o nautolan.o astero
 UTILS = utils.o dimension.o position.o animation.o image.o text.o hitbox.o
 CONTROLLERS = heros_controller.o enemy_controller.o projectile_controller.o collision_controller.o asteroid_controller.o players_controller.o bonus_controller.o
 VIEW = player_view.o
+GUI = button.o shape.o temporary_message.o input.o
 
 
 all: build simple-clean
 
-build: main.o $(MODEL) $(UTILS) $(MANAGER) $(CONTROLLERS) $(VIEW)
-	$(CC) main.o $(MODEL) $(UTILS) $(MANAGER) $(CONTROLLERS) $(VIEW) -o main $(CLIBS)
+build: main.o $(MODEL) $(UTILS) $(MANAGER) $(CONTROLLERS) $(VIEW) $(GUI)
+	$(CC) main.o $(MODEL) $(UTILS) $(MANAGER) $(CONTROLLERS) $(VIEW) $(GUI) -o main $(CLIBS)
 
 # ----------- #
 # Main file 
@@ -133,6 +134,22 @@ players_controller.o: ./src/game/controller/players_controller.c
 
 bonus_controller.o: ./src/game/controller/bonus_controller/bonus_controller.c
 	$(CC) $(CFLAGS) -c ./src/game/controller/bonus_controller/bonus_controller.c
+
+# ------------------ #
+# GUI
+# ------------------ #
+
+button.o: ./src/gui/button/button.c
+	$(CC) $(CFLAGS) -c ./src/gui/button/button.c
+
+shape.o: ./src/gui/shape/shape.c
+	$(CC) $(CFLAGS) -c ./src/gui/shape/shape.c
+
+temporary_message.o: ./src/gui/label/temporary_message.c
+	$(CC) $(CFLAGS) -c ./src/gui/label/temporary_message.c
+
+input.o: ./src/gui/input/input.c
+	$(CC) $(CFLAGS) -c ./src/gui/input/input.c
 
 # simple-clean removes all the .o files
 simple-clean:

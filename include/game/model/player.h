@@ -4,6 +4,7 @@
 #include "./heros.h"
 #include "../../utils/image/image.h"
 #include "../../utils/text/text.h"
+#include "../view/player_view.h"
 
 #include "../view/player_view.h"
 

@@ -6,7 +6,7 @@ bonus_controller construct_bonus_controller()
     bonus_controller bonus_controller;
 
     bonus_controller.last_bonus_spawn_time = 0;
-    bonus_controller.delay_between_spawn = 2000;
+    bonus_controller.delay_between_spawn = rand() % 5000 + 15000;
 
     bonus_controller.bonus_spawned = 0;
     bonus_controller.bonus_spawn_count = MAX_BONUS_SPAWN_COUNT;

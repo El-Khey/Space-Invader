@@ -46,7 +46,6 @@ static void handle_heros_projectiles_and_enemy_collision(Projectiles *list, enem
 static void handle_enemy_projectiles_collision(enemy_controller *enemy_controller, Heros *heros)
 {
     int i, j, k;
-
     for (i = 0; i < enemy_controller->enemy_spawned; i++)
     {
         for (j = 0; j < enemy_controller->enemies[i].list.projectiles_count; j++)
@@ -91,7 +90,7 @@ static void handle_bonus_selection(Heros *heros, Bonus bonus)
         break;
 
     case BONUS_TYPE_LIFE:
-        heros->health += 50;
+        heros->health = (heros->health == MAX_PLAYER_LIFE) ? heros->health : heros->health + 1;
         break;
 
     default:

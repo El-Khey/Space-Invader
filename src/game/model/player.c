@@ -33,6 +33,23 @@ Players construct_players(Player player_1, Player player_2)
 
 void draw_player(Player player)
 {
+    int i = 0;
+
     draw_heros(player.heros);
     draw_image(&player.view.avatar);
+
+    draw_rectangle(player.view.life_bar.background);
+    draw_border(player.view.life_bar.background.position, player.view.life_bar.background.dimension, 2, MLV_COLOR_WHITE);
+
+    for (; i < MAX_PLAYER_LIFE; i++)
+    {
+        if (i < player.heros.health)
+        {
+            draw_rectangle(player.view.life_bar.bar);
+        }
+
+        draw_border(player.view.life_bar.bar.position, player.view.life_bar.bar.dimension, 1, MLV_COLOR_WHITE);
+        player.view.life_bar.bar.position.x = (player.id) ? player.view.life_bar.bar.position.x + get_width(player.view.life_bar.bar.dimension) + BAR_LIFE_PADDING
+                                                          : player.view.life_bar.bar.position.x - get_width(player.view.life_bar.bar.dimension) - BAR_LIFE_PADDING;
+    }
 }
