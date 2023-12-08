@@ -7,7 +7,9 @@ void initialize_klaed_enemy(Enemy *enemy)
     case BATTLECRUISER:
         enemy->speed = 2;
         enemy->damage = 1;
-        enemy->health = 100;
+
+        enemy->health = 15;
+        enemy->score = 100;
 
         enemy->list.active_bullet_type = RED_RAY;
 
@@ -21,8 +23,9 @@ void initialize_klaed_enemy(Enemy *enemy)
             case BOMBER:
                 enemy->speed = 2;
                 enemy->damage = 1;
-                enemy->health = 100;
+                enemy->health = 15;
 
+                enemy->score = 100;
                 enemy->list.active_bullet_type = RED_BIG_BULLET;
 
                 enemy->enemy_animation.ship[BASE] = construct_animation("assets/sprites/Ships/EnemyFleet/Kla'ed/Base/Bomber.png", 1, enemy->dimension, BACKWARD);
@@ -34,8 +37,9 @@ void initialize_klaed_enemy(Enemy *enemy)
             case DREADNOUGHT:
                 enemy->speed = 3;
                 enemy->damage = 1;
-                enemy->health = 100;
+                enemy->health = 15;
 
+                enemy->score = 100;
                 enemy->list.active_bullet_type = RED_BIG_BULLET;
 
                 enemy->enemy_animation.ship[BASE] = construct_animation("assets/sprites/Ships/EnemyFleet/Kla'ed/Base/Dreadnought.png", 1, enemy->dimension, BACKWARD);
@@ -47,8 +51,9 @@ void initialize_klaed_enemy(Enemy *enemy)
             case FIGHTER:
                 enemy->speed = 4;
                 enemy->damage = 1;
-                enemy->health = 100;
+                enemy->health = 15;
 
+                enemy->score = 100;
                 enemy->list.active_bullet_type = RED_BIG_BULLET;
                 enemy->enemy_animation.ship[BASE] = construct_animation("assets/sprites/Ships/EnemyFleet/Kla'ed/Base/Fighter.png", 1, enemy->dimension, BACKWARD);
                 enemy->enemy_animation.ship[ATTACK] = construct_animation("assets/sprites/Ships/EnemyFleet/Kla'ed/Weapons/Fighter.png", 1, enemy->dimension, BACKWARD);
@@ -59,8 +64,9 @@ void initialize_klaed_enemy(Enemy *enemy)
             case FRIGATE:
                 enemy->speed = 5;
                 enemy->damage = 1;
-                enemy->health = 100;
+                enemy->health = 15;
 
+                enemy->score = 100;
                 enemy->list.active_bullet_type = RED_BIG_BULLET;
 
                 enemy->enemy_animation.ship[BASE] = construct_animation("assets/sprites/Ships/EnemyFleet/Kla'ed/Base/Frigate.png", 1, enemy->dimension, BACKWARD);
@@ -72,8 +78,9 @@ void initialize_klaed_enemy(Enemy *enemy)
             case SCOUT:
                 enemy->speed = 6;
                 enemy->damage = 1;
-                enemy->health = 100;
+                enemy->health = 15;
 
+                enemy->score = 100;
                 enemy->list.active_bullet_type = RED_BIG_BULLET;
 
                 enemy->enemy_animation.ship[BASE] = construct_animation("assets/sprites/Ships/EnemyFleet/Kla'ed/Base/Scout.png", 1, enemy->dimension, BACKWARD);
@@ -85,8 +92,9 @@ void initialize_klaed_enemy(Enemy *enemy)
             case SUPPORT:
                 enemy->speed = 7;
                 enemy->damage = 1;
-                enemy->health = 100;
+                enemy->health = 15;
 
+                enemy->score = 100;
                 enemy->list.active_bullet_type = RED_BIG_BULLET;
 
                 enemy->enemy_animation.ship[BASE] = construct_animation("assets/sprites/Ships/EnemyFleet/Kla'ed/Base/Support.png", 1, enemy->dimension, BACKWARD);
@@ -98,8 +106,9 @@ void initialize_klaed_enemy(Enemy *enemy)
             case TORPEDO:
                 enemy->speed = 8;
                 enemy->damage = 1;
-                enemy->health = 100;
+                enemy->health = 15;
 
+                enemy->score = 100;
                 enemy->list.active_bullet_type = RED_BIG_BULLET;
 
                 enemy->enemy_animation.ship[BASE] = construct_animation("assets/sprites/Ships/EnemyFleet/Kla'ed/Base/Torpedo.png", 1, enemy->dimension, BACKWARD);

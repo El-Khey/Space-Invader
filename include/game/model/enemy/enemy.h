@@ -68,6 +68,8 @@ typedef struct
     int damage;
     int health;
 
+    int score;
+
     Projectiles list;
     EnemyState event_in_process;
 

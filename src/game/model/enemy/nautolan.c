@@ -8,6 +8,7 @@ void initialize_nautolan_enemy(Enemy *enemy)
         enemy->speed = 2;
         enemy->damage = 1;
         enemy->health = 100;
+        enemy->score = 100;
 
         enemy->list.active_bullet_type = RED_RAY;
 
@@ -22,6 +23,7 @@ void initialize_nautolan_enemy(Enemy *enemy)
         enemy->speed = 2;
         enemy->damage = 1;
         enemy->health = 100;
+        enemy->score = 100;
 
         enemy->list.active_bullet_type = RED_BIG_BULLET;
 
@@ -35,6 +37,7 @@ void initialize_nautolan_enemy(Enemy *enemy)
         enemy->speed = 3;
         enemy->damage = 1;
         enemy->health = 100;
+        enemy->score = 100;
 
         enemy->list.active_bullet_type = RED_BIG_BULLET;
 
@@ -48,6 +51,7 @@ void initialize_nautolan_enemy(Enemy *enemy)
         enemy->speed = 4;
         enemy->damage = 1;
         enemy->health = 100;
+        enemy->score = 100;
 
         enemy->list.active_bullet_type = RED_BIG_BULLET;
 
@@ -61,6 +65,7 @@ void initialize_nautolan_enemy(Enemy *enemy)
         enemy->speed = 5;
         enemy->damage = 1;
         enemy->health = 100;
+        enemy->score = 100;
 
         enemy->list.active_bullet_type = RED_BIG_BULLET;
 
@@ -74,6 +79,7 @@ void initialize_nautolan_enemy(Enemy *enemy)
         enemy->speed = 6;
         enemy->damage = 1;
         enemy->health = 100;
+        enemy->score = 100;
 
         enemy->list.active_bullet_type = RED_BIG_BULLET;
 
@@ -87,6 +93,7 @@ void initialize_nautolan_enemy(Enemy *enemy)
         enemy->speed = 7;
         enemy->damage = 1;
         enemy->health = 100;
+        enemy->score = 100;
 
         enemy->list.active_bullet_type = RED_BIG_BULLET;
 
@@ -100,6 +107,7 @@ void initialize_nautolan_enemy(Enemy *enemy)
         enemy->speed = 8;
         enemy->damage = 1;
         enemy->health = 100;
+        enemy->score = 100;
 
         enemy->list.active_bullet_type = RED_BIG_BULLET;
 

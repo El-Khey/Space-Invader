@@ -27,10 +27,17 @@ typedef struct
 
 typedef struct
 {
+    Text gold_text;
+    Image gold_image;
+} Gold;
+
+typedef struct
+{
     Image avatar;
     Text username;
     LifeBar life_bar;
     EnergyBar energy_bar;
+    Gold gold;
 } PlayerView;
 
 PlayerView construct_player_view(int player_id);

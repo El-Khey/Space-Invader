@@ -23,6 +23,7 @@ static void initialize_view_player_2(PlayerView *player_view)
     int bar_life_width = LIFE_BAR_WIDTH / MAX_PLAYER_LIFE;
     int total_padding = (MAX_PLAYER_LIFE + 1) * BAR_LIFE_PADDING;
     int background_width = LIFE_BAR_WIDTH + total_padding;
+    int text_height, image_height, center_y;
 
     load_player_avatar(player_view, 0);
     player_view->avatar.position = construct_position(50, 50);
@@ -36,9 +37,8 @@ static void initialize_view_player_2(PlayerView *player_view)
                                                     MLV_rgba(255, 41, 41, 255));
 
     /**
-     * Player 2 Shield bar
+     * Shield bar
      */
-
     player_view->energy_bar.background = construct_rectangle(construct_position(get_x(player_view->life_bar.background.position), get_y(player_view->life_bar.background.position) + get_height(player_view->life_bar.background.dimension) + BAR_LIFE_PADDING),
                                                              construct_dimension(LIFE_BAR_WIDTH, LIFE_BAR_HEIGTH),
                                                              MLV_rgba(75, 75, 75, 255));
@@ -46,6 +46,26 @@ static void initialize_view_player_2(PlayerView *player_view)
     player_view->energy_bar.filled_bar = construct_rectangle(construct_position(get_x(player_view->energy_bar.background.position), get_y(player_view->energy_bar.background.position)),
                                                              construct_dimension(0, get_height(player_view->energy_bar.background.dimension)),
                                                              MLV_rgba(50, 89, 255, 255));
+
+    /**
+     * Gold image and text
+     */
+    player_view->gold.gold_image = load_image("assets/images/icons/gold.png", construct_dimension(25, 25));
+    set_image_position(&player_view->gold.gold_image,
+                       construct_position(get_x(player_view->energy_bar.background.position), get_y(player_view->energy_bar.background.position) + get_height(player_view->energy_bar.background.dimension) + BAR_LIFE_PADDING * 2));
+
+    player_view->gold.gold_text = construct_text("0",
+                                                 construct_position(get_x(player_view->gold.gold_image.position) + get_width(player_view->gold.gold_image.dimension) + 10,
+                                                                    get_y(player_view->gold.gold_image.position) + get_height(player_view->gold.gold_image.dimension) / 2),
+                                                 "assets/fonts/Play-Bold.ttf", 20, MLV_COLOR_WHITE);
+
+    text_height = get_text_height(player_view->gold.gold_text);
+    image_height = get_height(player_view->gold.gold_image.dimension);
+    center_y = get_y(player_view->gold.gold_image.position) + image_height / 2 - text_height / 2;
+
+    set_text_position(&player_view->gold.gold_text,
+                      construct_position(get_x(player_view->gold.gold_image.position) + get_width(player_view->gold.gold_image.dimension) + 10,
+                                         center_y));
 }
 
 static void initialize_view_player_1(PlayerView *player_view)
@@ -66,9 +86,8 @@ static void initialize_view_player_1(PlayerView *player_view)
                                                     MLV_rgba(255, 41, 41, 255));
 
     /**
-     * Player 1 Shield bar
+     * Shield bar
      */
-
     player_view->energy_bar.background = construct_rectangle(construct_position(get_x(player_view->avatar.position) - LIFE_BAR_WIDTH - DETAILS_OFFSET_X, get_y(player_view->life_bar.background.position) + get_height(player_view->life_bar.background.dimension) + BAR_LIFE_PADDING),
                                                              construct_dimension(LIFE_BAR_WIDTH, LIFE_BAR_HEIGTH),
                                                              MLV_rgba(75, 75, 75, 255));
@@ -76,4 +95,21 @@ static void initialize_view_player_1(PlayerView *player_view)
     player_view->energy_bar.filled_bar = construct_rectangle(construct_position(get_x(player_view->energy_bar.background.position), get_y(player_view->energy_bar.background.position)),
                                                              construct_dimension(0, get_height(player_view->energy_bar.background.dimension)),
                                                              MLV_rgba(50, 89, 255, 255));
+
+    /**
+     * Gold image and text
+     */
+    player_view->gold.gold_image = load_image("assets/images/icons/gold.png", construct_dimension(25, 25));
+    set_image_position(&player_view->gold.gold_image,
+                       construct_position(get_x(player_view->energy_bar.background.position) + get_width(player_view->energy_bar.background.dimension) - get_width(player_view->gold.gold_image.dimension),
+                                          get_y(player_view->energy_bar.background.position) + get_height(player_view->energy_bar.background.dimension) + BAR_LIFE_PADDING * 2));
+
+    player_view->gold.gold_text = construct_text("0",
+                                                 construct_position(get_x(player_view->gold.gold_image.position) - get_width(player_view->gold.gold_image.dimension) - 10,
+                                                                    get_y(player_view->gold.gold_image.position) + get_height(player_view->gold.gold_image.dimension) / 2),
+                                                 "assets/fonts/Play-Bold.ttf", 20, MLV_COLOR_WHITE);
+
+    set_text_position(&player_view->gold.gold_text,
+                      construct_position(get_x(player_view->gold.gold_image.position) - get_width(player_view->gold.gold_image.dimension) - 15 - get_text_width(player_view->gold.gold_text),
+                                         get_y(player_view->gold.gold_image.position) + get_height(player_view->gold.gold_image.dimension) / 2 - get_text_height(player_view->gold.gold_text) / 2));
 }

@@ -17,6 +17,9 @@ Player construct_player(int id, char *username)
 
     player.view = construct_player_view(player.id);
 
+    player.gold = 0;
+    player.score = 0;
+
     return player;
 }
 
@@ -71,4 +74,8 @@ void draw_player(Player player)
     }
 
     draw_border(player.view.energy_bar.background.position, player.view.energy_bar.background.dimension, 2, MLV_COLOR_WHITE);
+
+    draw_image(&player.view.gold.gold_image);
+
+    draw_text(player.view.gold.gold_text);
 }

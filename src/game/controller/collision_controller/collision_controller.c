@@ -22,21 +22,31 @@ static void handle_heros_and_enemy_close_range_collision(Heros *heros, enemy_con
     }
 }
 
-static void handle_heros_projectiles_and_enemy_collision(Projectiles *list, enemy_controller *enemy_controller)
+/**
+ * @brief We pass the player here to be able to update the score and the gold of the player that killed the enemy
+ */
+static void handle_heros_projectiles_and_enemy_collision(Player *player, enemy_controller *enemy_controller)
 {
     int i, j, k;
-    for (i = 0; i < list->projectiles_count; i++)
+    for (i = 0; i < player->heros.list.projectiles_count; i++)
     {
         for (j = 0; j < enemy_controller->enemy_spawned; j++)
         {
-            for (k = 0; k < list->projectiles[i].list.bullets_count; k++)
+            for (k = 0; k < player->heros.list.projectiles[i].list.bullets_count; k++)
             {
-                if (is_hitbox_colliding(list->projectiles[i].list.bullets[k].hitbox, enemy_controller->enemies[j].hitbox))
+                if (is_hitbox_colliding(player->heros.list.projectiles[i].list.bullets[k].hitbox, enemy_controller->enemies[j].hitbox))
                 {
-                    enemy_controller->enemies[j].health -= list->projectiles[i].damage;
+                    enemy_controller->enemies[j].health -= player->heros.list.projectiles[i].damage;
 
-                    list->projectiles[i].list.bullets[k] = list->projectiles[i].list.bullets[list->projectiles[i].list.bullets_count - 1];
-                    list->projectiles[i].list.bullets_count--;
+                    if (is_enemy_dead(enemy_controller->enemies[j]))
+                    {
+                        player->score += 1;
+                        player->gold += enemy_controller->enemies[j].score;
+                        strcpy(player->view.gold.gold_text.text, convert_int_to_string(player->gold));
+                    }
+
+                    player->heros.list.projectiles[i].list.bullets[k] = player->heros.list.projectiles[i].list.bullets[player->heros.list.projectiles[i].list.bullets_count - 1];
+                    player->heros.list.projectiles[i].list.bullets_count--;
                 }
             }
         }
@@ -189,7 +199,7 @@ static void handle_heros_bonus_collision(Player *player, bonus_controller *bonus
 static void handle_heros_enemy_collision(Player *player, enemy_controller *enemy_controller)
 {
     handle_heros_and_enemy_close_range_collision(&player->heros, enemy_controller);
-    handle_heros_projectiles_and_enemy_collision(&player->heros.list, enemy_controller);
+    handle_heros_projectiles_and_enemy_collision(player, enemy_controller);
     handle_enemy_projectiles_collision(enemy_controller, &player->heros);
 }
 
