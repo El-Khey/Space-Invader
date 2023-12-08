@@ -20,6 +20,7 @@ typedef struct
 
     int is_active;
     int active_time;
+    int shield_duration;
 
     Position position;
     Dimension dimension;

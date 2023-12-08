@@ -52,4 +52,21 @@ void draw_player(Player player)
         player.view.life_bar.bar.position.x = (player.id) ? player.view.life_bar.bar.position.x + get_width(player.view.life_bar.bar.dimension) + BAR_LIFE_PADDING
                                                           : player.view.life_bar.bar.position.x - get_width(player.view.life_bar.bar.dimension) - BAR_LIFE_PADDING;
     }
+    draw_rectangle(player.view.energy_bar.background);
+
+    if (player.heros.shield.is_active)
+    {
+        int remaining_time = player.heros.shield.active_time - MLV_get_time();
+        int remaining_time_percent = (remaining_time * 100) / player.heros.shield.shield_duration;
+        int filled_bar_width = (remaining_time_percent * get_width(player.view.energy_bar.background.dimension)) / 100;
+
+        player.view.energy_bar.filled_bar.dimension.width = filled_bar_width;
+
+        if (player.id == 0)
+        {
+            player.view.energy_bar.filled_bar.position.x = player.view.energy_bar.background.position.x + get_width(player.view.energy_bar.background.dimension) - filled_bar_width;
+        }
+
+        draw_rectangle(player.view.energy_bar.filled_bar);
+    }
 }

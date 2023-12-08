@@ -21,14 +21,16 @@ typedef struct
 
 typedef struct
 {
-    LifeBar life_bar;
-} player_view_details;
+    Rectangle background;
+    Rectangle filled_bar;
+} EnergyBar;
 
 typedef struct
 {
     Image avatar;
     Text username;
     LifeBar life_bar;
+    EnergyBar energy_bar;
 } PlayerView;
 
 PlayerView construct_player_view(int player_id);
