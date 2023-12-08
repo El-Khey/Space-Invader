@@ -151,12 +151,13 @@ static void handle_asteroid_and_heros_close_range_collision(Player *player, aste
     {
         if (is_hitbox_colliding(player->heros.hitbox, asteroid_controller->asteroids[i].hitbox))
         {
-            asteroid_controller->asteroids[i].health = 0;
-            if (!player->heros.shield.is_active)
+
+            if (!player->heros.shield.is_active && !is_asteroid_dead(asteroid_controller->asteroids[i]))
             {
                 player->heros.health -= asteroid_controller->asteroids[i].damage;
             }
 
+            asteroid_controller->asteroids[i].health = 0;
             update_heros_active_ship(&player->heros);
         }
     }

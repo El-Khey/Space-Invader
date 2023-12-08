@@ -4,12 +4,13 @@
 Asteroid construct_asteroid()
 {
     Asteroid asteroid;
-
-    asteroid.dimension = construct_dimension(100, 100);
+    int random = rand() % 75 + 150;
+    asteroid.dimension = construct_dimension(random, random);
     asteroid.position = construct_position(rand() % (WINDOW_WIDTH - asteroid.dimension.width), -asteroid.dimension.height);
     asteroid.hitbox = construct_hitbox(asteroid.position, asteroid.dimension);
 
     asteroid.speed = rand() % 1 + 4;
+    asteroid.damage = 1;
 
     asteroid.animation[NONE] = construct_animation("assets/sprites/Environment/Asteroids/Base.png", 1, asteroid.dimension, ROTATION_90);
     asteroid.animation[EXPLODE] = construct_animation("assets/sprites/Environment/Asteroids/Explode.png", 8, asteroid.dimension, FORWARD);

@@ -28,7 +28,7 @@ static void initialize_view_player_2(PlayerView *player_view)
     load_player_avatar(player_view, 0);
     player_view->avatar.position = construct_position(50, 50);
 
-    player_view->life_bar.background = construct_rectangle(construct_position(get_x(player_view->avatar.position) + get_width(player_view->avatar.dimension) + DETAILS_OFFSET_X, 50),
+    player_view->life_bar.background = construct_rectangle(construct_position(get_x(player_view->avatar.position) + get_width(player_view->avatar.dimension) + DETAILS_OFFSET_X, 85),
                                                            construct_dimension(background_width, LIFE_BAR_HEIGTH),
                                                            MLV_rgba(75, 75, 75, 255));
 
@@ -77,7 +77,7 @@ static void initialize_view_player_1(PlayerView *player_view)
     load_player_avatar(player_view, 1);
     player_view->avatar.position = construct_position(WINDOW_WIDTH - get_width(player_view->avatar.dimension) - 50, 50);
 
-    player_view->life_bar.background = construct_rectangle(construct_position(get_x(player_view->avatar.position) - background_width - DETAILS_OFFSET_X, 50),
+    player_view->life_bar.background = construct_rectangle(construct_position(get_x(player_view->avatar.position) - background_width - DETAILS_OFFSET_X, 85),
                                                            construct_dimension(background_width, LIFE_BAR_HEIGTH),
                                                            MLV_rgba(75, 75, 75, 255));
 
