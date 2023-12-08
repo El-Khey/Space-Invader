@@ -11,6 +11,14 @@
         "ship_customization.h": "c",
         "ship_customization_view.h": "c",
         "string_view": "c",
-        "limits": "c"
+        "limits": "c",
+        "settings_bar_view.h": "c",
+        "game_manager.h": "c",
+        "event_manager.h": "c",
+        "utils.h": "c",
+        "players_controller.h": "c",
+        "collision_controller.h": "c",
+        "bonus_controller.h": "c",
+        "asteroid_controller.h": "c"
     }
 }

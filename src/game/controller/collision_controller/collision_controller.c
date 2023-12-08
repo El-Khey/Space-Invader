@@ -1,4 +1,5 @@
 #include "../../../../include/game/controller/collision_controller/collision_controller.h"
+#include "../../../../include/game/controller/players_controller.h"
 
 static void handle_heros_and_enemy_close_range_collision(Heros *heros, enemy_controller *enemy_controller)
 {

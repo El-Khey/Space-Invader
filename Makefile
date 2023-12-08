@@ -7,7 +7,7 @@ MANAGER = event_manager.o keyboard_manager.o mouse_manager.o game_manager.o
 MODEL = window.o heros.o projectile.o enemy.o klaed.o nairan.o nautolan.o asteroid.o player.o bonus.o shield.o
 UTILS = utils.o dimension.o position.o animation.o image.o text.o hitbox.o
 CONTROLLERS = heros_controller.o enemy_controller.o projectile_controller.o collision_controller.o asteroid_controller.o players_controller.o bonus_controller.o
-VIEW = player_view.o ship_customization_view.o
+VIEW = player_view.o ship_customization_view.o settings_bar_view.o
 GUI = button.o shape.o temporary_message.o input.o
 
 
@@ -33,6 +33,9 @@ player_view.o: ./src/game/view/player_view.c
 
 ship_customization_view.o: ./src/game/view/ship_customization_view.c
 	$(CC) $(CFLAGS) -c ./src/game/view/ship_customization_view.c
+
+settings_bar_view.o: ./src/game/view/settings_bar_view.c
+	$(CC) $(CFLAGS) -c ./src/game/view/settings_bar_view.c
 
 # ------------------ #
 # Models
