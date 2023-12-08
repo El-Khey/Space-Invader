@@ -16,6 +16,14 @@ Player construct_player(int id, char *username)
                        : construct_heros(construct_position(get_x(heros_position) + 50 + get_width(heros_dimension), get_y(heros_position)), heros_dimension);
 
     player.view = construct_player_view(player.id);
+    set_text_content(&player.view.username, player.username);
+
+    if (player.id == 0)
+    {
+        set_text_position(&player.view.username,
+                          construct_position(get_x(player.view.life_bar.background.position) + get_width(player.view.life_bar.background.dimension) - get_text_width(player.view.username) - 5,
+                                             get_y(player.view.life_bar.background.position) - get_height(player.view.username.dimension)));
+    }
 
     player.gold = 0;
     player.score = 0;
@@ -37,6 +45,8 @@ Players construct_players(Player player_1, Player player_2)
 void draw_player(Player player)
 {
     int i = 0;
+
+    draw_text(player.view.username);
 
     draw_heros(player.heros);
     draw_image(&player.view.avatar);

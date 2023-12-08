@@ -35,9 +35,11 @@ typedef struct
 {
     Image avatar;
     Text username;
+
     LifeBar life_bar;
     EnergyBar energy_bar;
     Gold gold;
+
 } PlayerView;
 
 PlayerView construct_player_view(int player_id);
