@@ -69,4 +69,6 @@ void draw_player(Player player)
 
         draw_rectangle(player.view.energy_bar.filled_bar);
     }
+
+    draw_border(player.view.energy_bar.background.position, player.view.energy_bar.background.dimension, 2, MLV_COLOR_WHITE);
 }
