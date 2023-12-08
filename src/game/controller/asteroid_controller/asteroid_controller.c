@@ -6,7 +6,7 @@ asteroid_controller construct_asteroid_controller()
     asteroid_controller asteroid_controller;
 
     asteroid_controller.last_asteroid_spawn_time = 0;
-    asteroid_controller.delay_between_spawn = 100;
+    asteroid_controller.delay_between_spawn = 3000;
 
     asteroid_controller.asteroid_spawned = 0;
     asteroid_controller.asteroid_spawn_count = MAX_ASTEROID_SPAWN_COUNT;

@@ -7,7 +7,7 @@
 #include "../../model/heros.h"
 #include "../../../utils/utils.h"
 
-#define MAX_ASTEROID_SPAWN_COUNT 400
+#define MAX_ASTEROID_SPAWN_COUNT 4
 
 typedef struct
 {

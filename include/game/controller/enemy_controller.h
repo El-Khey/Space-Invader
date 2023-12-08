@@ -7,7 +7,7 @@
 #include "../../utils/utils.h"
 #include "../model/player.h"
 
-#define MAX_ENEMY_SPAWN_COUNT 15
+#define MAX_ENEMY_SPAWN_COUNT 20
 
 typedef struct
 {
