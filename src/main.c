@@ -92,7 +92,6 @@ static void manage_customization(GameManager *game_manager, EventManager event_m
     if (is_one_player_modifying_ship)
     {
         handle_ship_customization_selection(&game_manager->players.players[player_id_to_update], event_manager);
-        pause_game(game_manager);
     }
 
     for (i = 0; i < game_manager->players.nb_players; i++)
@@ -109,6 +108,16 @@ static void launch_game()
     while (!is_escape_key_pressed(event_manager.keyboard_manager))
     {
         handle_events(&event_manager, 1);
+
+        if (event_manager.keyboard_manager.event[0].space_key.space)
+        {
+            pause_game(&game_manager);
+        }
+
+        if (event_manager.keyboard_manager.event[0].space_key.enter)
+        {
+            resume_game(&game_manager);
+        }
 
         if (!is_game_paused(&game_manager))
         {

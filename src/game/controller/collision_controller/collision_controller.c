@@ -105,7 +105,7 @@ static void handle_bonus_selection(Heros *heros, Bonus bonus)
         break;
 
     default:
-        fprintf(stderr, "Error: unknown bonus type\n");
+        fprintf(stderr, "Error: unknown bonus type : %d\n", bonus.type);
         break;
     }
 }

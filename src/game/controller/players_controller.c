@@ -64,9 +64,6 @@ static void handle_player_bonus(Player *player)
 void update_players(GameManager *game_manager, EventManager event_manager)
 {
     int i = 0;
-    int is_one_player_modifying_ship = 0;
-    int player_id_to_update = 0;
-
     for (; i < game_manager->players.nb_players; i++)
     {
         handle_heros_actions(&game_manager->players.players[i], event_manager);

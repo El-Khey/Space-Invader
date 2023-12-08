@@ -1,5 +1,5 @@
 CC = gcc 
-CFLAGS = -W -Wall -std=c89 -pedantic -O2
+CFLAGS = -g -W -Wall -std=c89 -pedantic -O2
 CLIBS = -lm -lMLV
 
 # List of object files

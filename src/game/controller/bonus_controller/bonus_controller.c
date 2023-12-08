@@ -6,7 +6,7 @@ bonus_controller construct_bonus_controller()
     bonus_controller bonus_controller;
 
     bonus_controller.last_bonus_spawn_time = 0;
-    bonus_controller.delay_between_spawn = 2000;
+    bonus_controller.delay_between_spawn = 20;
 
     bonus_controller.bonus_spawned = 0;
     bonus_controller.bonus_spawn_count = MAX_BONUS_SPAWN_COUNT;
@@ -45,11 +45,13 @@ void update_bonus(bonus_controller *controller)
     {
         move_bonus(&controller->bonus[i]);
         draw_bonus(controller->bonus[i]);
-
         handle_bonus_selection(controller, i);
 
         if (is_bonus_out_of_screen(controller->bonus[i]))
         {
+            printf("BONUS OUT OF SCREEN\n");
+            printf("\t->bonus_spawned : %d\n", controller->bonus_spawned);
+            printf("\t->i : %d\n", i);
             controller->bonus_spawned--;
             controller->bonus[i] = controller->bonus[controller->bonus_spawned];
         }

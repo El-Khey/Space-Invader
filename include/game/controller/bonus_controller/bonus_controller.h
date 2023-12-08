@@ -7,7 +7,7 @@
 #include "../../../utils/utils.h"
 #include "../../model/heros.h"
 
-#define MAX_BONUS_SPAWN_COUNT 3
+#define MAX_BONUS_SPAWN_COUNT 300
 
 typedef struct
 {
