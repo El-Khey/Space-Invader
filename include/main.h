@@ -12,4 +12,8 @@
 #define MAX_PLAYER_LIFE 7
 #define MAX_PLAYERS 2
 
+#define PRIMARY_GRAY_COLOR MLV_rgba(75, 75, 75, 255)
+#define PRIMARY_RED_COLOR MLV_rgba(255, 41, 41, 255)
+#define PRIMARY_BLUE_COLOR MLV_rgba(50, 89, 255, 255)
+
 #endif /** MAIN_H */

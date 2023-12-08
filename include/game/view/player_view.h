@@ -1,6 +1,8 @@
 #ifndef PLAYER_VIEW_H
 #define PLAYER_VIEW_H
 
+#include "../../main.h"
+
 #include "../../utils/image/image.h"
 #include "../../utils/text/text.h"
 

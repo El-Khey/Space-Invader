@@ -7,6 +7,7 @@
 #include "../view/player_view.h"
 
 #include "../view/player_view.h"
+#include "../view/ship_customization_view.h"
 
 #define LEN_USERNAME_MAX 20
 #define NB_PLAYERS_MAX 2
@@ -22,6 +23,7 @@ typedef struct
 
     char username[LEN_USERNAME_MAX];
     PlayerView view;
+    ShipCustomizationView ship_customization_view;
 } Player;
 
 typedef struct

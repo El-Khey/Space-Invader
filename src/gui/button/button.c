@@ -13,6 +13,18 @@ Button construct_button_with_image(Image image, Position position, Dimension dim
     return button;
 }
 
+Button construct_button_with_animation(Animation animation, Position position, Dimension dimension)
+{
+    Button button;
+
+    button.animation = animation;
+    button.position = position;
+    button.dimension = dimension;
+
+    play_animation(&button.animation);
+    return button;
+}
+
 Button construct_button_with_text(char *text, Position position, Dimension dimension, MLV_Color foreground, MLV_Color background)
 {
     Button button;
@@ -56,6 +68,18 @@ void draw_filled_button_with_hover_effect(Button button, Position mouse_position
     draw_button_text(button);
 }
 
+void draw_hovered_button(Button button, Position mouse_position, MLV_Color border_color, MLV_Color background)
+{
+    if (is_button_hovered(button, mouse_position))
+    {
+        draw_filled_rectangle(button.position, button.dimension, 2, border_color, background);
+    }
+    else
+    {
+        draw_filled_rectangle(button.position, button.dimension, 2, button.background, button.background);
+    }
+}
+
 int is_button_hovered(Button button, Position p)
 {
     return get_x(p) >= get_x(button.position) &&
@@ -82,6 +106,11 @@ void free_button_text(Button *button)
 void draw_button_image(Button button)
 {
     draw_image(&button.image);
+}
+
+void draw_button_animation(Button button)
+{
+    draw_animation(button.animation, button.position);
 }
 
 void draw_button_text(Button button)

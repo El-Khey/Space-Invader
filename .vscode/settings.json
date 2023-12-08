@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "*.rmd": "markdown",
+        "main.h": "c",
+        "player_view.h": "c",
+        "shape.h": "c",
+        "text.h": "c",
+        "image.h": "c",
+        "button.h": "c",
+        "player.h": "c",
+        "ship_customization.h": "c",
+        "ship_customization_view.h": "c",
+        "string_view": "c",
+        "limits": "c"
+    }
+}
