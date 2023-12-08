@@ -88,14 +88,22 @@ static void handle_ship_customization_selection(Player *player, EventManager eve
     {
         if (player->ship_customization_view.is_modal_active && player->ship_customization_view.active_modal == MODAL_ENGINE && is_button_clicked(player->ship_customization_view.modal[player->id].engine_buttons[i], event_manager.mouse_manager))
         {
-            printf("engine %d\n", i);
-            player->heros.active_engine = i;
+            if (player->gold >= get_engine_price(i))
+            {
+                player->gold -= get_engine_price(i);
+                set_text_content(&player->view.gold.gold_text, convert_int_to_string(player->gold));
+                player->heros.active_engine = i;
+            }
         }
         else if (player->ship_customization_view.is_modal_active && player->ship_customization_view.active_modal == MODAL_WEAPON && is_button_clicked(player->ship_customization_view.modal[player->id].weapon_buttons[i], event_manager.mouse_manager))
         {
-            printf("weapon %d\n", i);
-            player->heros.active_weapon = i;
-            player->heros.list.active_bullet_type = player->heros.active_weapon;
+            if (player->gold >= get_weapon_price(i))
+            {
+                player->gold -= get_weapon_price(i);
+                set_text_content(&player->view.gold.gold_text, convert_int_to_string(player->gold));
+                player->heros.active_weapon = i;
+                player->heros.list.active_bullet_type = player->heros.active_weapon;
+            }
         }
     }
 }

@@ -28,7 +28,7 @@ Button construct_button_with_animation(Animation animation, Position position, D
 Button construct_button_with_text(char *text, Position position, Dimension dimension, MLV_Color foreground, MLV_Color background)
 {
     Button button;
-    Text t = construct_text(text, position, "assets/fonts/Play-Regular.ttf", 20, foreground);
+    Text t = construct_text(text, position, "assets/fonts/Play-Bold.ttf", 20, foreground);
     set_text_position(
         &t,
         construct_position(get_x(position) + (get_width(dimension) - get_text_width(t)) / 2,

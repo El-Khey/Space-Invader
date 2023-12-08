@@ -12,6 +12,12 @@
 #define BAR_WIDTH 200
 #define BAR_HEIGHT 75
 
+typedef enum
+{
+    MODAL_ENGINE,
+    MODAL_WEAPON
+} ShipCustomizationModalType;
+
 typedef struct
 {
     Rectangle background;
@@ -22,8 +28,12 @@ typedef struct
 {
     Text title;
     Rectangle background;
+
     Button engine_buttons[MAX_SHIP_LEVEL];
+    Button engine_text_buttons[MAX_SHIP_LEVEL];
+
     Button weapon_buttons[MAX_SHIP_LEVEL];
+    Button weapon_text_buttons[MAX_SHIP_LEVEL];
 } ShipCustomizationModal;
 
 typedef struct
@@ -35,6 +45,10 @@ typedef struct
 } ShipCustomizationView;
 
 ShipCustomizationView construct_ship_customization(int player_id);
+
+int get_weapon_price(int weapon_type);
+
+int get_engine_price(int engine_type);
 
 void draw_ship_customization(ShipCustomizationView ship_customization, Position mouse_position);
 

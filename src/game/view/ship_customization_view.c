@@ -61,10 +61,20 @@ static char *get_weapon_sprite_path(int weapon_type)
     }
 }
 
+int get_weapon_price(int weapon_type)
+{
+    return (weapon_type + 1) * 100;
+}
+
+int get_engine_price(int engine_type)
+{
+    return (engine_type + 1) * 100;
+}
+
 static void initialize_player_1_modal(ShipCustomizationView *ship_customization)
 {
     int i = 0;
-    int modal_center_x, modal_center_y, animation_x, animation_y;
+    int modal_center_x, animation_x, animation_y;
 
     ship_customization->modal[0].background = construct_rectangle(construct_position(0, 225), construct_dimension(WINDOW_WIDTH, WINDOW_HEIGHT - 450), MLV_rgba(255, 41, 41, 100));
     ship_customization->modal[0].title = construct_text("Acheter vos moteurs", construct_position(WINDOW_WIDTH / 2, 275), "assets/fonts/Play-Bold.ttf", 50, MLV_COLOR_WHITE);
@@ -73,7 +83,6 @@ static void initialize_player_1_modal(ShipCustomizationView *ship_customization)
     for (i = 0; i < MAX_SHIP_LEVEL; i++)
     {
         modal_center_x = get_x(ship_customization->modal[0].background.position) + get_width(ship_customization->modal[0].background.dimension) / 2;
-        modal_center_y = get_y(ship_customization->modal[0].background.position) + get_height(ship_customization->modal[0].background.dimension) / 2;
 
         animation_x = modal_center_x - (MAX_SHIP_LEVEL * (100 + PADDING_BAR)) / 2;
         animation_y = get_y(ship_customization->modal[0].title.position) + get_height(ship_customization->modal[0].title.dimension) + 50;
@@ -82,16 +91,32 @@ static void initialize_player_1_modal(ShipCustomizationView *ship_customization)
                                                                                          construct_position(animation_x + i * (100 + PADDING_BAR), animation_y),
                                                                                          construct_dimension(100, 100));
 
+        ship_customization->modal[0].engine_text_buttons[i] = construct_button_with_text(convert_int_to_string(get_engine_price(i)),
+                                                                                         construct_position(get_x(ship_customization->modal[0].engine_buttons[i].position),
+                                                                                                            get_y(ship_customization->modal[0].engine_buttons[i].position) + get_height(ship_customization->modal[0].engine_buttons[i].dimension) + 10),
+                                                                                         construct_dimension(get_width(ship_customization->modal[0].engine_buttons[i].dimension), 20),
+                                                                                         MLV_COLOR_WHITE, MLV_COLOR_WHITE);
+        set_text_position(&ship_customization->modal[0].engine_text_buttons[i].text, construct_position(get_x(ship_customization->modal[0].engine_buttons[i].position) + get_width(ship_customization->modal[0].engine_buttons[i].dimension) / 2 - get_text_width(ship_customization->modal[0].engine_text_buttons[i].text) / 2,
+                                                                                                        get_y(ship_customization->modal[0].engine_text_buttons[i].position)));
+
         ship_customization->modal[0].weapon_buttons[i] = construct_button_with_animation(construct_animation(get_weapon_sprite_path(i), 15, construct_dimension(100, 100), FORWARD),
                                                                                          construct_position(animation_x + i * (100 + PADDING_BAR), animation_y),
                                                                                          construct_dimension(100, 100));
+
+        ship_customization->modal[0].weapon_text_buttons[i] = construct_button_with_text(convert_int_to_string(get_weapon_price(i)),
+                                                                                         construct_position(get_x(ship_customization->modal[0].weapon_buttons[i].position),
+                                                                                                            get_y(ship_customization->modal[0].weapon_buttons[i].position) + get_height(ship_customization->modal[0].weapon_buttons[i].dimension) + 10),
+                                                                                         construct_dimension(get_width(ship_customization->modal[0].weapon_buttons[i].dimension), 20),
+                                                                                         MLV_COLOR_WHITE, MLV_COLOR_WHITE);
+        set_text_position(&ship_customization->modal[0].weapon_text_buttons[i].text, construct_position(get_x(ship_customization->modal[0].weapon_buttons[i].position) + get_width(ship_customization->modal[0].weapon_buttons[i].dimension) / 2 - get_text_width(ship_customization->modal[0].weapon_text_buttons[i].text) / 2,
+                                                                                                        get_y(ship_customization->modal[0].weapon_text_buttons[i].position)));
     }
 }
 
 static void initialize_player_2_modal(ShipCustomizationView *ship_customization)
 {
     int i = 0;
-    int modal_center_x, modal_center_y, animation_x, animation_y;
+    int modal_center_x, animation_x, animation_y;
 
     ship_customization->modal[1].background = construct_rectangle(construct_position(0, 225), construct_dimension(WINDOW_WIDTH, WINDOW_HEIGHT - 450), MLV_rgba(50, 83, 255, 100));
     ship_customization->modal[1].title = construct_text("Acheter vos armes", construct_position(WINDOW_WIDTH / 2, 275), "assets/fonts/Play-Bold.ttf", 50, MLV_COLOR_WHITE);
@@ -100,8 +125,6 @@ static void initialize_player_2_modal(ShipCustomizationView *ship_customization)
     for (i = 0; i < MAX_SHIP_LEVEL; i++)
     {
         modal_center_x = get_x(ship_customization->modal[1].background.position) + get_width(ship_customization->modal[1].background.dimension) / 2;
-        modal_center_y = get_y(ship_customization->modal[1].background.position) + get_height(ship_customization->modal[1].background.dimension) / 2;
-
         animation_x = modal_center_x - (MAX_SHIP_LEVEL * (100 + PADDING_BAR)) / 2;
         animation_y = get_y(ship_customization->modal[1].title.position) + get_height(ship_customization->modal[1].title.dimension) + 50;
 
@@ -109,9 +132,25 @@ static void initialize_player_2_modal(ShipCustomizationView *ship_customization)
                                                                                          construct_position(animation_x + i * (100 + PADDING_BAR), animation_y),
                                                                                          construct_dimension(100, 100));
 
+        ship_customization->modal[1].engine_text_buttons[i] = construct_button_with_text(convert_int_to_string(get_engine_price(i)),
+                                                                                         construct_position(get_x(ship_customization->modal[1].engine_buttons[i].position),
+                                                                                                            get_y(ship_customization->modal[1].engine_buttons[i].position) + get_height(ship_customization->modal[1].engine_buttons[i].dimension) + 10),
+                                                                                         construct_dimension(get_width(ship_customization->modal[1].engine_buttons[i].dimension), 20),
+                                                                                         MLV_COLOR_WHITE, MLV_COLOR_WHITE);
+        set_text_position(&ship_customization->modal[1].engine_text_buttons[i].text, construct_position(get_x(ship_customization->modal[1].engine_buttons[i].position) + get_width(ship_customization->modal[1].engine_buttons[i].dimension) / 2 - get_text_width(ship_customization->modal[1].engine_text_buttons[i].text) / 2,
+                                                                                                        get_y(ship_customization->modal[1].engine_text_buttons[i].position)));
+
         ship_customization->modal[1].weapon_buttons[i] = construct_button_with_animation(construct_animation(get_weapon_sprite_path(i), 15, construct_dimension(100, 100), FORWARD),
                                                                                          construct_position(animation_x + i * (100 + PADDING_BAR), animation_y),
                                                                                          construct_dimension(100, 100));
+
+        ship_customization->modal[1].weapon_text_buttons[i] = construct_button_with_text(convert_int_to_string(get_weapon_price(i)),
+                                                                                         construct_position(get_x(ship_customization->modal[1].weapon_buttons[i].position),
+                                                                                                            get_y(ship_customization->modal[1].weapon_buttons[i].position) + get_height(ship_customization->modal[1].weapon_buttons[i].dimension) + 10),
+                                                                                         construct_dimension(get_width(ship_customization->modal[1].weapon_buttons[i].dimension), 20),
+                                                                                         MLV_COLOR_WHITE, MLV_COLOR_WHITE);
+        set_text_position(&ship_customization->modal[1].weapon_text_buttons[i].text, construct_position(get_x(ship_customization->modal[1].weapon_buttons[i].position) + get_width(ship_customization->modal[1].weapon_buttons[i].dimension) / 2 - get_text_width(ship_customization->modal[1].weapon_text_buttons[i].text) / 2,
+                                                                                                        get_y(ship_customization->modal[1].weapon_text_buttons[i].position)));
     }
 }
 
@@ -176,11 +215,15 @@ void draw_ship_customization(ShipCustomizationView ship_customization, Position 
             {
                 draw_hovered_button(ship_customization.modal[ship_customization.active_modal].weapon_buttons[i], mouse_position, MLV_rgba(125, 125, 125, 125), MLV_rgba(0, 0, 0, 125));
                 draw_button_animation(ship_customization.modal[ship_customization.active_modal].weapon_buttons[i]);
+
+                draw_button_text(ship_customization.modal[ship_customization.active_modal].weapon_text_buttons[i]);
             }
             else
             {
                 draw_hovered_button(ship_customization.modal[ship_customization.active_modal].engine_buttons[i], mouse_position, MLV_rgba(125, 125, 125, 125), MLV_rgba(0, 0, 0, 125));
                 draw_button_animation(ship_customization.modal[ship_customization.active_modal].engine_buttons[i]);
+
+                draw_button_text(ship_customization.modal[ship_customization.active_modal].engine_text_buttons[i]);
             }
         }
     }
