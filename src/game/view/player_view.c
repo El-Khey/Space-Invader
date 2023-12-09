@@ -44,6 +44,15 @@ static void initialize_view_player_2(PlayerView *player_view)
                       construct_position(get_x(player_view->life_bar.background.position) + 5,
                                          get_y(player_view->life_bar.background.position) - get_height(player_view->username.dimension)));
 
+    player_view->score_text = construct_text("",
+                                             construct_position(get_x(player_view->life_bar.background.position) + get_width(player_view->life_bar.background.dimension) - 25,
+                                                                get_y(player_view->life_bar.background.position) - get_height(player_view->life_bar.background.dimension) - 2),
+                                             "assets/fonts/Play-Bold.ttf", 18, MLV_COLOR_WHITE);
+
+    set_text_position(&player_view->score_text,
+                      construct_position(get_x(player_view->life_bar.background.position) + get_text_width(player_view->score_text) + get_width(player_view->life_bar.background.dimension) - 75,
+                                         get_y(player_view->life_bar.background.position) - get_height(player_view->life_bar.background.dimension)));
+
     /**
      * Shield bar
      */
@@ -97,6 +106,15 @@ static void initialize_view_player_1(PlayerView *player_view)
                                            construct_position(get_x(player_view->life_bar.background.position) + get_width(player_view->life_bar.background.dimension) / 2,
                                                               get_y(player_view->life_bar.background.position) - 10),
                                            "assets/fonts/Play-Bold.ttf", 23, MLV_COLOR_WHITE);
+
+    player_view->score_text = construct_text("",
+                                             construct_position(get_x(player_view->life_bar.background.position) - 5,
+                                                                get_y(player_view->life_bar.background.position) - get_height(player_view->life_bar.background.dimension) - 2),
+                                             "assets/fonts/Play-Bold.ttf", 18, MLV_COLOR_WHITE);
+
+    set_text_position(&player_view->score_text,
+                      construct_position(get_x(player_view->life_bar.background.position),
+                                         get_y(player_view->life_bar.background.position) - get_height(player_view->life_bar.background.dimension) - 3));
 
     /**
      * Shield bar

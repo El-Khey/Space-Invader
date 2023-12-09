@@ -45,7 +45,6 @@ void update_bonus(bonus_controller *controller)
     {
         move_bonus(&controller->bonus[i]);
         draw_bonus(controller->bonus[i]);
-
         handle_bonus_selection(controller, i);
 
         if (is_bonus_out_of_screen(controller->bonus[i]))

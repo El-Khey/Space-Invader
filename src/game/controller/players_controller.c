@@ -108,35 +108,40 @@ static void handle_ship_customization_selection(Player *player, EventManager eve
     }
 }
 
-void update_players(Players *players, EventManager event_manager)
+void update_players(GameManager *game_manager, EventManager event_manager)
 {
     int i = 0;
     int is_one_player_modifying_ship = 0;
     int player_id_to_update = 0;
 
-    for (; i < players->nb_players; i++)
+    for (; i < game_manager->players.nb_players; i++)
     {
-        handle_heros_actions(&players->players[i], event_manager);
-        handle_player_projectiles(&players->players[i], event_manager);
+        if (!is_heros_alive(game_manager->players.players[i].heros))
+        {
+            continue;
+        }
 
-        handle_player_bonus(&players->players[i]);
+        handle_heros_actions(&game_manager->players.players[i], event_manager);
+        handle_player_projectiles(&game_manager->players.players[i], event_manager);
 
-        draw_player(players->players[i]);
-        draw_ship_customization(players->players[i].ship_customization_view, event_manager.mouse_manager.position);
-        if (players->players[i].ship_customization_view.is_modal_active)
+        handle_player_bonus(&game_manager->players.players[i]);
+
+        draw_player(game_manager->players.players[i]);
+        draw_ship_customization(game_manager->players.players[i].ship_customization_view, event_manager.mouse_manager.position);
+        if (game_manager->players.players[i].ship_customization_view.is_modal_active)
         {
             is_one_player_modifying_ship = 1;
             player_id_to_update = i;
         }
     }
 
-    for (i = 0; i < players->nb_players; i++)
-    {
-        handle_ship_customization_events(&players->players[i].ship_customization_view, event_manager, is_one_player_modifying_ship);
-    }
-
     if (is_one_player_modifying_ship)
     {
-        handle_ship_customization_selection(&players->players[player_id_to_update], event_manager);
+        handle_ship_customization_selection(&game_manager->players.players[player_id_to_update], event_manager);
+    }
+
+    for (i = 0; i < game_manager->players.nb_players; i++)
+    {
+        handle_ship_customization_events(&game_manager->players.players[i].ship_customization_view, event_manager, is_one_player_modifying_ship);
     }
 }

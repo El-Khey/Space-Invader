@@ -33,13 +33,18 @@ Players construct_players(Player player_1, Player player_2)
     players.players[player_2.id] = player_2;
 
     players.nb_players = 2;
+
     return players;
 }
 
 static void init_view_elements(Player *player)
 {
+    char score_text[13];
     player->view = construct_player_view(player->id);
     set_text_content(&player->view.username, player->username);
+
+    sprintf(score_text, "Score: %d", player->score);
+    set_text_content(&player->view.score_text, score_text);
 
     player->ship_customization_view = construct_ship_customization(player->id);
 
@@ -56,6 +61,8 @@ static void draw_player_view(Player player)
     int i = 0;
 
     draw_text(player.view.username);
+    draw_text(player.view.score_text);
+
     draw_image(&player.view.avatar);
     draw_rectangle(player.view.life_bar.background);
     draw_border(player.view.life_bar.background.position, player.view.life_bar.background.dimension, 2, MLV_COLOR_WHITE);
@@ -92,6 +99,15 @@ static void draw_player_view(Player player)
     draw_border(player.view.energy_bar.background.position, player.view.energy_bar.background.dimension, 2, MLV_COLOR_WHITE);
     draw_image(&player.view.gold.gold_image);
     draw_text(player.view.gold.gold_text);
+}
+
+void set_players_health(Players *players, int health)
+{
+    int i = 0;
+    for (; i < players->nb_players; i++)
+    {
+        players->players[i].heros.health = health;
+    }
 }
 
 void draw_player(Player player)

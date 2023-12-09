@@ -1,4 +1,5 @@
 #include "../../../../include/game/controller/collision_controller/collision_controller.h"
+#include "../../../../include/game/controller/players_controller.h"
 
 static void handle_heros_and_enemy_close_range_collision(Heros *heros, enemy_controller *enemy_controller)
 {
@@ -38,15 +39,17 @@ static void handle_heros_projectiles_and_enemy_collision(Player *player, enemy_c
                 {
                     enemy_controller->enemies[j].health -= player->heros.list.projectiles[i].damage;
 
+                    player->heros.list.projectiles[i].list.bullets[k] = player->heros.list.projectiles[i].list.bullets[player->heros.list.projectiles[i].list.bullets_count - 1];
+                    player->heros.list.projectiles[i].list.bullets_count--;
+
                     if (is_enemy_dead(enemy_controller->enemies[j]))
                     {
                         player->score += 1;
+                        strcpy(player->view.score_text.text, concat("Score: ", convert_int_to_string(player->score)));
+
                         player->gold += enemy_controller->enemies[j].score;
                         strcpy(player->view.gold.gold_text.text, convert_int_to_string(player->gold));
                     }
-
-                    player->heros.list.projectiles[i].list.bullets[k] = player->heros.list.projectiles[i].list.bullets[player->heros.list.projectiles[i].list.bullets_count - 1];
-                    player->heros.list.projectiles[i].list.bullets_count--;
                 }
             }
         }
@@ -104,7 +107,7 @@ static void handle_bonus_selection(Heros *heros, Bonus bonus)
         break;
 
     default:
-        fprintf(stderr, "Error: unknown bonus type\n");
+        fprintf(stderr, "Error: unknown bonus type : %d\n", bonus.type);
         break;
     }
 }
@@ -209,6 +212,11 @@ void handle_heros_collision(Players *players, enemy_controller *enemy_controller
     int i = 0;
     for (; i < players->nb_players; i++)
     {
+        if (!is_heros_alive(players->players[i].heros))
+        {
+            continue;
+        }
+
         handle_heros_enemy_collision(&players->players[i], enemy_controller);
         handle_heros_bonus_collision(&players->players[i], bonus_controller);
         handle_heros_asteroid_collision(&players->players[i], asteroid_controller);
