@@ -1,7 +1,7 @@
 #include "../../../../include/game/manager/game_manager/game_manager.h"
 #include "../../../../include/game/controller/players_controller.h"
 
-GameManager construct_game_manager()
+GameManager construct_game_manager(Players players, GameMode game_mode, GameDifficulty game_difficulty)
 {
     GameManager game_manager;
 
@@ -12,6 +12,12 @@ GameManager construct_game_manager()
     game_manager.is_game_paused = 0;
     game_manager.is_game_over = 0;
 
+    game_manager.game_mode = game_mode;
+    game_manager.game_difficulty = game_difficulty;
+    game_manager.players = players;
+
+    set_players_health(&game_manager.players, MAX_PLAYER_LIFE - game_difficulty);
+
     game_manager.controllers.enemy_controller = construct_enemy_controller();
     game_manager.controllers.asteroid_controller = construct_asteroid_controller();
     game_manager.controllers.bonus_controller = construct_bonus_controller();
@@ -21,8 +27,6 @@ GameManager construct_game_manager()
     game_manager.views.game_over_screen = construct_game_over_screen();
 
     game_manager.window = construct_window();
-    game_manager.players = construct_players(construct_player(0, "zestones"), construct_player(1, "zsigmondy"));
-
     return game_manager;
 }
 

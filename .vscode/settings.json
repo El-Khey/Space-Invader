@@ -17,6 +17,7 @@
         "game_manager.h": "c",
         "enemy_controller.h": "c",
         "ship_customization_view.h": "c",
-        "player_view.h": "c"
+        "player_view.h": "c",
+        "players_controller.h": "c"
     }
 }

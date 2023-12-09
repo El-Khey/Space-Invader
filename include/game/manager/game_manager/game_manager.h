@@ -22,6 +22,13 @@ typedef enum
     MODE_MULTI
 } GameMode;
 
+typedef enum
+{
+    DIFFICULTY_EASY,
+    DIFFICULTY_MEDIUM,
+    DIFFICULTY_HARD
+} GameDifficulty;
+
 typedef struct
 {
     enemy_controller enemy_controller;
@@ -47,6 +54,9 @@ typedef struct
     int is_game_over;
     int is_game_paused;
     int quit_game;
+
+    GameMode game_mode;
+    GameDifficulty game_difficulty;
 } GameManager;
 
 /**
@@ -54,9 +64,13 @@ typedef struct
  * The game manager is a structure that contains all the controllers and models of the game.
  * It update the game state and draw the game.
  *
+ * @param players The players
+ * @param game_mode The game mode
+ * @param game_difficulty The game difficulty
+ *
  * @return GameManager
  */
-GameManager construct_game_manager();
+GameManager construct_game_manager(Players players, GameMode game_mode, GameDifficulty game_difficulty);
 
 /**
  * @brief Update the game state

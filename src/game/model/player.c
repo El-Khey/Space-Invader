@@ -101,6 +101,15 @@ static void draw_player_view(Player player)
     draw_text(player.view.gold.gold_text);
 }
 
+void set_players_health(Players *players, int health)
+{
+    int i = 0;
+    for (; i < players->nb_players; i++)
+    {
+        players->players[i].heros.health = health;
+    }
+}
+
 void draw_player(Player player)
 {
     draw_heros(player.heros);

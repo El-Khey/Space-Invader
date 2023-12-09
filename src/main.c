@@ -30,28 +30,16 @@ static void handle_settings_action(GameManager *game_manager, MouseManager mouse
 static void launch_game()
 {
     EventManager event_manager = construct_event_manager();
-    GameManager game_manager = construct_game_manager();
+    GameManager game_manager = construct_game_manager(construct_players(construct_player(0, "zestones"), construct_player(1, "zsigmondy")), MODE_MULTI, DIFFICULTY_HARD);
 
     while (!is_escape_key_pressed(event_manager.keyboard_manager))
     {
-        handle_events(&event_manager, 1);
-
-        if (event_manager.keyboard_manager.event[0].space_key.space)
-        {
-            pause_game(&game_manager);
-        }
-
-        if (event_manager.keyboard_manager.event[0].space_key.enter)
-        {
-            resume_game(&game_manager);
-        }
-
+        handle_events(&event_manager, game_manager.game_mode - 1);
         if (!is_game_paused(&game_manager))
         {
             update_game(&game_manager, &event_manager);
         }
-
-        if (is_game_paused(&game_manager))
+        else
         {
             draw_pause_screen(game_manager.views.pause_screen, event_manager.mouse_manager.position);
         }
