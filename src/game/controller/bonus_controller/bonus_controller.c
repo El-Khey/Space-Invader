@@ -49,9 +49,6 @@ void update_bonus(bonus_controller *controller)
 
         if (is_bonus_out_of_screen(controller->bonus[i]))
         {
-            printf("BONUS OUT OF SCREEN\n");
-            printf("\t->bonus_spawned : %d\n", controller->bonus_spawned);
-            printf("\t->i : %d\n", i);
             controller->bonus_spawned--;
             controller->bonus[i] = controller->bonus[controller->bonus_spawned];
         }

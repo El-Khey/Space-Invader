@@ -1,15 +1,20 @@
 #ifndef GAME_MANAGER_H
 #define GAME_MANAGER_H
 
+/** Controllers */
 #include "../../controller/collision_controller/collision_controller.h"
 #include "../../controller/asteroid_controller/asteroid_controller.h"
 #include "../../controller/bonus_controller/bonus_controller.h"
 #include "../../controller/enemy_controller.h"
 
+/** Models */
 #include "../../model/window/window.h"
 #include "../../model/player.h"
 
+/** Views */
 #include "../../view/settings_bar_view.h"
+#include "../../view/screens/pause_screen.h"
+#include "../../view/screens/game_over_screen.h"
 
 typedef struct
 {
@@ -20,8 +25,15 @@ typedef struct
 
 typedef struct
 {
-    Controllers controllers;
     settings_bar_view settings_bar_view;
+    PauseScreen pause_screen;
+    GameOverScreen game_over_screen;
+} Views;
+
+typedef struct
+{
+    Controllers controllers;
+    Views views;
 
     Window window;
     Players players;

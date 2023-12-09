@@ -18,12 +18,9 @@ void generate_asteroids(asteroid_controller *controller)
 {
     if (controller->last_asteroid_spawn_time + controller->delay_between_spawn < MLV_get_time() && controller->asteroid_spawned < controller->asteroid_spawn_count)
     {
-        printf("SPAWN ASTEROID\n");
-        printf("\t->asteroid_spawned : %d\n", controller->asteroid_spawned);
         controller->last_asteroid_spawn_time = MLV_get_time(); /** TODO: peut etre un prohleme sur les temps de spawn*/
         controller->asteroids[controller->asteroid_spawned] = construct_asteroid();
         controller->asteroid_spawned += 1;
-        printf("\t->GENERATE SPAWNED : %d\n", controller->asteroid_spawned);
     }
 }
 
@@ -64,9 +61,6 @@ void update_asteroids(asteroid_controller *controller)
 
         if (is_asteroid_out_of_screen(controller->asteroids[i]))
         {
-            printf("OUT OF SCREEN\n");
-            printf("asteroid_spawned : %d\n", controller->asteroid_spawned);
-            printf("id asteroid : %d\n", i);
             controller->asteroid_spawned -= 1;
             controller->asteroids[i] = controller->asteroids[controller->asteroid_spawned];
         }
