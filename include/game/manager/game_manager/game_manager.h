@@ -15,19 +15,7 @@
 #include "../../view/settings_bar_view.h"
 #include "../../view/screens/pause_screen.h"
 #include "../../view/screens/game_over_screen.h"
-
-typedef enum
-{
-    MODE_SOLO = 1,
-    MODE_MULTI
-} GameMode;
-
-typedef enum
-{
-    DIFFICULTY_EASY,
-    DIFFICULTY_MEDIUM,
-    DIFFICULTY_HARD
-} GameDifficulty;
+#include "./game_details.h"
 
 typedef struct
 {

@@ -18,6 +18,17 @@
         "enemy_controller.h": "c",
         "ship_customization_view.h": "c",
         "player_view.h": "c",
-        "players_controller.h": "c"
+        "players_controller.h": "c",
+        "menu.h": "c",
+        "difficulty_menu_page.h": "c",
+        "image.h": "c",
+        "asteroid_controller.h": "c",
+        "game_details.h": "c",
+        "input.h": "c",
+        "player.h": "c",
+        "map_selection_menu_page.h": "c",
+        "main_menu_page.h": "c",
+        "shape.h": "c",
+        "menu_controller.h": "c"
     }
 }

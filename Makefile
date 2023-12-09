@@ -2,7 +2,12 @@ CC = gcc
 CFLAGS = -g -W -Wall -std=c89 -pedantic -O2
 CLIBS = -lm -lMLV
 
-# List of object files
+# List of object files for the menu
+MENU = menu.o
+MENU_PAGES = main_menu_page.o difficulty_menu_page.o 
+MENU_CONTROLLERS = menu_controller.o
+
+# List of object files for the game
 MANAGER = event_manager.o keyboard_manager.o mouse_manager.o game_manager.o
 MODEL = window.o heros.o projectile.o enemy.o klaed.o nairan.o nautolan.o asteroid.o player.o bonus.o shield.o
 UTILS = utils.o dimension.o position.o animation.o image.o text.o hitbox.o
@@ -13,8 +18,8 @@ GUI = button.o shape.o temporary_message.o input.o
 
 all: build simple-clean
 
-build: main.o $(MODEL) $(UTILS) $(MANAGER) $(CONTROLLERS) $(VIEW) $(GUI)
-	$(CC) main.o $(MODEL) $(UTILS) $(MANAGER) $(CONTROLLERS) $(VIEW) $(GUI) -o main $(CLIBS)
+build: main.o $(MODEL) $(UTILS) $(MANAGER) $(CONTROLLERS) $(VIEW) $(GUI) $(MENU) $(MENU_PAGES) $(MENU_CONTROLLERS)
+	$(CC) main.o $(MODEL) $(UTILS) $(MANAGER) $(CONTROLLERS) $(VIEW) $(GUI) $(MENU) $(MENU_PAGES) $(MENU_CONTROLLERS) -o main $(CLIBS)
 
 # ----------- #
 # Main file 
@@ -22,6 +27,33 @@ build: main.o $(MODEL) $(UTILS) $(MANAGER) $(CONTROLLERS) $(VIEW) $(GUI)
 
 main.o: ./src/main.c
 	$(CC) $(CFLAGS) -c ./src/main.c
+
+
+
+# ------------------------- MENU ------------------------- #
+menu.o: ./src/menu/menu.c
+	$(CC) $(CFLAGS) -c ./src/menu/menu.c
+
+
+# ------------------ #
+# Pages
+# ------------------ #
+main_menu_page.o: ./src/menu/pages/main_menu_page.c
+	$(CC) $(CFLAGS) -c ./src/menu/pages/main_menu_page.c
+
+difficulty_menu_page.o: ./src/menu/pages/difficulty_menu_page.c
+	$(CC) $(CFLAGS) -c ./src/menu/pages/difficulty_menu_page.c
+
+
+# ------------------ #
+# Controllers
+# ------------------ #
+menu_controller.o: ./src/menu/controller/menu_controller.c
+	$(CC) $(CFLAGS) -c ./src/menu/controller/menu_controller.c
+
+
+
+# ------------------------- GAME ------------------------- #
 
 
 # ------------------ #
