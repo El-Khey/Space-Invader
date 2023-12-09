@@ -14,6 +14,7 @@
         "pause_screen.h": "c",
         "collision_controller.h": "c",
         "screens_controller.h": "c",
-        "game_manager.h": "c"
+        "game_manager.h": "c",
+        "enemy_controller.h": "c"
     }
 }

@@ -37,6 +37,7 @@ typedef struct
 {
     Image avatar;
     Text username;
+    Text score_text;
 
     LifeBar life_bar;
     EnergyBar energy_bar;
