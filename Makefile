@@ -1,18 +1,20 @@
 CC = gcc 
-CFLAGS = -W -Wall -std=c89 -pedantic -O2
+CFLAGS = -g -W -Wall -std=c89 -pedantic -O2
 CLIBS = -lm -lMLV
 
 # List of object files
-MANAGER = event_manager.o keyboard_manager.o mouse_manager.o
+MANAGER = event_manager.o keyboard_manager.o mouse_manager.o game_manager.o
 MODEL = window.o heros.o projectile.o enemy.o klaed.o nairan.o nautolan.o asteroid.o player.o bonus.o shield.o
 UTILS = utils.o dimension.o position.o animation.o image.o text.o hitbox.o
-CONTROLLERS = heros_controller.o enemy_controller.o projectile_controller.o collision_controller.o asteroid_controller.o players_controller.o bonus_controller.o
+CONTROLLERS = heros_controller.o enemy_controller.o projectile_controller.o collision_controller.o asteroid_controller.o players_controller.o bonus_controller.o screens_controller.o
+VIEW = player_view.o ship_customization_view.o settings_bar_view.o pause_screen.o game_over_screen.o
+GUI = button.o shape.o temporary_message.o input.o
 
 
 all: build simple-clean
 
-build: main.o $(MODEL) $(UTILS) $(MANAGER) $(CONTROLLERS)
-	$(CC) main.o $(MODEL) $(UTILS) $(MANAGER) $(CONTROLLERS) -o main $(CLIBS)
+build: main.o $(MODEL) $(UTILS) $(MANAGER) $(CONTROLLERS) $(VIEW) $(GUI)
+	$(CC) main.o $(MODEL) $(UTILS) $(MANAGER) $(CONTROLLERS) $(VIEW) $(GUI) -o main $(CLIBS)
 
 # ----------- #
 # Main file 
@@ -21,6 +23,25 @@ build: main.o $(MODEL) $(UTILS) $(MANAGER) $(CONTROLLERS)
 main.o: ./src/main.c
 	$(CC) $(CFLAGS) -c ./src/main.c
 
+
+# ------------------ #
+# Views
+# ------------------ #
+
+player_view.o: ./src/game/view/player_view.c
+	$(CC) $(CFLAGS) -c ./src/game/view/player_view.c
+
+ship_customization_view.o: ./src/game/view/ship_customization_view.c
+	$(CC) $(CFLAGS) -c ./src/game/view/ship_customization_view.c
+
+settings_bar_view.o: ./src/game/view/settings_bar_view.c
+	$(CC) $(CFLAGS) -c ./src/game/view/settings_bar_view.c
+
+pause_screen.o: ./src/game/view/screens/pause_screen.c
+	$(CC) $(CFLAGS) -c ./src/game/view/screens/pause_screen.c
+
+game_over_screen.o: ./src/game/view/screens/game_over_screen.c
+	$(CC) $(CFLAGS) -c ./src/game/view/screens/game_over_screen.c
 
 # ------------------ #
 # Models
@@ -88,6 +109,9 @@ hitbox.o: ./src/utils/hitbox/hitbox.c
 # Manager
 # ------------------ #
 
+game_manager.o: ./src/game/manager/game_manager/game_manager.c
+	$(CC) $(CFLAGS) -c ./src/game/manager/game_manager/game_manager.c
+
 event_manager.o: ./src/game/manager/event_manager/event_manager.c
 	$(CC) $(CFLAGS) -c ./src/game/manager/event_manager/event_manager.c
 
@@ -122,6 +146,25 @@ players_controller.o: ./src/game/controller/players_controller.c
 
 bonus_controller.o: ./src/game/controller/bonus_controller/bonus_controller.c
 	$(CC) $(CFLAGS) -c ./src/game/controller/bonus_controller/bonus_controller.c
+
+screens_controller.o: ./src/game/controller/view_controller/screens_controller.c
+	$(CC) $(CFLAGS) -c ./src/game/controller/view_controller/screens_controller.c
+
+# ------------------ #
+# GUI
+# ------------------ #
+
+button.o: ./src/gui/button/button.c
+	$(CC) $(CFLAGS) -c ./src/gui/button/button.c
+
+shape.o: ./src/gui/shape/shape.c
+	$(CC) $(CFLAGS) -c ./src/gui/shape/shape.c
+
+temporary_message.o: ./src/gui/label/temporary_message.c
+	$(CC) $(CFLAGS) -c ./src/gui/label/temporary_message.c
+
+input.o: ./src/gui/input/input.c
+	$(CC) $(CFLAGS) -c ./src/gui/input/input.c
 
 # simple-clean removes all the .o files
 simple-clean:

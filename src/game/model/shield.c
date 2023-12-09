@@ -21,26 +21,30 @@ static void initialize_shield_from_type(Shield *shield)
     {
     case SHIELD_ALL_AROUND:
         shield->animation = construct_animation("assets/sprites/Ships/MainShip/Shields/All around.png", 12, shield->dimension, FORWARD);
-        shield->active_time = MLV_get_time() + 10000;
+        shield->shield_duration = 10000;
+        shield->active_time = MLV_get_time() + shield->shield_duration;
         shield->is_active = 1;
 
         break;
 
     case SHIELD_FRONT_AND_SIDE:
         shield->animation = construct_animation("assets/sprites/Ships/MainShip/Shields/Front and Side.png", 6, shield->dimension, FORWARD);
-        shield->active_time = MLV_get_time() + 1000;
+        shield->shield_duration = 10000;
+        shield->active_time = MLV_get_time() + shield->shield_duration;
         shield->is_active = 1;
 
         break;
     case SHIELD_FRONT:
         shield->animation = construct_animation("assets/sprites/Ships/MainShip/Shields/Front.png", 10, shield->dimension, FORWARD);
-        shield->active_time = MLV_get_time() + 7000;
+        shield->shield_duration = 10000;
+        shield->active_time = MLV_get_time() + shield->shield_duration;
         shield->is_active = 1;
 
         break;
     case SHIELD_INVINCIBILITY:
         shield->animation = construct_animation("assets/sprites/Ships/MainShip/Shields/Invincibility.png", 10, shield->dimension, FORWARD);
-        shield->active_time = MLV_get_time() + 10000;
+        shield->shield_duration = 10000;
+        shield->active_time = MLV_get_time() + shield->shield_duration;
         shield->is_active = 1;
 
         break;

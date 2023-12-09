@@ -32,7 +32,7 @@ static void initialize_heros_projectiles_from_weapon_type(Projectile *projectile
         projectile->list.bullets_count = 2;
         projectile->active_bullet_type = AUTO_CANNON;
 
-        projectile->damage = 25;
+        projectile->damage = 2000;
         projectile->speed = 5;
         projectile->delay_fire_bullet = 150;
 
@@ -55,7 +55,7 @@ static void initialize_heros_projectiles_from_weapon_type(Projectile *projectile
         projectile->list.bullets_count = 2;
         projectile->active_bullet_type = BIG_SPACE;
 
-        projectile->damage = 25;
+        projectile->damage = 1;
         projectile->speed = 5;
         projectile->delay_fire_bullet = 150;
 
@@ -78,7 +78,7 @@ static void initialize_heros_projectiles_from_weapon_type(Projectile *projectile
         projectile->list.bullets_count = 6;
         projectile->active_bullet_type = ROCKETS;
 
-        projectile->damage = 25;
+        projectile->damage = 1;
         projectile->speed = 5;
         projectile->delay_fire_bullet = 150;
 
@@ -129,7 +129,7 @@ static void initialize_heros_projectiles_from_weapon_type(Projectile *projectile
         projectile->list.bullets_count = 2;
         projectile->active_bullet_type = ZAPPER;
 
-        projectile->damage = 25;
+        projectile->damage = 1;
         projectile->speed = 5;
         projectile->delay_fire_bullet = 150;
 
@@ -176,7 +176,7 @@ static void initialize_enemy_projectiles_from_weapon_type(Projectile *projectile
         projectile->list.bullets_count = 1;
         projectile->active_bullet_type = RED_RAY;
 
-        projectile->damage = 25;
+        projectile->damage = 1;
         projectile->speed = 5;
         projectile->delay_fire_bullet = 150;
 
@@ -193,7 +193,7 @@ static void initialize_enemy_projectiles_from_weapon_type(Projectile *projectile
             projectile->list.bullets_count = 1;
             projectile->active_bullet_type = RED_BULLET;
 
-            projectile->damage = 25;
+            projectile->damage = 1;
             projectile->speed = 5;
             projectile->delay_fire_bullet = 150;
 

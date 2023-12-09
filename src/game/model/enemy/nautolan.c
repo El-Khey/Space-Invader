@@ -6,8 +6,9 @@ void initialize_nautolan_enemy(Enemy *enemy)
     {
     case BATTLECRUISER:
         enemy->speed = 2;
-        enemy->damage = 10;
+        enemy->damage = 1;
         enemy->health = 100;
+        enemy->score = 100;
 
         enemy->list.active_bullet_type = RED_RAY;
 
@@ -20,8 +21,9 @@ void initialize_nautolan_enemy(Enemy *enemy)
         /**
     case BOMBER:
         enemy->speed = 2;
-        enemy->damage = 10;
+        enemy->damage = 1;
         enemy->health = 100;
+        enemy->score = 100;
 
         enemy->list.active_bullet_type = RED_BIG_BULLET;
 
@@ -33,8 +35,9 @@ void initialize_nautolan_enemy(Enemy *enemy)
         break;
     case DREADNOUGHT:
         enemy->speed = 3;
-        enemy->damage = 10;
+        enemy->damage = 1;
         enemy->health = 100;
+        enemy->score = 100;
 
         enemy->list.active_bullet_type = RED_BIG_BULLET;
 
@@ -46,8 +49,9 @@ void initialize_nautolan_enemy(Enemy *enemy)
         break;
     case FIGHTER:
         enemy->speed = 4;
-        enemy->damage = 10;
+        enemy->damage = 1;
         enemy->health = 100;
+        enemy->score = 100;
 
         enemy->list.active_bullet_type = RED_BIG_BULLET;
 
@@ -59,8 +63,9 @@ void initialize_nautolan_enemy(Enemy *enemy)
         break;
     case FRIGATE:
         enemy->speed = 5;
-        enemy->damage = 10;
+        enemy->damage = 1;
         enemy->health = 100;
+        enemy->score = 100;
 
         enemy->list.active_bullet_type = RED_BIG_BULLET;
 
@@ -72,8 +77,9 @@ void initialize_nautolan_enemy(Enemy *enemy)
         break;
     case SCOUT:
         enemy->speed = 6;
-        enemy->damage = 10;
+        enemy->damage = 1;
         enemy->health = 100;
+        enemy->score = 100;
 
         enemy->list.active_bullet_type = RED_BIG_BULLET;
 
@@ -85,8 +91,9 @@ void initialize_nautolan_enemy(Enemy *enemy)
         break;
     case SUPPORT:
         enemy->speed = 7;
-        enemy->damage = 10;
+        enemy->damage = 1;
         enemy->health = 100;
+        enemy->score = 100;
 
         enemy->list.active_bullet_type = RED_BIG_BULLET;
 
@@ -98,8 +105,9 @@ void initialize_nautolan_enemy(Enemy *enemy)
         break;
     case TORPEDO:
         enemy->speed = 8;
-        enemy->damage = 10;
+        enemy->damage = 1;
         enemy->health = 100;
+        enemy->score = 100;
 
         enemy->list.active_bullet_type = RED_BIG_BULLET;
 

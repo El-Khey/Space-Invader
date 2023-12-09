@@ -66,9 +66,11 @@ typedef struct
     int health;
 } Heros;
 
-Heros construct_heros();
+Heros construct_heros(Position position, Dimension dimension);
 
 void update_heros_active_ship(Heros *heros);
+
+int is_heros_alive(Heros heros);
 
 void draw_heros(Heros heros);
 

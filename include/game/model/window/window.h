@@ -28,6 +28,12 @@ typedef struct
     Position position;
 
     AnimatedBackground animated_backgrounds[NUMBER_OF_BACKGROUNDS];
+
+    int elapsed_time;
+
+    int start_pause_time;
+    int end_pause_time;
+    int total_pause_time;
 } Window;
 
 Window construct_window();

@@ -3,13 +3,13 @@
 static void initialize_engine_animations(EngineAnimation *engine_animations, Dimension dimension);
 static void initialize_weapon_animation(Heros *heros, Dimension dimension);
 
-Heros construct_heros()
+Heros construct_heros(Position position, Dimension dimension)
 {
     Heros heros;
     int hitbox_width, hitbox_height, hitbox_x, hitbox_y;
 
-    heros.dimension = construct_dimension(150, 150);
-    heros.position = construct_position(WINDOW_WIDTH / 2 - get_width(heros.dimension) / 2, WINDOW_HEIGHT - get_height(heros.dimension) - 25);
+    heros.dimension = dimension;
+    heros.position = position;
 
     hitbox_width = get_width(heros.dimension) - 50;
     hitbox_height = get_height(heros.dimension) - 50;
@@ -37,7 +37,7 @@ Heros construct_heros()
     heros.active_weapon = AUTO_CANNON;
 
     heros.is_firing = 0;
-    heros.health = 100;
+    heros.health = MAX_PLAYER_LIFE;
 
     heros.shield = construct_shield(SHIELD_NONE, heros.position, heros.dimension);
     return heros;
@@ -93,15 +93,19 @@ static void draw_heros_projectiles(Projectiles list)
 
 void update_heros_active_ship(Heros *heros)
 {
-    if (heros->health <= 75 && heros->health > 50)
+    if (heros->health <= MAX_PLAYER_LIFE && heros->health > MAX_PLAYER_LIFE * 0.75)
+    {
+        heros->active_ship = FULL_HEALTH;
+    }
+    else if (heros->health <= MAX_PLAYER_LIFE * 0.75 && heros->health > MAX_PLAYER_LIFE * 0.5)
     {
         heros->active_ship = SLIGHTLY_DAMAGED;
     }
-    else if (heros->health <= 50 && heros->health > 25)
+    else if (heros->health <= MAX_PLAYER_LIFE * 0.5 && heros->health > MAX_PLAYER_LIFE * 0.25)
     {
         heros->active_ship = DAMAGED;
     }
-    else if (heros->health <= 25 && heros->health > 0)
+    else if (heros->health <= MAX_PLAYER_LIFE * 0.25 && heros->health > 0)
     {
         heros->active_ship = VERY_DAMAGED;
     }
@@ -109,6 +113,11 @@ void update_heros_active_ship(Heros *heros)
     {
         heros->active_ship = FULL_HEALTH;
     }
+}
+
+int is_heros_alive(Heros heros)
+{
+    return heros.health > 0;
 }
 
 void draw_heros(Heros heros)

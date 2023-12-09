@@ -43,4 +43,13 @@ int is_position_with_dimension_inside_rect(Position pos, Dimension dim, Position
  */
 char *convert_int_to_string(int number);
 
+/**
+ * @brief Concatenate two strings
+ *
+ * @param s1 The first string
+ * @param s2 The second string
+ * @return char*
+ */
+char *concat(char *s1, char *s2);
+
 #endif
