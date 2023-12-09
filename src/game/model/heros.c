@@ -115,6 +115,11 @@ void update_heros_active_ship(Heros *heros)
     }
 }
 
+int is_heros_alive(Heros heros)
+{
+    return heros.health > 0;
+}
+
 void draw_heros(Heros heros)
 {
     draw_heros_projectiles(heros.list);

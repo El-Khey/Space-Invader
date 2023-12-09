@@ -18,7 +18,6 @@ typedef struct
 
     int id;
     int score;
-    int lives;
     int gold;
 
     char username[LEN_USERNAME_MAX];

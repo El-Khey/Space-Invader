@@ -33,6 +33,7 @@ Players construct_players(Player player_1, Player player_2)
     players.players[player_2.id] = player_2;
 
     players.nb_players = 2;
+
     return players;
 }
 

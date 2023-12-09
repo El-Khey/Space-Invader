@@ -113,14 +113,18 @@ void update_enemies(enemy_controller *controller, Players *players)
         {
             controller->enemy_spawned--;
             controller->enemies[j] = controller->enemies[controller->enemy_spawned];
-
-            /**
-             * TODO: enelver une vie au joeur quand un enemy traverse l'ecran
-             */
+            for (i = 0; i < players->nb_players; i++)
+            {
+                players->players[i].heros.health -= 1;
+            }
         }
 
         for (i = 0; i < players->nb_players; i++)
         {
+            if (!is_heros_alive(players->players[i].heros))
+            {
+                continue;
+            }
             handle_enemy_attacks(&controller->enemies[j], players->players[i].heros);
         }
     }

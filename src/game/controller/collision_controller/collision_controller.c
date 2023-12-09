@@ -212,6 +212,11 @@ void handle_heros_collision(Players *players, enemy_controller *enemy_controller
     int i = 0;
     for (; i < players->nb_players; i++)
     {
+        if (!is_heros_alive(players->players[i].heros))
+        {
+            continue;
+        }
+
         handle_heros_enemy_collision(&players->players[i], enemy_controller);
         handle_heros_bonus_collision(&players->players[i], bonus_controller);
         handle_heros_asteroid_collision(&players->players[i], asteroid_controller);

@@ -16,6 +16,12 @@
 #include "../../view/screens/pause_screen.h"
 #include "../../view/screens/game_over_screen.h"
 
+typedef enum
+{
+    MODE_SOLO = 1,
+    MODE_MULTI
+} GameMode;
+
 typedef struct
 {
     enemy_controller enemy_controller;

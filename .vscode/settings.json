@@ -15,6 +15,8 @@
         "collision_controller.h": "c",
         "screens_controller.h": "c",
         "game_manager.h": "c",
-        "enemy_controller.h": "c"
+        "enemy_controller.h": "c",
+        "ship_customization_view.h": "c",
+        "player_view.h": "c"
     }
 }

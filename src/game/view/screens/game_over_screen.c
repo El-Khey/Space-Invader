@@ -37,8 +37,8 @@ void draw_game_over_screen(GameOverScreen game_over_screen, Position mouse_posit
     draw_rectangle(game_over_screen.background_filter);
     draw_text(game_over_screen.title);
 
-    draw_filled_button_with_hover_effect(game_over_screen.restart_button, mouse_position, MLV_COLOR_WHITE, BUTTON_COLOR);
-    draw_filled_button_with_hover_effect(game_over_screen.back_to_menu_button, mouse_position, MLV_COLOR_WHITE, BUTTON_COLOR);
+    draw_filled_button_with_hover_effect(game_over_screen.restart_button, mouse_position, MLV_COLOR_WHITE, PRIMARY_GRAY_COLOR);
+    draw_filled_button_with_hover_effect(game_over_screen.back_to_menu_button, mouse_position, MLV_COLOR_WHITE, PRIMARY_GRAY_COLOR);
 }
 
 void free_game_over_screen(GameOverScreen *game_over_screen)

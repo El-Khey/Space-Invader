@@ -116,6 +116,11 @@ void update_players(GameManager *game_manager, EventManager event_manager)
 
     for (; i < game_manager->players.nb_players; i++)
     {
+        if (!is_heros_alive(game_manager->players.players[i].heros))
+        {
+            continue;
+        }
+
         handle_heros_actions(&game_manager->players.players[i], event_manager);
         handle_player_projectiles(&game_manager->players.players[i], event_manager);
 

@@ -50,7 +50,15 @@ void update_game(GameManager *game_manager, EventManager *event_manager)
 
 void restart_game(GameManager *game_manager)
 {
-    game_manager->players = construct_players(construct_player(0, "zestones"), construct_player(1, "zsigmondy"));
+    if (game_manager->players.nb_players == MODE_MULTI)
+    {
+        game_manager->players = construct_players(construct_player(0, game_manager->players.players[0].username),
+                                                  construct_player(1, game_manager->players.players[1].username));
+    }
+    else
+    {
+        game_manager->players.players[0] = construct_player(0, game_manager->players.players[0].username);
+    }
 
     game_manager->controllers.enemy_controller = construct_enemy_controller();
     game_manager->controllers.asteroid_controller = construct_asteroid_controller();
@@ -94,7 +102,7 @@ int is_game_over(GameManager *game_manager)
     int i = 0;
     for (; i < game_manager->players.nb_players; i++)
     {
-        if (game_manager->players.players[i].lives > 0)
+        if (game_manager->players.players[i].heros.health > 0)
         {
             return 0;
         }

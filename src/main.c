@@ -56,9 +56,16 @@ static void launch_game()
             draw_pause_screen(game_manager.views.pause_screen, event_manager.mouse_manager.position);
         }
 
+        if (is_game_over(&game_manager))
+        {
+            draw_game_over_screen(game_manager.views.game_over_screen, event_manager.mouse_manager.position);
+        }
+
         handle_settings_action(&game_manager, event_manager.mouse_manager);
         draw_settings_bar_view(&game_manager.views.settings_bar_view, game_manager.window.elapsed_time);
+
         handle_pause_screen_events(&game_manager, game_manager.views.pause_screen, event_manager.mouse_manager);
+        handle_game_over_screen_events(&game_manager, game_manager.views.game_over_screen, event_manager.mouse_manager);
 
         MLV_delay_according_to_frame_rate();
         MLV_actualise_window();
