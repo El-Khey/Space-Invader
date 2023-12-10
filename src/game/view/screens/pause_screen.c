@@ -48,3 +48,12 @@ void draw_pause_screen(PauseScreen pause_screen, Position mouse_position)
     draw_filled_button_with_hover_effect(pause_screen.save_and_quit_button, mouse_position, MLV_COLOR_WHITE, PRIMARY_GRAY_COLOR);
     draw_filled_button_with_hover_effect(pause_screen.quit_button, mouse_position, MLV_COLOR_WHITE, PRIMARY_GRAY_COLOR);
 }
+
+void free_pause_screen(PauseScreen *pause_screen)
+{
+    free_button_text(&pause_screen->quit_button);
+    free_button_text(&pause_screen->resume_button);
+    free_button_text(&pause_screen->save_and_quit_button);
+
+    free_text(&pause_screen->title);
+}

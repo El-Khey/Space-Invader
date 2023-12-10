@@ -32,4 +32,6 @@ void load_shield_backup(Shield *shield);
 
 void draw_shield(Shield shield);
 
+void free_shield(Shield *shield);
+
 #endif

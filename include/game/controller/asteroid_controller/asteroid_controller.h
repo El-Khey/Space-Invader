@@ -7,11 +7,11 @@
 #include "../../model/heros.h"
 #include "../../../utils/utils.h"
 
-#define MAX_ASTEROID_SPAWN_COUNT 4
+#define MAX_ASTEROID_SPAWN_COUNT 1
 
 typedef struct
 {
-    Asteroid asteroids[MAX_ASTEROID_SPAWN_COUNT];
+    Asteroid *asteroids;
 
     int asteroid_spawn_count; /** The number of asteroid to spawn */
     int asteroid_spawned;     /** The number of asteroid spawned */
@@ -25,5 +25,7 @@ asteroid_controller construct_asteroid_controller();
 void generate_asteroids(asteroid_controller *controller);
 
 void update_asteroids(asteroid_controller *controller);
+
+void free_asteroid_controller(asteroid_controller *controller);
 
 #endif

@@ -37,4 +37,6 @@ int is_bonus_selected(Bonus bonus);
 
 void draw_bonus(Bonus bonus);
 
+void free_bonus(Bonus *bonus);
+
 #endif

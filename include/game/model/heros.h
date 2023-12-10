@@ -76,4 +76,6 @@ int is_heros_alive(Heros heros);
 
 void draw_heros(Heros heros);
 
+void free_heros(Heros *heros);
+
 #endif

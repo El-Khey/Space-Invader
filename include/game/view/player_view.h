@@ -47,4 +47,6 @@ typedef struct
 
 PlayerView construct_player_view(int player_id);
 
+void free_player_view(PlayerView *player_view);
+
 #endif

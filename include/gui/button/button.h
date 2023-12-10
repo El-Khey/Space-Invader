@@ -131,17 +131,24 @@ void draw_button_text(Button button);
 void draw_button_animation(Button button);
 
 /**
- * @brief
+ * @brief Free the button image
  *
- * @param button
+ * @param button The button to free the image of
  */
 void free_button_image(Button *button);
 
 /**
- * @brief
+ * @brief Free the button text
  *
- * @param button
+ * @param button The button to free the text of
  */
 void free_button_text(Button *button);
+
+/**
+ * @brief Free the button animation
+ *
+ * @param button The button to free the animation of
+ */
+void free_button_animation(Button *button);
 
 #endif

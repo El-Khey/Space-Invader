@@ -52,4 +52,6 @@ int get_engine_price(int engine_type);
 
 void draw_ship_customization(ShipCustomizationView ship_customization, Position mouse_position);
 
+void free_ship_customization(ShipCustomizationView *ship_customization);
+
 #endif

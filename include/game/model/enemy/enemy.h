@@ -89,4 +89,6 @@ void move_enemy(Enemy *enemy);
 
 void draw_enemy(Enemy enemy);
 
+void free_enemy(Enemy *enemy);
+
 #endif

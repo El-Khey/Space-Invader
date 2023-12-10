@@ -80,3 +80,14 @@ void update_background_position(Window *window)
         draw_animation(window->animated_backgrounds[0].layer_03_stars, window->animated_backgrounds[0].layers_position);
     }
 }
+
+void free_window(Window *window)
+{
+    int i;
+    for (i = 0; i < NUMBER_OF_BACKGROUNDS; i++)
+    {
+        free_animation(&window->animated_backgrounds[i].layer_01_void);
+        free_animation(&window->animated_backgrounds[i].layer_02_stars);
+        free_animation(&window->animated_backgrounds[i].layer_03_stars);
+    }
+}

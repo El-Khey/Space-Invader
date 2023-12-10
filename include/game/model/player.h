@@ -41,4 +41,6 @@ void set_players_health(Players *players, int health);
 
 void draw_player(Player player);
 
+void free_players(Players *players);
+
 #endif

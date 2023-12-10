@@ -144,3 +144,13 @@ static void initialize_view_player_1(PlayerView *player_view)
                       construct_position(get_x(player_view->gold.gold_image.position) - get_width(player_view->gold.gold_image.dimension) - 15 - get_text_width(player_view->gold.gold_text),
                                          get_y(player_view->gold.gold_image.position) + get_height(player_view->gold.gold_image.dimension) / 2 - get_text_height(player_view->gold.gold_text) / 2));
 }
+
+void free_player_view(PlayerView *player_view)
+{
+    free_image(&player_view->avatar);
+    free_text(&player_view->username);
+    free_text(&player_view->score_text);
+
+    free_image(&player_view->gold.gold_image);
+    free_text(&player_view->gold.gold_text);
+}

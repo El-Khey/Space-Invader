@@ -116,22 +116,20 @@ static void save_scores(Players players, char *filename)
 
 void quit_game(GameManager *game_manager)
 {
-    time_t current_time;
-    struct tm *local_time;
-    char timestamp[64];
-    char filename[256];
+    free_players(&game_manager->players);
 
-    time(&current_time);
-    local_time = localtime(&current_time);
+    free_enemy_controller(&game_manager->controllers.enemy_controller);
+    free_bonus_controller(&game_manager->controllers.bonus_controller);
+    free_asteroid_controller(&game_manager->controllers.asteroid_controller);
 
-    /** Format the timestamp as part of the filename (e.g., "save_YYYYMMDD_HHMMSS.bin") */
-    strftime(timestamp, sizeof(timestamp), "save_%Y%m%d_%H%M%S.bin", local_time);
+    free_settings_bar_view(&game_manager->views.settings_bar_view);
+    free_game_over_screen(&game_manager->views.game_over_screen);
+    free_pause_screen(&game_manager->views.pause_screen);
 
-    /** Construct the full filename with the timestamp */
-    sprintf(filename, ".bin/scores/%s", timestamp);
+    free_window(&game_manager->window);
 
-    /** Save the game using the unique filename */
-    save_scores(game_manager->players, filename);
+    printf("> Game manager freed\n");
+    save_scores(game_manager->players, "./.bin/scores/scores.bin");
     game_manager->quit_game = 1;
 }
 

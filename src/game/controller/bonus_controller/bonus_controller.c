@@ -4,6 +4,7 @@
 bonus_controller construct_bonus_controller()
 {
     bonus_controller bonus_controller;
+    bonus_controller.bonus = (Bonus *)malloc(sizeof(Bonus) * MAX_BONUS_SPAWN_COUNT);
 
     bonus_controller.last_bonus_spawn_time = 0;
     bonus_controller.delay_between_spawn = 2000;
@@ -53,4 +54,15 @@ void update_bonus(bonus_controller *controller)
             controller->bonus[i] = controller->bonus[controller->bonus_spawned];
         }
     }
+}
+
+void free_bonus_controller(bonus_controller *controller)
+{
+    int i = 0;
+    for (; i < controller->bonus_spawned; i++)
+    {
+        free_bonus(&controller->bonus[i]);
+    }
+
+    free(controller->bonus);
 }

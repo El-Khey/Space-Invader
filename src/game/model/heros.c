@@ -151,3 +151,31 @@ void draw_heros(Heros heros)
 
     draw_shield(heros.shield);
 }
+
+void free_heros(Heros *heros)
+{
+    int i;
+    for (i = 0; i < nb_ship_health_state; i++)
+    {
+        free_animation(&heros->ship[i]);
+    }
+
+    for (i = 0; i < nb_engine_animations; i++)
+    {
+        free_animation(&heros->engine_animations[i].engine);
+        free_animation(&heros->engine_animations[i].engine_effect_idle);
+        free_animation(&heros->engine_animations[i].engine_effect_boost);
+    }
+
+    free_animation(&heros->weapons_animations[AUTO_CANNON].weapon_shooting);
+    free_animation(&heros->weapons_animations[BIG_SPACE].weapon_shooting);
+    free_animation(&heros->weapons_animations[ROCKETS].weapon_shooting);
+    free_animation(&heros->weapons_animations[ZAPPER].weapon_shooting);
+
+    for (i = 0; i < heros->list.projectiles_count; i++)
+    {
+        free_projectile(&heros->list.projectiles[i]);
+    }
+
+    free_shield(&heros->shield);
+}

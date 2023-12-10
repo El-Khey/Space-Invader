@@ -39,7 +39,6 @@ typedef struct
 Window construct_window();
 
 void update_background_position(Window *window);
-
 /**
  * @brief Load the window backup
  * This function is used to load the window animation when the game is started from a backup.
@@ -47,5 +46,12 @@ void update_background_position(Window *window);
  * @param window The window
  */
 void load_window_backup(Window *window);
+
+/**
+ * @brief Free the window
+ *
+ * @param window The window to free
+ */
+void free_window(Window *window);
 
 #endif

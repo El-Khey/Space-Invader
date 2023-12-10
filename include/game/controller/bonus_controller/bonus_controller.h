@@ -7,11 +7,11 @@
 #include "../../../utils/utils.h"
 #include "../../model/heros.h"
 
-#define MAX_BONUS_SPAWN_COUNT 2
+#define MAX_BONUS_SPAWN_COUNT 1
 
 typedef struct
 {
-    Bonus bonus[MAX_BONUS_SPAWN_COUNT];
+    Bonus *bonus;
 
     int bonus_spawn_count; /** The number of bonus to spawn */
     int bonus_spawned;     /** The number of bonus spawned */
@@ -25,5 +25,7 @@ bonus_controller construct_bonus_controller();
 void generate_bonus(bonus_controller *controller);
 
 void update_bonus(bonus_controller *controller);
+
+void free_bonus_controller(bonus_controller *controller);
 
 #endif

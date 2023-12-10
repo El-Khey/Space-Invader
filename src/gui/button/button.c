@@ -93,16 +93,6 @@ int is_button_clicked(Button button, MouseManager mouse_manager)
     return is_button_hovered(button, get_mouse_position(mouse_manager)) && is_left_button_clicked(mouse_manager);
 }
 
-void free_button_image(Button *button)
-{
-    free_image(&button->image);
-}
-
-void free_button_text(Button *button)
-{
-    free_text(&button->text);
-}
-
 void draw_button_image(Button button)
 {
     draw_image(&button.image);
@@ -116,4 +106,19 @@ void draw_button_animation(Button button)
 void draw_button_text(Button button)
 {
     draw_text(button.text);
+}
+
+void free_button_image(Button *button)
+{
+    free_image(&button->image);
+}
+
+void free_button_text(Button *button)
+{
+    free_text(&button->text);
+}
+
+void free_button_animation(Button *button)
+{
+    free_animation(&button->animation);
 }

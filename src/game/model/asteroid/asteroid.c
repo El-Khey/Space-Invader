@@ -52,3 +52,13 @@ void draw_asteroid(Asteroid asteroid)
         draw_animation(asteroid.effect_animation, asteroid.position);
     }
 }
+
+void free_asteroid(Asteroid *asteroid)
+{
+    int i = 0;
+    for (; i < nb_asteroid_animation; i++)
+    {
+        free_animation(&asteroid->animation[i]);
+    }
+    free_animation(&asteroid->effect_animation);
+}

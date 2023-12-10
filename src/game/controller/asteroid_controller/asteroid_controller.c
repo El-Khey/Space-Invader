@@ -4,6 +4,7 @@
 asteroid_controller construct_asteroid_controller()
 {
     asteroid_controller asteroid_controller;
+    asteroid_controller.asteroids = (Asteroid *)malloc(sizeof(Asteroid) * MAX_ASTEROID_SPAWN_COUNT);
 
     asteroid_controller.last_asteroid_spawn_time = 0;
     asteroid_controller.delay_between_spawn = 3000;
@@ -65,4 +66,15 @@ void update_asteroids(asteroid_controller *controller)
             controller->asteroids[i] = controller->asteroids[controller->asteroid_spawned];
         }
     }
+}
+
+void free_asteroid_controller(asteroid_controller *controller)
+{
+    int i = 0;
+    for (; i < controller->asteroid_spawned; i++)
+    {
+        free_asteroid(&controller->asteroids[i]);
+    }
+
+    free(controller->asteroids);
 }
