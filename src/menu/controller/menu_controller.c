@@ -61,6 +61,7 @@ static void handle_backup_menu_events(MenuPage *menu, MouseManager mouse_manager
     if (is_button_clicked(menu->backup_menu.button_back, mouse_manager))
     {
         menu->type = MAIN_MENU;
+        return;
     }
 
     for (; i < menu->backup_menu.backups_count; i++)
@@ -90,7 +91,9 @@ void handle_menu_events(MenuPage *menu_page, MouseManager mouse_manager)
     case SAVE_MENU:
         handle_backup_menu_events(menu_page, mouse_manager);
         break;
+
     default:
+        fprintf(stderr, "Unknown menu type : %d\n", menu_page->type);
         break;
     }
 }

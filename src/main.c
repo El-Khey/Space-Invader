@@ -106,8 +106,6 @@ static void update_menu(MenuPage *menu_page)
     menu_page->backup_menu = construct_backup_menu_page(backup_manager);
     MLV_change_frame_rate(60);
 
-    printf("Menu page type : %d\n", menu_page->type);
-
     while (menu_page->type != GAME_START)
     {
         draw_menu_page(*menu_page, get_mouse_position(mouse_manager));
