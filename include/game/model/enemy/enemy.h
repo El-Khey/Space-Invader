@@ -1,8 +1,6 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
-#define MAX_ENEMYS 20
-
 #include <stdio.h>
 #include <stdlib.h>
 

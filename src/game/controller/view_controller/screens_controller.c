@@ -12,6 +12,7 @@ void handle_pause_screen_events(GameManager *game_manager, PauseScreen pause_scr
     }
     else if (is_button_clicked(pause_screen.save_and_quit_button, mouse_manager))
     {
+        printf("> Saving game...\n");
         save_game(game_manager, backup_manager.backups_count);
         quit_game(game_manager);
     }
@@ -21,9 +22,6 @@ void handle_game_over_screen_events(GameManager *game_manager, GameOverScreen ga
 {
     if (is_button_clicked(game_over_screen.back_to_menu_button, mouse_manager))
     {
-        /**
-         * TODO: Back to menu
-         */
         quit_game(game_manager);
     }
     else if (is_button_clicked(game_over_screen.restart_button, mouse_manager))

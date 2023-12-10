@@ -94,7 +94,6 @@ static void launch_game(MenuPage *menu_page, BackupManager backup_manager)
         MLV_actualise_window();
     }
 
-    free_backup_manager(&backup_manager);
     menu_page->type = MAIN_MENU;
     update_menu(menu_page);
 }
@@ -102,12 +101,13 @@ static void launch_game(MenuPage *menu_page, BackupManager backup_manager)
 static void update_menu(MenuPage *menu_page)
 {
     MouseManager mouse_manager = construct_mouse_manager();
-    /***
-     */
-
     BackupManager backup_manager = construct_backup_manager();
+
     menu_page->backup_menu = construct_backup_menu_page(backup_manager);
     MLV_change_frame_rate(60);
+
+    printf("Menu page type : %d\n", menu_page->type);
+
     while (menu_page->type != GAME_START)
     {
         draw_menu_page(*menu_page, get_mouse_position(mouse_manager));

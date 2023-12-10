@@ -7,11 +7,11 @@
 #include "../../utils/utils.h"
 #include "../model/player.h"
 
-#define MAX_ENEMY_SPAWN_COUNT 1000
+#define MAX_ENEMY_SPAWN_COUNT 3
 
 typedef struct
 {
-    Enemy *enemies;
+    Enemy enemies[MAX_ENEMY_SPAWN_COUNT]; /** The list of enemies */
 
     int enemy_spawn_count; /** The number of enemy to spawn */
     int enemy_spawned;     /** The number of enemy spawned */

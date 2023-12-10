@@ -6,7 +6,7 @@
 #include "../../utils/position/position.h"
 #include "../../utils/hitbox/hitbox.h"
 
-#define MAX_PROJECTILES 50
+#define MAX_PROJECTILES 15
 #define MAX_BULLETS 7
 
 typedef enum

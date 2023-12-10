@@ -7,11 +7,11 @@
 #include "../../../utils/utils.h"
 #include "../../model/heros.h"
 
-#define MAX_BONUS_SPAWN_COUNT 1
+#define MAX_BONUS_SPAWN_COUNT 2
 
 typedef struct
 {
-    Bonus *bonus;
+    Bonus bonus[MAX_BONUS_SPAWN_COUNT]; /** The list of bonus */
 
     int bonus_spawn_count; /** The number of bonus to spawn */
     int bonus_spawned;     /** The number of bonus spawned */

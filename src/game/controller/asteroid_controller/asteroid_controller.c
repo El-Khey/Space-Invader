@@ -4,7 +4,6 @@
 asteroid_controller construct_asteroid_controller()
 {
     asteroid_controller asteroid_controller;
-    asteroid_controller.asteroids = (Asteroid *)malloc(sizeof(Asteroid) * MAX_ASTEROID_SPAWN_COUNT);
 
     asteroid_controller.last_asteroid_spawn_time = 0;
     asteroid_controller.delay_between_spawn = 3000;

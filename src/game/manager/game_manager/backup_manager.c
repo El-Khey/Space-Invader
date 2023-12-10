@@ -24,6 +24,7 @@ void save_game(GameManager *game, int slot)
     {
         return;
     }
+
     backup.game_state = *game;
     backup.timestamp = time(NULL);
     backup.slot = slot;

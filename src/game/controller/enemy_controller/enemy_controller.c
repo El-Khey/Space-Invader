@@ -4,7 +4,9 @@ enemy_controller construct_enemy_controller()
 {
     enemy_controller enemy_controller;
 
-    enemy_controller.enemies = (Enemy *)malloc(sizeof(Enemy) * MAX_ENEMY_SPAWN_COUNT);
+    /**
+        enemy_controller.enemies = (Enemy *)malloc(sizeof(Enemy) * MAX_ENEMY_SPAWN_COUNT);
+    */
 
     enemy_controller.last_enemy_spawn_time = 0;
     enemy_controller.delay_between_spawn = 2000;
@@ -139,6 +141,4 @@ void free_enemy_controller(enemy_controller *controller)
     {
         free_enemy(&controller->enemies[i]);
     }
-
-    free(controller->enemies);
 }

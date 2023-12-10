@@ -57,7 +57,7 @@ static void initialize_bonus(Bonus *bonus)
         break;
 
     default:
-        fprintf(stderr, "Error : unknown bonus type\n");
+        fprintf(stderr, "Error Bonus : unknown bonus type\n");
         break;
     }
 
