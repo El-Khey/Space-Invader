@@ -33,6 +33,8 @@ typedef struct
 
 Asteroid construct_asteroid();
 
+void load_asteroid_backup(Asteroid *asteroid);
+
 void move_asteroid(Asteroid *asteroid);
 
 int is_asteroid_dead(Asteroid asteroid);

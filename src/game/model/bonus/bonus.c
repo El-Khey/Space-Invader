@@ -17,6 +17,11 @@ Bonus construct_bonus(BonusType type)
     return bonus;
 }
 
+void load_bonus_backup(Bonus *bonus)
+{
+    initialize_bonus(bonus);
+}
+
 static void initialize_bonus(Bonus *bonus)
 {
     switch (bonus->type)

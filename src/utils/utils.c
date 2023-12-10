@@ -26,3 +26,12 @@ char *convert_int_to_string(int number)
 
     return str;
 }
+
+char *convert_timestamp(time_t timestamp)
+{
+    struct tm *timeinfo;
+    char *formatted_time = malloc(20 * sizeof(char));
+    timeinfo = localtime(&timestamp);
+    strftime(formatted_time, 20, "%d-%m-%y", timeinfo);
+    return formatted_time;
+}

@@ -33,6 +33,17 @@ Enemy construct_enemy(EnemyClass class)
     return enemy;
 }
 
+void load_enemy_backup(Enemy *enemy)
+{
+    int i = 0;
+
+    initialize_enemy_class(enemy);
+    for (; i < enemy->list.projectiles_count; i++)
+    {
+        load_enemy_projectile_backup(&enemy->list.projectiles[i], enemy->position, enemy->dimension);
+    }
+}
+
 static void initialize_enemy_class(Enemy *enemy)
 {
     switch (enemy->enemy_class)

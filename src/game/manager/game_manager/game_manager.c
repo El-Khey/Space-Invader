@@ -100,8 +100,38 @@ int is_game_paused(GameManager *game_manager)
     return game_manager->is_game_paused;
 }
 
+static void save_scores(Players players, char *filename)
+{
+    FILE *file = fopen(filename, "wb");
+
+    if (file == NULL)
+    {
+        return;
+    }
+
+    fwrite(&players, sizeof(Players), 1, file);
+
+    fclose(file);
+}
+
 void quit_game(GameManager *game_manager)
 {
+    time_t current_time;
+    struct tm *local_time;
+    char timestamp[64];
+    char filename[256];
+
+    time(&current_time);
+    local_time = localtime(&current_time);
+
+    /** Format the timestamp as part of the filename (e.g., "save_YYYYMMDD_HHMMSS.bin") */
+    strftime(timestamp, sizeof(timestamp), "save_%Y%m%d_%H%M%S.bin", local_time);
+
+    /** Construct the full filename with the timestamp */
+    sprintf(filename, ".bin/scores/%s", timestamp);
+
+    /** Save the game using the unique filename */
+    save_scores(game_manager->players, filename);
     game_manager->quit_game = 1;
 }
 

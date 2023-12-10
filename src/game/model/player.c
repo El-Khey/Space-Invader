@@ -37,6 +37,12 @@ Players construct_players(Player player_1, Player player_2)
     return players;
 }
 
+void load_player_backup(Player *player)
+{
+    load_heros_backup(&player->heros);
+    init_view_elements(player);
+}
+
 static void init_view_elements(Player *player)
 {
     char score_text[13];

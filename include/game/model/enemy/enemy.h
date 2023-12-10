@@ -81,6 +81,8 @@ typedef struct
 
 Enemy construct_enemy(EnemyClass class);
 
+void load_enemy_backup(Enemy *enemy);
+
 int is_enemy_dead(Enemy enemy);
 
 void move_enemy(Enemy *enemy);

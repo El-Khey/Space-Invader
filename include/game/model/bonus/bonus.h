@@ -29,6 +29,8 @@ typedef struct
 
 Bonus construct_bonus(BonusType type);
 
+void load_bonus_backup(Bonus *bonus);
+
 void move_bonus(Bonus *bonus);
 
 int is_bonus_selected(Bonus bonus);

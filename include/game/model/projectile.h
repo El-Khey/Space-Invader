@@ -94,6 +94,26 @@ Projectile construct_heros_projectile(Weapon_Type type, Position position, Dimen
 Projectile construct_enemy_projectile(Weapon_Type type, Position position, Dimension dimension);
 
 /**
+ * @brief Load the projectile backup
+ * This function is used to load the projectile animation when the game is started from a backup.
+ *
+ * @param projectile The projectile
+ * @param position The position of the projectile
+ * @param dimension The dimension of the projectile
+ */
+void load_heros_projectile_backup(Projectile *projectile, Position position, Dimension dimension);
+
+/**
+ * @brief Load the projectile backup
+ * This function is used to load the projectile animation when the game is started from a backup.
+ *
+ * @param projectile The projectile
+ * @param position The position of the projectile
+ * @param dimension The dimension of the projectile
+ */
+void load_enemy_projectile_backup(Projectile *projectile, Position position, Dimension dimension);
+
+/**
  * @brief Move the bullet on the screen
  *
  * @param bullet The bullet to move

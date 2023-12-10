@@ -29,6 +29,11 @@
         "map_selection_menu_page.h": "c",
         "main_menu_page.h": "c",
         "shape.h": "c",
-        "menu_controller.h": "c"
+        "menu_controller.h": "c",
+        "main.h": "c",
+        "stdio.h": "c",
+        "backup_menu_page.h": "c",
+        "backup_manager.h": "c",
+        "event_manager.h": "c"
     }
 }

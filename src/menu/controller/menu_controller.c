@@ -55,6 +55,26 @@ static void handle_difficulty_menu_events(MenuPage *menu, MouseManager mouse_man
     }
 }
 
+static void handle_backup_menu_events(MenuPage *menu, MouseManager mouse_manager)
+{
+    int i = 0;
+    if (is_button_clicked(menu->backup_menu.button_back, mouse_manager))
+    {
+        menu->type = MAIN_MENU;
+    }
+
+    for (; i < menu->backup_menu.backups_count; i++)
+    {
+        if (is_button_clicked(menu->backup_menu.backup_buttons[i], mouse_manager))
+        {
+            menu->backup_menu.selected_backup_slot_index = i;
+            menu->type = GAME_START;
+
+            break;
+        }
+    }
+}
+
 void handle_menu_events(MenuPage *menu_page, MouseManager mouse_manager)
 {
     switch (menu_page->type)
@@ -67,6 +87,9 @@ void handle_menu_events(MenuPage *menu_page, MouseManager mouse_manager)
         handle_difficulty_menu_events(menu_page, mouse_manager);
         break;
 
+    case SAVE_MENU:
+        handle_backup_menu_events(menu_page, mouse_manager);
+        break;
     default:
         break;
     }

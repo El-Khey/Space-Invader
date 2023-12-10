@@ -35,6 +35,8 @@ Player construct_player(int id, char *username);
 
 Players construct_players(Player player_1, Player player_2);
 
+void load_player_backup(Player *player);
+
 void set_players_health(Players *players, int health);
 
 void draw_player(Player player);

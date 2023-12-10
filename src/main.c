@@ -1,4 +1,5 @@
 #include "../include/game/controller/view_controller/screens_controller.h"
+#include "../include/game/manager/game_manager/backup_manager.h"
 #include "../include/game/manager/event_manager/event_manager.h"
 #include "../include/game/manager/game_manager/game_manager.h"
 #include "../include/menu/controller/menu_controller.h"
@@ -7,7 +8,7 @@
 #include "../include/main.h"
 
 static void update_menu(MenuPage *menu_page);
-static void launch_game(MenuPage *menu_page);
+static void launch_game(MenuPage *menu_page, BackupManager backup_manager);
 
 static void handle_settings_action(GameManager *game_manager, MouseManager mouse_manager)
 {
@@ -51,10 +52,19 @@ GameManager create_game_manager_from_menu_config(MenuPage *menu_page)
     return construct_game_manager(players, menu_page->difficulty_menu.button_mode_selected, menu_page->difficulty_menu.button_difficulty_selected);
 }
 
-static void launch_game(MenuPage *menu_page)
+static void launch_game(MenuPage *menu_page, BackupManager backup_manager)
 {
     EventManager event_manager = construct_event_manager();
-    GameManager game_manager = create_game_manager_from_menu_config(menu_page);
+    GameManager game_manager;
+
+    if (menu_page->backup_menu.selected_backup_slot_index != -1)
+    {
+        load_game(&backup_manager, &game_manager, menu_page->backup_menu.selected_backup_slot_index);
+    }
+    else
+    {
+        game_manager = create_game_manager_from_menu_config(menu_page);
+    }
 
     while (!game_manager.quit_game)
     {
@@ -66,7 +76,7 @@ static void launch_game(MenuPage *menu_page)
         else
         {
             draw_pause_screen(game_manager.views.pause_screen, event_manager.mouse_manager.position);
-            handle_pause_screen_events(&game_manager, game_manager.views.pause_screen, event_manager.mouse_manager);
+            handle_pause_screen_events(&game_manager, game_manager.views.pause_screen, event_manager.mouse_manager, backup_manager);
         }
 
         if (is_game_over(&game_manager))
@@ -82,6 +92,7 @@ static void launch_game(MenuPage *menu_page)
         MLV_actualise_window();
     }
 
+    free_backup_manager(&backup_manager);
     menu_page->type = MAIN_MENU;
     update_menu(menu_page);
 }
@@ -89,7 +100,11 @@ static void launch_game(MenuPage *menu_page)
 static void update_menu(MenuPage *menu_page)
 {
     MouseManager mouse_manager = construct_mouse_manager();
+    /***
+     */
 
+    BackupManager backup_manager = construct_backup_manager();
+    menu_page->backup_menu = construct_backup_menu_page(backup_manager);
     MLV_change_frame_rate(60);
     while (menu_page->type != GAME_START)
     {
@@ -102,7 +117,7 @@ static void update_menu(MenuPage *menu_page)
         MLV_actualise_window();
     }
 
-    launch_game(menu_page);
+    launch_game(menu_page, backup_manager);
 }
 
 static void launch_menu()

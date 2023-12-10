@@ -31,6 +31,10 @@ void draw_menu_page(MenuPage menu, Position mouse_position)
         draw_difficulty_menu_page(menu.difficulty_menu, mouse_position);
         break;
 
+    case SAVE_MENU:
+        draw_backup_menu_page(menu.backup_menu, mouse_position);
+        break;
+
     default:
         printf("Unknown menu type\n");
         break;

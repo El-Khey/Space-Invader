@@ -23,6 +23,15 @@ Asteroid construct_asteroid()
     return asteroid;
 }
 
+void load_asteroid_backup(Asteroid *asteroid)
+{
+    asteroid->animation[NONE] = construct_animation("assets/sprites/Environment/Asteroids/Base.png", 1, asteroid->dimension, ROTATION_90);
+    asteroid->animation[EXPLODE] = construct_animation("assets/sprites/Environment/Asteroids/Explode.png", 8, asteroid->dimension, FORWARD);
+    asteroid->effect_animation = construct_animation("assets/sprites/Environment/Asteroids/Flame.png", 3, asteroid->dimension, ROTATION_90);
+
+    play_animation(&asteroid->effect_animation);
+}
+
 void move_asteroid(Asteroid *asteroid)
 {
     move_position(&asteroid->hitbox.position, 0, asteroid->speed);

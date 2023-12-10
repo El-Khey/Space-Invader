@@ -52,4 +52,12 @@ char *convert_int_to_string(int number);
  */
 char *concat(char *s1, char *s2);
 
+/**
+ * @brief Convert a timestamp to a string
+ *
+ * @param timestamp The timestamp
+ * @return char*
+ */
+char *convert_timestamp(time_t timestamp);
+
 #endif

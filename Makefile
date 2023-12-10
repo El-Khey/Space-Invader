@@ -4,11 +4,11 @@ CLIBS = -lm -lMLV
 
 # List of object files for the menu
 MENU = menu.o
-MENU_PAGES = main_menu_page.o difficulty_menu_page.o 
+MENU_PAGES = main_menu_page.o difficulty_menu_page.o backup_menu_page.o
 MENU_CONTROLLERS = menu_controller.o
 
 # List of object files for the game
-MANAGER = event_manager.o keyboard_manager.o mouse_manager.o game_manager.o
+MANAGER = event_manager.o keyboard_manager.o mouse_manager.o game_manager.o backup_manager.o
 MODEL = window.o heros.o projectile.o enemy.o klaed.o nairan.o nautolan.o asteroid.o player.o bonus.o shield.o
 UTILS = utils.o dimension.o position.o animation.o image.o text.o hitbox.o
 CONTROLLERS = heros_controller.o enemy_controller.o projectile_controller.o collision_controller.o asteroid_controller.o players_controller.o bonus_controller.o screens_controller.o
@@ -44,6 +44,8 @@ main_menu_page.o: ./src/menu/pages/main_menu_page.c
 difficulty_menu_page.o: ./src/menu/pages/difficulty_menu_page.c
 	$(CC) $(CFLAGS) -c ./src/menu/pages/difficulty_menu_page.c
 
+backup_menu_page.o: ./src/menu/pages/backup_menu_page.c
+	$(CC) $(CFLAGS) -c ./src/menu/pages/backup_menu_page.c
 
 # ------------------ #
 # Controllers
@@ -153,6 +155,9 @@ keyboard_manager.o: ./src/game/manager/event_manager/keyboard_manager/keyboard_m
 mouse_manager.o: ./src/game/manager/event_manager/mouse_manager/mouse_manager.c
 	$(CC) $(CFLAGS) -c ./src/game/manager/event_manager/mouse_manager/mouse_manager.c
 
+
+backup_manager.o: ./src/game/manager/game_manager/backup_manager.c
+	$(CC) $(CFLAGS) -c ./src/game/manager/game_manager/backup_manager.c
 
 # ------------------ #
 # Controller

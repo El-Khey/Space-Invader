@@ -15,6 +15,11 @@ Shield construct_shield(ShieldType type, Position position, Dimension dimension)
     return shield;
 }
 
+void load_shield_backup(Shield *shield)
+{
+    initialize_shield_from_type(shield);
+}
+
 static void initialize_shield_from_type(Shield *shield)
 {
     switch (shield->type)

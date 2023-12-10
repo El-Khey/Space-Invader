@@ -43,6 +43,24 @@ Heros construct_heros(Position position, Dimension dimension)
     return heros;
 }
 
+void load_heros_backup(Heros *heros)
+{
+    int i = 0;
+    heros->ship[FULL_HEALTH] = construct_animation("assets/sprites/Ships/MainShip/Bases/Full health.png", 1, heros->dimension, FORWARD);
+    heros->ship[SLIGHTLY_DAMAGED] = construct_animation("assets/sprites/Ships/MainShip/Bases/Slight damage.png", 1, heros->dimension, FORWARD);
+    heros->ship[DAMAGED] = construct_animation("assets/sprites/Ships/MainShip/Bases/Damaged.png", 1, heros->dimension, FORWARD);
+    heros->ship[VERY_DAMAGED] = construct_animation("assets/sprites/Ships/MainShip/Bases/Very damaged.png", 1, heros->dimension, FORWARD);
+
+    initialize_engine_animations(heros->engine_animations, heros->dimension);
+    initialize_weapon_animation(heros, heros->dimension);
+
+    load_shield_backup(&heros->shield);
+    for (; i < heros->list.projectiles_count; i++)
+    {
+        load_heros_projectile_backup(&heros->list.projectiles[i], heros->position, heros->dimension);
+    }
+}
+
 static void initialize_engine_animations(EngineAnimation *engine_animations, Dimension dimension)
 {
     engine_animations[BASE_ENGINE].engine = construct_animation("assets/sprites/Ships/MainShip/Engines/Base Engine.png", 1, dimension, FORWARD);

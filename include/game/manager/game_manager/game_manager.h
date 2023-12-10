@@ -1,6 +1,8 @@
 #ifndef GAME_MANAGER_H
 #define GAME_MANAGER_H
 
+#include "../../../main.h"
+
 /** Controllers */
 #include "../../controller/collision_controller/collision_controller.h"
 #include "../../controller/asteroid_controller/asteroid_controller.h"

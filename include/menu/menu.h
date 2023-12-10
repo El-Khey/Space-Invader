@@ -3,6 +3,7 @@
 
 #include "./pages/main_menu_page.h"
 #include "./pages/difficulty_menu_page.h"
+#include "./pages/backup_menu_page.h"
 
 typedef enum
 {
@@ -19,6 +20,7 @@ typedef struct
 
     MainMenu main_menu;
     DifficultyMenu difficulty_menu;
+    BackupMenu backup_menu;
 
     Image background;
     Text title;

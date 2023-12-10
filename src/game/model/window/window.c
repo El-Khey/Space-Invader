@@ -26,6 +26,15 @@ Window construct_window()
     return window;
 }
 
+void load_window_backup(Window *window)
+{
+    window->animated_backgrounds[0] = construct_animated_background();
+    window->animated_backgrounds[0].layers_position = construct_position(0, 0);
+
+    window->animated_backgrounds[1] = construct_animated_background();
+    window->animated_backgrounds[1].layers_position = construct_position(0, -WINDOW_HEIGHT);
+}
+
 static AnimatedBackground construct_animated_background()
 {
     AnimatedBackground animated_background;
