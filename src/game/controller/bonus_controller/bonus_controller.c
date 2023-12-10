@@ -54,3 +54,12 @@ void update_bonus(bonus_controller *controller)
         }
     }
 }
+
+void free_bonus_controller(bonus_controller *controller)
+{
+    int i = 0;
+    for (; i < controller->bonus_spawned; i++)
+    {
+        free_bonus(&controller->bonus[i]);
+    }
+}

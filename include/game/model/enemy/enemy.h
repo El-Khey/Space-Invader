@@ -1,8 +1,6 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
-#define MAX_ENEMYS 20
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -81,10 +79,14 @@ typedef struct
 
 Enemy construct_enemy(EnemyClass class);
 
+void load_enemy_backup(Enemy *enemy);
+
 int is_enemy_dead(Enemy enemy);
 
 void move_enemy(Enemy *enemy);
 
 void draw_enemy(Enemy enemy);
+
+void free_enemy(Enemy *enemy);
 
 #endif

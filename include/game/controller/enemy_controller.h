@@ -11,7 +11,7 @@
 
 typedef struct
 {
-    Enemy enemies[MAX_ENEMY_SPAWN_COUNT];
+    Enemy enemies[MAX_ENEMY_SPAWN_COUNT]; /** The list of enemies */
 
     int enemy_spawn_count; /** The number of enemy to spawn */
     int enemy_spawned;     /** The number of enemy spawned */
@@ -25,5 +25,7 @@ enemy_controller construct_enemy_controller();
 void generate_enemies(enemy_controller *controller);
 
 void update_enemies(enemy_controller *controller, Players *players);
+
+void free_enemy_controller(enemy_controller *controller);
 
 #endif

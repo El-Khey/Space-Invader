@@ -26,6 +26,15 @@ Window construct_window()
     return window;
 }
 
+void load_window_backup(Window *window)
+{
+    window->animated_backgrounds[0] = construct_animated_background();
+    window->animated_backgrounds[0].layers_position = construct_position(0, 0);
+
+    window->animated_backgrounds[1] = construct_animated_background();
+    window->animated_backgrounds[1].layers_position = construct_position(0, -WINDOW_HEIGHT);
+}
+
 static AnimatedBackground construct_animated_background()
 {
     AnimatedBackground animated_background;
@@ -69,5 +78,16 @@ void update_background_position(Window *window)
     if (background_iteration % 2)
     {
         draw_animation(window->animated_backgrounds[0].layer_03_stars, window->animated_backgrounds[0].layers_position);
+    }
+}
+
+void free_window(Window *window)
+{
+    int i;
+    for (i = 0; i < NUMBER_OF_BACKGROUNDS; i++)
+    {
+        free_animation(&window->animated_backgrounds[i].layer_01_void);
+        free_animation(&window->animated_backgrounds[i].layer_02_stars);
+        free_animation(&window->animated_backgrounds[i].layer_03_stars);
     }
 }

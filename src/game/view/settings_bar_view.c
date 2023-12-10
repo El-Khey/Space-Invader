@@ -85,3 +85,14 @@ void draw_settings_bar_view(settings_bar_view *settings_bar_view, int elapsed_ti
 
     (settings_bar_view->is_music_on) ? draw_button_image(settings_bar_view->content.music_button) : draw_button_image(settings_bar_view->content.mute_button);
 }
+
+void free_settings_bar_view(settings_bar_view *settings_bar_view)
+{
+    free_text(&settings_bar_view->clock_container.time_text);
+
+    free_button_image(&settings_bar_view->content.music_button);
+    free_button_image(&settings_bar_view->content.mute_button);
+
+    free_button_image(&settings_bar_view->content.pause_button);
+    free_button_image(&settings_bar_view->content.resume_button);
+}

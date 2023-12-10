@@ -43,6 +43,24 @@ Heros construct_heros(Position position, Dimension dimension)
     return heros;
 }
 
+void load_heros_backup(Heros *heros)
+{
+    int i = 0;
+    heros->ship[FULL_HEALTH] = construct_animation("assets/sprites/Ships/MainShip/Bases/Full health.png", 1, heros->dimension, FORWARD);
+    heros->ship[SLIGHTLY_DAMAGED] = construct_animation("assets/sprites/Ships/MainShip/Bases/Slight damage.png", 1, heros->dimension, FORWARD);
+    heros->ship[DAMAGED] = construct_animation("assets/sprites/Ships/MainShip/Bases/Damaged.png", 1, heros->dimension, FORWARD);
+    heros->ship[VERY_DAMAGED] = construct_animation("assets/sprites/Ships/MainShip/Bases/Very damaged.png", 1, heros->dimension, FORWARD);
+
+    initialize_engine_animations(heros->engine_animations, heros->dimension);
+    initialize_weapon_animation(heros, heros->dimension);
+
+    load_shield_backup(&heros->shield);
+    for (; i < heros->list.projectiles_count; i++)
+    {
+        load_heros_projectile_backup(&heros->list.projectiles[i], heros->position, heros->dimension);
+    }
+}
+
 static void initialize_engine_animations(EngineAnimation *engine_animations, Dimension dimension)
 {
     engine_animations[BASE_ENGINE].engine = construct_animation("assets/sprites/Ships/MainShip/Engines/Base Engine.png", 1, dimension, FORWARD);
@@ -132,4 +150,32 @@ void draw_heros(Heros heros)
     draw_animation(heros.ship[heros.active_ship], heros.position);
 
     draw_shield(heros.shield);
+}
+
+void free_heros(Heros *heros)
+{
+    int i;
+    for (i = 0; i < nb_ship_health_state; i++)
+    {
+        free_animation(&heros->ship[i]);
+    }
+
+    for (i = 0; i < nb_engine_animations; i++)
+    {
+        free_animation(&heros->engine_animations[i].engine);
+        free_animation(&heros->engine_animations[i].engine_effect_idle);
+        free_animation(&heros->engine_animations[i].engine_effect_boost);
+    }
+
+    free_animation(&heros->weapons_animations[AUTO_CANNON].weapon_shooting);
+    free_animation(&heros->weapons_animations[BIG_SPACE].weapon_shooting);
+    free_animation(&heros->weapons_animations[ROCKETS].weapon_shooting);
+    free_animation(&heros->weapons_animations[ZAPPER].weapon_shooting);
+
+    for (i = 0; i < heros->list.projectiles_count; i++)
+    {
+        free_projectile(&heros->list.projectiles[i]);
+    }
+
+    free_shield(&heros->shield);
 }

@@ -18,7 +18,7 @@ void generate_asteroids(asteroid_controller *controller)
 {
     if (controller->last_asteroid_spawn_time + controller->delay_between_spawn < MLV_get_time() && controller->asteroid_spawned < controller->asteroid_spawn_count)
     {
-        controller->last_asteroid_spawn_time = MLV_get_time(); /** TODO: peut etre un prohleme sur les temps de spawn*/
+        controller->last_asteroid_spawn_time = MLV_get_time();
         controller->asteroids[controller->asteroid_spawned] = construct_asteroid();
         controller->asteroid_spawned += 1;
     }
@@ -65,4 +65,15 @@ void update_asteroids(asteroid_controller *controller)
             controller->asteroids[i] = controller->asteroids[controller->asteroid_spawned];
         }
     }
+}
+
+void free_asteroid_controller(asteroid_controller *controller)
+{
+    int i = 0;
+    for (; i < controller->asteroid_spawned; i++)
+    {
+        free_asteroid(&controller->asteroids[i]);
+    }
+
+    free(controller->asteroids);
 }

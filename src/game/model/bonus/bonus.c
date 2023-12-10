@@ -17,6 +17,11 @@ Bonus construct_bonus(BonusType type)
     return bonus;
 }
 
+void load_bonus_backup(Bonus *bonus)
+{
+    initialize_bonus(bonus);
+}
+
 static void initialize_bonus(Bonus *bonus)
 {
     switch (bonus->type)
@@ -52,7 +57,7 @@ static void initialize_bonus(Bonus *bonus)
         break;
 
     default:
-        fprintf(stderr, "Error : unknown bonus type\n");
+        fprintf(stderr, "Error Bonus : unknown bonus type\n");
         break;
     }
 
@@ -73,4 +78,9 @@ void move_bonus(Bonus *bonus)
 void draw_bonus(Bonus bonus)
 {
     draw_animation(bonus.animation, bonus.position);
+}
+
+void free_bonus(Bonus *bonus)
+{
+    free_animation(&bonus->animation);
 }

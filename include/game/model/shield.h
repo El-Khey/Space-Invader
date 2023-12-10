@@ -28,6 +28,10 @@ typedef struct
 
 Shield construct_shield(ShieldType bonus_type, Position position, Dimension dimension);
 
+void load_shield_backup(Shield *shield);
+
 void draw_shield(Shield shield);
+
+void free_shield(Shield *shield);
 
 #endif

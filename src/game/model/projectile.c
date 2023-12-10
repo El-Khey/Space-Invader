@@ -13,6 +13,11 @@ Projectile construct_heros_projectile(Weapon_Type type, Position position, Dimen
     return projectile;
 }
 
+void load_heros_projectile_backup(Projectile *projectile, Position position, Dimension dimension)
+{
+    initialize_heros_projectiles_from_weapon_type(projectile, position, dimension);
+}
+
 Projectile construct_enemy_projectile(Weapon_Type type, Position position, Dimension dimension)
 {
     Projectile projectile;
@@ -21,6 +26,11 @@ Projectile construct_enemy_projectile(Weapon_Type type, Position position, Dimen
     initialize_enemy_projectiles_from_weapon_type(&projectile, position, dimension);
 
     return projectile;
+}
+
+void load_enemy_projectile_backup(Projectile *projectile, Position position, Dimension dimension)
+{
+    initialize_enemy_projectiles_from_weapon_type(projectile, position, dimension);
 }
 
 static void initialize_heros_projectiles_from_weapon_type(Projectile *projectile, Position position, Dimension dimension)
@@ -233,5 +243,14 @@ void draw_projectile(Projectile projectile)
         {
             draw_animation(projectile.list.bullets[i].bullet_animation, projectile.list.bullets[i].position);
         }
+    }
+}
+
+void free_projectile(Projectile *projectile)
+{
+    int i = 0;
+    for (; i < projectile->list.bullets_count; i++)
+    {
+        free_animation(&projectile->list.bullets[i].bullet_animation);
     }
 }

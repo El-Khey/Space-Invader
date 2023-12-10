@@ -37,6 +37,12 @@ Players construct_players(Player player_1, Player player_2)
     return players;
 }
 
+void load_player_backup(Player *player)
+{
+    load_heros_backup(&player->heros);
+    init_view_elements(player);
+}
+
 static void init_view_elements(Player *player)
 {
     char score_text[13];
@@ -114,4 +120,15 @@ void draw_player(Player player)
 {
     draw_heros(player.heros);
     draw_player_view(player);
+}
+
+void free_players(Players *players)
+{
+    int i = 0;
+    for (; i < players->nb_players; i++)
+    {
+        free_heros(&players->players[i].heros);
+        free_player_view(&players->players[i].view);
+        free_ship_customization(&players->players[i].ship_customization_view);
+    }
 }

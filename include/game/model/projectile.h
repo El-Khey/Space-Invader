@@ -6,7 +6,7 @@
 #include "../../utils/position/position.h"
 #include "../../utils/hitbox/hitbox.h"
 
-#define MAX_PROJECTILES 200
+#define MAX_PROJECTILES 15
 #define MAX_BULLETS 7
 
 typedef enum
@@ -94,6 +94,26 @@ Projectile construct_heros_projectile(Weapon_Type type, Position position, Dimen
 Projectile construct_enemy_projectile(Weapon_Type type, Position position, Dimension dimension);
 
 /**
+ * @brief Load the projectile backup
+ * This function is used to load the projectile animation when the game is started from a backup.
+ *
+ * @param projectile The projectile
+ * @param position The position of the projectile
+ * @param dimension The dimension of the projectile
+ */
+void load_heros_projectile_backup(Projectile *projectile, Position position, Dimension dimension);
+
+/**
+ * @brief Load the projectile backup
+ * This function is used to load the projectile animation when the game is started from a backup.
+ *
+ * @param projectile The projectile
+ * @param position The position of the projectile
+ * @param dimension The dimension of the projectile
+ */
+void load_enemy_projectile_backup(Projectile *projectile, Position position, Dimension dimension);
+
+/**
  * @brief Move the bullet on the screen
  *
  * @param bullet The bullet to move
@@ -107,5 +127,12 @@ void move_bullet(Bullet *bullet, int speed);
  * @param projectile The projectile to draw
  */
 void draw_projectile(Projectile projectile);
+
+/**
+ * @brief Free the projectile
+ *
+ * @param projectile The projectile to free
+ */
+void free_projectile(Projectile *projectile);
 
 #endif

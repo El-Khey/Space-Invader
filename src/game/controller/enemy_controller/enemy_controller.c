@@ -4,6 +4,10 @@ enemy_controller construct_enemy_controller()
 {
     enemy_controller enemy_controller;
 
+    /**
+        enemy_controller.enemies = (Enemy *)malloc(sizeof(Enemy) * MAX_ENEMY_SPAWN_COUNT);
+    */
+
     enemy_controller.last_enemy_spawn_time = 0;
     enemy_controller.delay_between_spawn = 2000;
 
@@ -127,5 +131,14 @@ void update_enemies(enemy_controller *controller, Players *players)
             }
             handle_enemy_attacks(&controller->enemies[j], players->players[i].heros);
         }
+    }
+}
+
+void free_enemy_controller(enemy_controller *controller)
+{
+    int i;
+    for (i = 0; i < controller->enemy_spawned; i++)
+    {
+        free_enemy(&controller->enemies[i]);
     }
 }
