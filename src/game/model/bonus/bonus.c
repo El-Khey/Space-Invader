@@ -74,3 +74,8 @@ void draw_bonus(Bonus bonus)
 {
     draw_animation(bonus.animation, bonus.position);
 }
+
+void free_bonus(Bonus *bonus)
+{
+    free_animation(&bonus->animation);
+}

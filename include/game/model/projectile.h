@@ -6,7 +6,7 @@
 #include "../../utils/position/position.h"
 #include "../../utils/hitbox/hitbox.h"
 
-#define MAX_PROJECTILES 200
+#define MAX_PROJECTILES 50
 #define MAX_BULLETS 7
 
 typedef enum
@@ -107,5 +107,12 @@ void move_bullet(Bullet *bullet, int speed);
  * @param projectile The projectile to draw
  */
 void draw_projectile(Projectile projectile);
+
+/**
+ * @brief Free the projectile
+ *
+ * @param projectile The projectile to free
+ */
+void free_projectile(Projectile *projectile);
 
 #endif

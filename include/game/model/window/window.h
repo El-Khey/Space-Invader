@@ -40,4 +40,6 @@ Window construct_window();
 
 void update_background_position(Window *window);
 
+void free_window(Window *window);
+
 #endif

@@ -30,4 +30,6 @@ Shield construct_shield(ShieldType bonus_type, Position position, Dimension dime
 
 void draw_shield(Shield shield);
 
+void free_shield(Shield *shield);
+
 #endif

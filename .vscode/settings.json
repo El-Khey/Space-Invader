@@ -29,6 +29,8 @@
         "map_selection_menu_page.h": "c",
         "main_menu_page.h": "c",
         "shape.h": "c",
-        "menu_controller.h": "c"
+        "menu_controller.h": "c",
+        "event_manager.h": "c",
+        "projectile.h": "c"
     }
 }

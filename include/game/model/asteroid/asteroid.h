@@ -39,4 +39,6 @@ int is_asteroid_dead(Asteroid asteroid);
 
 void draw_asteroid(Asteroid asteroid);
 
+void free_asteroid(Asteroid *asteroid);
+
 #endif

@@ -55,4 +55,11 @@ void set_music_button_state(settings_bar_view *settings_bar_view);
  */
 void draw_settings_bar_view(settings_bar_view *settings_bar_view, int elapsed_time);
 
+/**
+ * @brief Free the settings bar view
+ *
+ * @param settings_bar_view The settings bar view
+ */
+void free_settings_bar_view(settings_bar_view *settings_bar_view);
+
 #endif

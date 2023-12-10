@@ -235,3 +235,12 @@ void draw_projectile(Projectile projectile)
         }
     }
 }
+
+void free_projectile(Projectile *projectile)
+{
+    int i = 0;
+    for (; i < projectile->list.bullets_count; i++)
+    {
+        free_animation(&projectile->list.bullets[i].bullet_animation);
+    }
+}

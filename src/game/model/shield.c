@@ -70,3 +70,11 @@ void draw_shield(Shield shield)
         draw_animation(shield.animation, shield.position);
     }
 }
+
+void free_shield(Shield *shield)
+{
+    if (shield->type != SHIELD_NONE)
+    {
+        free_animation(&shield->animation);
+    }
+}

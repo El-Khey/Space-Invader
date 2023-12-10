@@ -228,3 +228,23 @@ void draw_ship_customization(ShipCustomizationView ship_customization, Position 
         }
     }
 }
+
+void free_ship_customization(ShipCustomizationView *ship_customization)
+{
+    int i = 0;
+
+    for (; i < CUSTOMIZATION_NUMBER_OF_BUTTONS; i++)
+    {
+        free_button_image(&ship_customization->bar.button[i]);
+        free_text(&ship_customization->modal[i].title);
+    }
+
+    for (i = 0; i < MAX_SHIP_LEVEL; i++)
+    {
+        free_button_animation(&ship_customization->modal[0].engine_buttons[i]);
+        free_button_animation(&ship_customization->modal[0].weapon_buttons[i]);
+
+        free_button_text(&ship_customization->modal[0].engine_text_buttons[i]);
+        free_button_text(&ship_customization->modal[0].weapon_text_buttons[i]);
+    }
+}

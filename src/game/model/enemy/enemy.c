@@ -79,3 +79,19 @@ void draw_enemy(Enemy enemy)
 
     draw_enemy_projectiles(enemy);
 }
+
+void free_enemy(Enemy *enemy)
+{
+    int i;
+    for (i = 0; i < enemy->list.projectiles_count; i++)
+    {
+        free_projectile(&enemy->list.projectiles[i]);
+    }
+
+    for (i = 0; i < nb_enemy_animation_state; i++)
+    {
+        free_animation(&enemy->enemy_animation.ship[i]);
+    }
+
+    free_animation(&enemy->enemy_animation.engine_effect_boost);
+}

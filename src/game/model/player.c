@@ -115,3 +115,14 @@ void draw_player(Player player)
     draw_heros(player.heros);
     draw_player_view(player);
 }
+
+void free_players(Players *players)
+{
+    int i = 0;
+    for (; i < players->nb_players; i++)
+    {
+        free_heros(&players->players[i].heros);
+        free_player_view(&players->players[i].view);
+        free_ship_customization(&players->players[i].ship_customization_view);
+    }
+}

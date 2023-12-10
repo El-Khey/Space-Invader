@@ -31,4 +31,11 @@ PauseScreen construct_pause_screen();
  */
 void draw_pause_screen(PauseScreen pause_screen, Position mouse_position);
 
+/**
+ * @brief Free the pause screen
+ *
+ * @param pause_screen The pause screen
+ */
+void free_pause_screen(PauseScreen *pause_screen);
+
 #endif

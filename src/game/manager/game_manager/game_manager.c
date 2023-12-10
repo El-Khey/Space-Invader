@@ -102,6 +102,19 @@ int is_game_paused(GameManager *game_manager)
 
 void quit_game(GameManager *game_manager)
 {
+    free_players(&game_manager->players);
+
+    free_enemy_controller(&game_manager->controllers.enemy_controller);
+    free_bonus_controller(&game_manager->controllers.bonus_controller);
+    free_asteroid_controller(&game_manager->controllers.asteroid_controller);
+
+    free_settings_bar_view(&game_manager->views.settings_bar_view);
+    free_game_over_screen(&game_manager->views.game_over_screen);
+    free_pause_screen(&game_manager->views.pause_screen);
+
+    free_window(&game_manager->window);
+
+    printf("> Game manager freed\n");
     game_manager->quit_game = 1;
 }
 
