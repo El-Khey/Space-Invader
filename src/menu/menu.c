@@ -13,6 +13,8 @@ MenuPage construct_menu_page(MenuType type)
     menu.main_menu = construct_main_menu_page();
     menu.difficulty_menu = construct_difficulty_menu_page();
 
+    menu.time_on_menu = 0;
+
     return menu;
 }
 

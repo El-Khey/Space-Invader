@@ -72,7 +72,7 @@ static void launch_game(MenuPage *menu_page, BackupManager backup_manager)
 
         if (!is_game_paused(&game_manager))
         {
-            update_game(&game_manager, &event_manager);
+            update_game(&game_manager, &event_manager, menu_page->time_on_menu);
         }
 
         draw_settings_bar_view(&game_manager.views.settings_bar_view, game_manager.window.elapsed_time);

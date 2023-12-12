@@ -31,7 +31,7 @@ GameManager construct_game_manager(Players players, GameMode game_mode, GameDiff
     return game_manager;
 }
 
-void update_game(GameManager *game_manager, EventManager *event_manager)
+void update_game(GameManager *game_manager, EventManager *event_manager, int time_on_menu)
 {
     update_background_position(&game_manager->window);
 
@@ -52,7 +52,7 @@ void update_game(GameManager *game_manager, EventManager *event_manager)
     update_players(game_manager, *event_manager);
     if (!is_game_over(game_manager))
     {
-        game_manager->window.elapsed_time = MLV_get_time() - game_manager->window.total_pause_time;
+        game_manager->window.elapsed_time = MLV_get_time() - game_manager->window.total_pause_time - time_on_menu;
     }
 }
 

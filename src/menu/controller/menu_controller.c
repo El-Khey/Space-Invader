@@ -21,6 +21,8 @@ static void handle_main_menu_events(MenuPage *menu, MouseManager mouse_manager)
     {
         exit(EXIT_SUCCESS);
     }
+
+    menu->time_on_menu += MLV_get_time() - menu->time_on_menu;
 }
 
 static void handle_difficulty_menu_events(MenuPage *menu, MouseManager mouse_manager)

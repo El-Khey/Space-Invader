@@ -24,6 +24,7 @@ typedef struct
 
     Image background;
     Text title;
+    int time_on_menu;
 } MenuPage;
 
 /**

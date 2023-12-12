@@ -68,7 +68,7 @@ GameManager construct_game_manager(Players players, GameMode game_mode, GameDiff
  *
  * @param game_manager The game manager
  */
-void update_game(GameManager *game_manager, EventManager *event_manager);
+void update_game(GameManager *game_manager, EventManager *event_manager, int time_on_menu);
 
 /**
  * @brief Restart the game
