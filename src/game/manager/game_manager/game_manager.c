@@ -1,5 +1,8 @@
 #include "../../../../include/game/manager/game_manager/game_manager.h"
 #include "../../../../include/game/controller/players_controller.h"
+#include "../../../../include/menu/pages/score_menu_page.h"
+
+#define MAX_BEST_SCORES 10
 
 GameManager construct_game_manager(Players players, GameMode game_mode, GameDifficulty game_difficulty)
 {
@@ -31,7 +34,7 @@ GameManager construct_game_manager(Players players, GameMode game_mode, GameDiff
     return game_manager;
 }
 
-void update_game(GameManager *game_manager, EventManager *event_manager, int time_on_menu)
+void update_game(GameManager *game_manager, EventManager *event_manager, int total_menu_time)
 {
     update_background_position(&game_manager->window);
 
@@ -52,7 +55,7 @@ void update_game(GameManager *game_manager, EventManager *event_manager, int tim
     update_players(game_manager, *event_manager);
     if (!is_game_over(game_manager))
     {
-        game_manager->window.elapsed_time = MLV_get_time() - game_manager->window.total_pause_time - time_on_menu;
+        game_manager->window.elapsed_time = MLV_get_time() - game_manager->window.total_pause_time - total_menu_time;
     }
 }
 
@@ -118,6 +121,7 @@ void quit_game(GameManager *game_manager)
 {
     save_scores(game_manager->players, "./.bin/scores/scores.bin");
     free_players(&game_manager->players);
+
     /**
         free_enemy_controller(&game_manager->controllers.enemy_controller);
         free_bonus_controller(&game_manager->controllers.bonus_controller);

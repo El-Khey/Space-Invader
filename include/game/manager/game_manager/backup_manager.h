@@ -4,6 +4,13 @@
 #include "./game_manager.h"
 
 #define MAX_BACKUPS 10
+#define TEXT_LENGTH_MAX 20
+
+typedef struct
+{
+    char name[TEXT_LENGTH_MAX];
+    int score;
+} BestScore;
 
 typedef struct Backup
 {
@@ -16,6 +23,9 @@ typedef struct BackupManager
 {
     Backup *backups;
     int backups_count;
+
+    BestScore best_scores[MAX_BACKUPS];
+    int best_scores_count;
 } BackupManager;
 
 BackupManager construct_backup_manager();

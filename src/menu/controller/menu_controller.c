@@ -21,8 +21,6 @@ static void handle_main_menu_events(MenuPage *menu, MouseManager mouse_manager)
     {
         exit(EXIT_SUCCESS);
     }
-
-    menu->time_on_menu += MLV_get_time() - menu->time_on_menu;
 }
 
 static void handle_difficulty_menu_events(MenuPage *menu, MouseManager mouse_manager)
@@ -78,6 +76,14 @@ static void handle_backup_menu_events(MenuPage *menu, MouseManager mouse_manager
     }
 }
 
+static void handle_score_menu_events(MenuPage *menu, MouseManager mouse_manager)
+{
+    if (is_button_clicked(menu->score_menu.button_back, mouse_manager))
+    {
+        menu->type = MAIN_MENU;
+    }
+}
+
 void handle_menu_events(MenuPage *menu_page, MouseManager mouse_manager)
 {
     switch (menu_page->type)
@@ -92,6 +98,10 @@ void handle_menu_events(MenuPage *menu_page, MouseManager mouse_manager)
 
     case SAVE_MENU:
         handle_backup_menu_events(menu_page, mouse_manager);
+        break;
+
+    case BEST_SCORE_MENU:
+        handle_score_menu_events(menu_page, mouse_manager);
         break;
 
     default:

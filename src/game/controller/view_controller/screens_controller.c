@@ -9,10 +9,12 @@ void handle_pause_screen_events(GameManager *game_manager, PauseScreen pause_scr
     else if (is_button_clicked(pause_screen.quit_button, mouse_manager))
     {
         quit_game(game_manager);
+        /**save_best_score(),*/
     }
     else if (is_button_clicked(pause_screen.save_and_quit_button, mouse_manager))
     {
         save_game(game_manager, backup_manager.backups_count);
+
         quit_game(game_manager);
     }
 }

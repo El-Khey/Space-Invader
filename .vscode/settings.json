@@ -31,6 +31,11 @@
                 "shape.h": "c",
                 "menu_controller.h": "c",
                 "nautolan.h": "c",
-                "enemy.h": "c"
+                "enemy.h": "c",
+                "backup_manager.h": "c",
+                "backup_menu_page.h": "c",
+                "button.h": "c",
+                "score_menu_page.h": "c",
+                "typeinfo": "c"
         }
 }

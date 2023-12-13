@@ -57,6 +57,8 @@ static void launch_game(MenuPage *menu_page, BackupManager backup_manager)
     EventManager event_manager = construct_event_manager();
     GameManager game_manager;
 
+    int total_menu_time = menu_page->total_menu_time + game_manager.window.total_pause_time + game_manager.window.elapsed_time;
+
     if (menu_page->backup_menu.selected_backup_slot_index != -1)
     {
         load_game(&backup_manager, &game_manager, menu_page->backup_menu.selected_backup_slot_index);
@@ -72,7 +74,7 @@ static void launch_game(MenuPage *menu_page, BackupManager backup_manager)
 
         if (!is_game_paused(&game_manager))
         {
-            update_game(&game_manager, &event_manager, menu_page->time_on_menu);
+            update_game(&game_manager, &event_manager, total_menu_time);
         }
 
         draw_settings_bar_view(&game_manager.views.settings_bar_view, game_manager.window.elapsed_time);
@@ -94,6 +96,7 @@ static void launch_game(MenuPage *menu_page, BackupManager backup_manager)
         MLV_actualise_window();
     }
 
+    menu_page->total_menu_time += game_manager.window.elapsed_time + game_manager.window.total_pause_time;
     menu_page->type = MAIN_MENU;
     update_menu(menu_page);
 }
@@ -106,8 +109,11 @@ static void update_menu(MenuPage *menu_page)
     menu_page->backup_menu = construct_backup_menu_page(backup_manager);
     MLV_change_frame_rate(60);
 
+    menu_page->start_menu_time = MLV_get_time();
     while (menu_page->type != GAME_START)
     {
+        menu_page->elapsed_time = MLV_get_time() - menu_page->start_menu_time;
+
         draw_menu_page(*menu_page, get_mouse_position(mouse_manager));
 
         handle_mouse_events(&mouse_manager);
@@ -117,6 +123,8 @@ static void update_menu(MenuPage *menu_page)
         MLV_actualise_window();
     }
 
+    menu_page->end_menu_time = MLV_get_time();
+    menu_page->total_menu_time += menu_page->end_menu_time - menu_page->start_menu_time;
     launch_game(menu_page, backup_manager);
 }
 

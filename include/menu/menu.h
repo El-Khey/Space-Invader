@@ -4,6 +4,7 @@
 #include "./pages/main_menu_page.h"
 #include "./pages/difficulty_menu_page.h"
 #include "./pages/backup_menu_page.h"
+#include "./pages/score_menu_page.h"
 
 typedef enum
 {
@@ -21,10 +22,15 @@ typedef struct
     MainMenu main_menu;
     DifficultyMenu difficulty_menu;
     BackupMenu backup_menu;
+    ScoreMenu score_menu;
 
     Image background;
     Text title;
-    int time_on_menu;
+
+    int start_menu_time;
+    int end_menu_time;
+    int total_menu_time;
+    int elapsed_time;
 } MenuPage;
 
 /**

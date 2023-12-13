@@ -11,6 +11,8 @@ BackupManager construct_backup_manager()
 
     manager.backups_count = 0;
     read_saved_games(&manager);
+    read_best_scores(&manager);
+
     return manager;
 }
 
@@ -102,6 +104,72 @@ static void read_saved_games(BackupManager *manager)
         fclose(file);
         manager->backups_count++;
     }
+}
+
+void read_best_scores(BackupManager *backup_manager, GameManager game_manager)
+{
+    FILE *file = fopen("best_score.txt", "r");
+
+    if (file == NULL)
+    {
+        fprintf(stderr, "Erreur lors de l'ouverture du fichier.\n");
+        return;
+    }
+
+    while (fscanf(file, "%s %d", backup_manager->best_scores[backup_manager->best_scores_count].name, &backup_manager->best_scores[backup_manager->best_scores_count].score) == 2)
+    {
+        backup_manager->best_scores_count++;
+    }
+
+    fclose(file);
+}
+
+void write_best_scores(GameManager game_manager, BackupManager *backup_manager)
+{
+    FILE *file = fopen("best_score.txt", "w");
+    int i, j, k;
+    BestScore tmp;
+
+    if (file == NULL)
+    {
+        fprintf(stderr, "Erreur lors de l'ouverture du fichier.\n");
+        return;
+    }
+
+    for (i = 0; i < game_manager.players.nb_players; i++)
+    {
+        for (j = 0; i < backup_manager->best_scores_count; j++)
+        {
+            if (backup_manager->best_scores_count < MAX_BACKUPS)
+            {
+                if (backup_manager->best_scores[j].score < game_manager.players.players[i].score)
+            }
+            else
+            {
+                if (backup_manager->best_scores[j].score < game_manager.players.players[i].score)
+                {
+                    // Insert the sorted score
+                    for (k = backup_manager->best_scores_count; k > j; k--)
+                    {
+                        backup_manager->best_scores[k] = backup_manager->best_scores[k - 1];
+                    }
+                    backup_manager->best_scores[j].score = game_manager.players.players[i].score;
+                    strcpy(backup_manager->best_scores[j].name, game_manager.players.players[i].username);
+                    backup_manager->best_scores_count++;
+                }
+            }
+        }
+    }
+
+    else
+    {
+        if (backup_manager->best_scores[j].score < game_manager.players.players[i].score)
+        {
+            backup_manager->best_scores[j].score = game_manager.players.players[i].score;
+            strcpy(backup_manager->best_scores[j].name, game_manager.players.players[i].username);
+        }
+    }
+    fclose(file);
 }
 
 void free_backup_manager(BackupManager *manager)

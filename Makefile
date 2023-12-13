@@ -4,7 +4,7 @@ CLIBS = -lm -lMLV
 
 # List of object files for the menu
 MENU = menu.o
-MENU_PAGES = main_menu_page.o difficulty_menu_page.o backup_menu_page.o
+MENU_PAGES = main_menu_page.o difficulty_menu_page.o backup_menu_page.o score_menu_page.o
 MENU_CONTROLLERS = menu_controller.o
 
 # List of object files for the game
@@ -46,6 +46,9 @@ difficulty_menu_page.o: ./src/menu/pages/difficulty_menu_page.c
 
 backup_menu_page.o: ./src/menu/pages/backup_menu_page.c
 	$(CC) $(CFLAGS) -c ./src/menu/pages/backup_menu_page.c
+
+score_menu_page.o: ./src/menu/pages/score_menu_page.c
+	$(CC) $(CFLAGS) -c ./src/menu/pages/score_menu_page.c
 
 # ------------------ #
 # Controllers

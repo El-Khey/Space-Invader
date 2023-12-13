@@ -12,8 +12,12 @@ MenuPage construct_menu_page(MenuType type)
 
     menu.main_menu = construct_main_menu_page();
     menu.difficulty_menu = construct_difficulty_menu_page();
+    menu.score_menu = construct_score_menu_page();
 
-    menu.time_on_menu = 0;
+    menu.elapsed_time = 0;
+    menu.start_menu_time = 0;
+    menu.end_menu_time = 0;
+    menu.total_menu_time = 0;
 
     return menu;
 }
@@ -35,6 +39,10 @@ void draw_menu_page(MenuPage menu, Position mouse_position)
 
     case SAVE_MENU:
         draw_backup_menu_page(menu.backup_menu, mouse_position);
+        break;
+
+    case BEST_SCORE_MENU:
+        draw_score_menu_page(menu.score_menu, mouse_position);
         break;
 
     default:
