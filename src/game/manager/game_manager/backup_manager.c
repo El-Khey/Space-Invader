@@ -106,9 +106,28 @@ static void read_saved_games(BackupManager *manager)
     }
 }
 
+void sort_by_score(BestScore *scores, int size)
+{
+    int i, j;
+    BestScore temp;
+
+    for (i = 0; i < size - 1; i++)
+    {
+        for (j = 0; j < size - i - 1; j++)
+        {
+            if (scores[j].score < scores[j + 1].score)
+            {
+                temp = scores[j];
+                scores[j] = scores[j + 1];
+                scores[j + 1] = temp;
+            }
+        }
+    }
+}
+
 void read_best_scores(BackupManager *backup_manager, GameManager game_manager)
 {
-    FILE *file = fopen("best_score.txt", "r");
+    FILE *file = fopen("best_score.txt", "rb");
 
     if (file == NULL)
     {
@@ -116,11 +135,17 @@ void read_best_scores(BackupManager *backup_manager, GameManager game_manager)
         return;
     }
 
-    while (fscanf(file, "%s %d", backup_manager->best_scores[backup_manager->best_scores_count].name, &backup_manager->best_scores[backup_manager->best_scores_count].score) == 2)
+    for (i = 0; i < MAX_BACKUPS; i++)   
     {
+        if (fread(&(backup_manager->best_score[i]), sizeof(BestScore), 1, file) != 1) 
+        {
+            fprintf(stderr, "Error while reading score %d\n", i);
+        }
+        
         backup_manager->best_scores_count++;
     }
-
+    
+    sort_by_score(backup_manager->best_score,backup_manager->backups_count);
     fclose(file);
 }
 
