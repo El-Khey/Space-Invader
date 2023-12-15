@@ -23,7 +23,8 @@ void handle_pause_screen_events(GameManager *game_manager, PauseScreen pause_scr
  * @param game_manager The game manager
  * @param game_over_screen The game over screen
  * @param mouse_manager The mouse manager
+ * @param menu_time The menu time
  */
-void handle_game_over_screen_events(GameManager *game_manager, GameOverScreen game_over_screen, MouseManager mouse_manager);
 
+void handle_game_over_screen_events(GameManager *game_manager, BackupManager backup_manager, GameOverScreen game_over_screen, MouseManager mouse_manager, int *menu_time);
 #endif

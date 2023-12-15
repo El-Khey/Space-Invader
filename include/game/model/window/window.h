@@ -34,6 +34,10 @@ typedef struct
     int start_pause_time;
     int end_pause_time;
     int total_pause_time;
+
+    int start_game_over_time;
+    int end_game_over_time;
+    int total_game_over_time;
 } Window;
 
 Window construct_window();

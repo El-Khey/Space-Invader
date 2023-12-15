@@ -7,9 +7,14 @@ Window construct_window()
     Window window;
 
     window.elapsed_time = 0;
+
     window.start_pause_time = 0;
     window.end_pause_time = 0;
     window.total_pause_time = 0;
+
+    window.start_game_over_time = 0;
+    window.end_game_over_time = 0;
+    window.total_game_over_time = 0;
 
     window.dimension.height = WINDOW_HEIGHT;
     window.dimension.width = WINDOW_WIDTH;

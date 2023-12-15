@@ -5,12 +5,12 @@ void initialize_nairan_enemy(Enemy *enemy)
     switch (enemy->enemy_type)
     {
     case BATTLECRUISER:
-        enemy->speed = 2;
+        enemy->speed = 3;
         enemy->damage = 1;
         enemy->health = 100;
         enemy->score = 100;
 
-        enemy->list.active_bullet_type = RED_TORPEDO;
+        enemy->list.active_bullet_type = GREEN_RAY;
 
         enemy->enemy_animation.ship[BASE] = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Base/Battlecruiser.png", 1, enemy->dimension, BACKWARD);
         enemy->enemy_animation.ship[ATTACK] = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Weapons/Battlecruiser.png", 9, enemy->dimension, BACKWARD);
@@ -20,7 +20,7 @@ void initialize_nairan_enemy(Enemy *enemy)
         break;
 
     case BOMBER:
-        enemy->speed = 2;
+        enemy->speed = 3;
         enemy->damage = 1;
         enemy->health = 100;
         enemy->score = 100;
@@ -34,12 +34,12 @@ void initialize_nairan_enemy(Enemy *enemy)
         enemy->enemy_animation.engine_effect_boost = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Engine/Bomber.png", 8, enemy->dimension, BACKWARD);
         break;
     case DREADNOUGHT:
-        enemy->speed = 2;
+        enemy->speed = 3;
         enemy->damage = 1;
         enemy->health = 100;
         enemy->score = 100;
 
-        enemy->list.active_bullet_type = RED_RAY;
+        enemy->list.active_bullet_type = GREEN_BOLT;
 
         enemy->enemy_animation.ship[BASE] = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Base/Dreadnought.png", 1, enemy->dimension, BACKWARD);
         enemy->enemy_animation.ship[ATTACK] = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Weapons/Dreadnought.png", 34, enemy->dimension, BACKWARD);
@@ -48,12 +48,12 @@ void initialize_nairan_enemy(Enemy *enemy)
         enemy->enemy_animation.engine_effect_boost = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Engine/Dreadnought.png", 8, enemy->dimension, BACKWARD);
         break;
     case FIGHTER:
-        enemy->speed = 2;
+        enemy->speed = 3;
         enemy->damage = 1;
         enemy->health = 100;
         enemy->score = 100;
 
-        enemy->list.active_bullet_type = RED_RAY;
+        enemy->list.active_bullet_type = GREEN_ROCKET;
 
         enemy->enemy_animation.ship[BASE] = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Base/Fighter.png", 1, enemy->dimension, BACKWARD);
         enemy->enemy_animation.ship[ATTACK] = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Weapons/Fighter.png", 28, enemy->dimension, BACKWARD);
@@ -62,7 +62,7 @@ void initialize_nairan_enemy(Enemy *enemy)
         enemy->enemy_animation.engine_effect_boost = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Engine/Fighter.png", 8, enemy->dimension, BACKWARD);
         break;
     case FRIGATE:
-        enemy->speed = 2;
+        enemy->speed = 3;
         enemy->damage = 1;
         enemy->health = 100;
         enemy->score = 100;
@@ -76,7 +76,7 @@ void initialize_nairan_enemy(Enemy *enemy)
         enemy->enemy_animation.engine_effect_boost = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Engine/Frigate.png", 8, enemy->dimension, BACKWARD);
         break;
     case SCOUT:
-        enemy->speed = 2;
+        enemy->speed = 3;
         enemy->damage = 1;
         enemy->health = 100;
         enemy->score = 100;
@@ -90,7 +90,7 @@ void initialize_nairan_enemy(Enemy *enemy)
         enemy->enemy_animation.engine_effect_boost = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Engine/Scout.png", 8, enemy->dimension, BACKWARD);
         break;
     case SUPPORT:
-        enemy->speed = 2;
+        enemy->speed = 3;
         enemy->damage = 1;
         enemy->health = 100;
         enemy->score = 100;
@@ -104,7 +104,7 @@ void initialize_nairan_enemy(Enemy *enemy)
         enemy->enemy_animation.engine_effect_boost = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Engine/Support.png", 8, enemy->dimension, BACKWARD);
         break;
     case TORPEDO:
-        enemy->speed = 2;
+        enemy->speed = 3;
         enemy->damage = 1;
         enemy->health = 100;
         enemy->score = 100;
@@ -125,19 +125,18 @@ void initialize_nairan_enemy(Enemy *enemy)
          * type is not present for all class of enemy
          *
          */
-        enemy->speed = 2;
+        enemy->speed = 3;
         enemy->damage = 1;
         enemy->health = 100;
         enemy->score = 100;
 
         enemy->list.active_bullet_type = RED_RAY;
 
-        enemy->enemy_animation.ship[BASE] = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Base/Battlecruiser.png", 1, enemy->dimension, BACKWARD);
-        enemy->enemy_animation.ship[ATTACK] = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Weapons/Battlecruiser.png", 9, enemy->dimension, BACKWARD);
-        enemy->enemy_animation.ship[DESTRUCTION] = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Destruction/Battlecruiser.png", 18, enemy->dimension, BACKWARD);
+        enemy->enemy_animation.ship[BASE] = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Base/Frigate.png", 1, enemy->dimension, BACKWARD);
+        enemy->enemy_animation.ship[ATTACK] = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Weapons/Frigate.png", 5, enemy->dimension, BACKWARD);
+        enemy->enemy_animation.ship[DESTRUCTION] = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Destruction/Frigate.png", 16, enemy->dimension, BACKWARD);
 
-        enemy->enemy_animation.engine_effect_boost = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Engine/Battlecruiser.png", 8, enemy->dimension, BACKWARD);
-        break;
+        enemy->enemy_animation.engine_effect_boost = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Engine/Frigate.png", 8, enemy->dimension, BACKWARD);
     }
 
     play_animation(&enemy->enemy_animation.engine_effect_boost);

@@ -57,8 +57,6 @@ static void launch_game(MenuPage *menu_page, BackupManager backup_manager)
     EventManager event_manager = construct_event_manager();
     GameManager game_manager;
 
-    int total_menu_time = menu_page->total_menu_time + game_manager.window.total_pause_time + game_manager.window.elapsed_time;
-
     if (menu_page->backup_menu.selected_backup_slot_index != -1)
     {
         load_game(&backup_manager, &game_manager, menu_page->backup_menu.selected_backup_slot_index);
@@ -74,7 +72,7 @@ static void launch_game(MenuPage *menu_page, BackupManager backup_manager)
 
         if (!is_game_paused(&game_manager))
         {
-            update_game(&game_manager, &event_manager, total_menu_time);
+            update_game(&game_manager, &event_manager, menu_page->total_menu_time);
         }
 
         draw_settings_bar_view(&game_manager.views.settings_bar_view, game_manager.window.elapsed_time);
@@ -89,14 +87,14 @@ static void launch_game(MenuPage *menu_page, BackupManager backup_manager)
         if (is_game_over(&game_manager))
         {
             draw_game_over_screen(game_manager.views.game_over_screen, event_manager.mouse_manager.position);
-            handle_game_over_screen_events(&game_manager, game_manager.views.game_over_screen, event_manager.mouse_manager);
+            handle_game_over_screen_events(&game_manager, backup_manager, game_manager.views.game_over_screen, event_manager.mouse_manager, &menu_page->total_menu_time);
         }
 
         MLV_delay_according_to_frame_rate();
         MLV_actualise_window();
     }
 
-    menu_page->total_menu_time += game_manager.window.elapsed_time + game_manager.window.total_pause_time;
+    menu_page->total_menu_time += game_manager.window.elapsed_time + game_manager.window.total_pause_time + game_manager.window.total_game_over_time;
     menu_page->type = MAIN_MENU;
     update_menu(menu_page);
 }
@@ -107,7 +105,6 @@ static void update_menu(MenuPage *menu_page)
     BackupManager backup_manager = construct_backup_manager();
 
     menu_page->backup_menu = construct_backup_menu_page(backup_manager);
-    menu_page->score_menu = construct_score_menu_page(backup_manager);
     MLV_change_frame_rate(60);
 
     menu_page->start_menu_time = MLV_get_time();
@@ -124,8 +121,7 @@ static void update_menu(MenuPage *menu_page)
         MLV_actualise_window();
     }
 
-    menu_page->end_menu_time = MLV_get_time();
-    menu_page->total_menu_time += menu_page->end_menu_time - menu_page->start_menu_time;
+    menu_page->total_menu_time += menu_page->elapsed_time;
     launch_game(menu_page, backup_manager);
 }
 

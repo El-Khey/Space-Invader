@@ -8,10 +8,6 @@ GameManager construct_game_manager(Players players, GameMode game_mode, GameDiff
 {
     GameManager game_manager;
 
-    game_manager.window.elapsed_time = 0;
-    game_manager.window.start_pause_time = 0;
-    game_manager.window.end_pause_time = 0;
-
     game_manager.is_game_paused = 0;
     game_manager.is_game_over = 0;
     game_manager.quit_game = 0;
@@ -55,7 +51,7 @@ void update_game(GameManager *game_manager, EventManager *event_manager, int tot
     update_players(game_manager, *event_manager);
     if (!is_game_over(game_manager))
     {
-        game_manager->window.elapsed_time = MLV_get_time() - game_manager->window.total_pause_time - total_menu_time;
+        game_manager->window.elapsed_time = MLV_get_time() - game_manager->window.total_pause_time - total_menu_time - game_manager->window.total_game_over_time;
     }
 }
 
@@ -75,10 +71,15 @@ void restart_game(GameManager *game_manager)
     game_manager->controllers.asteroid_controller = construct_asteroid_controller();
     game_manager->controllers.bonus_controller = construct_bonus_controller();
 
-    game_manager->window.total_pause_time = MLV_get_time();
     game_manager->window.elapsed_time = 0;
+
+    game_manager->window.total_pause_time = 0;
     game_manager->window.start_pause_time = 0;
     game_manager->window.end_pause_time = 0;
+
+    game_manager->window.total_game_over_time = 0;
+    game_manager->window.start_game_over_time = 0;
+    game_manager->window.end_game_over_time = 0;
 
     game_manager->is_game_paused = 0;
     game_manager->is_game_over = 0;
@@ -105,6 +106,18 @@ int is_game_paused(GameManager *game_manager)
 
 void quit_game(GameManager *game_manager)
 {
+    if (is_game_paused(game_manager))
+    {
+        game_manager->window.end_pause_time = MLV_get_time();
+        game_manager->window.total_pause_time += game_manager->window.end_pause_time - game_manager->window.start_pause_time;
+    }
+    else if (is_game_over(game_manager))
+    {
+        game_manager->window.end_game_over_time = MLV_get_time();
+        game_manager->window.total_game_over_time += game_manager->window.end_game_over_time - game_manager->window.start_game_over_time;
+        printf("total game over time : %d\n", game_manager->window.total_game_over_time);
+    }
+
     free_players(&game_manager->players);
 
     /**
@@ -131,6 +144,11 @@ int is_game_over(GameManager *game_manager)
         {
             return 0;
         }
+    }
+
+    if (game_manager->window.start_game_over_time == 0)
+    {
+        game_manager->window.start_game_over_time = MLV_get_time();
     }
 
     return 1;

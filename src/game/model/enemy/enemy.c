@@ -51,12 +51,15 @@ static void initialize_enemy_class(Enemy *enemy)
     case KLAED:
         initialize_klaed_enemy(enemy);
         break;
+
     case NAIRAN:
         initialize_nairan_enemy(enemy);
         break;
+
     case NAUTOLAN:
         initialize_nautolan_enemy(enemy);
         break;
+
     default:
         fprintf(stderr, "Error: unknown enemy class : %d\n", enemy->enemy_class);
         break;

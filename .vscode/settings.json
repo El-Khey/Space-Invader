@@ -37,6 +37,8 @@
                 "button.h": "c",
                 "score_menu_page.h": "c",
                 "typeinfo": "c",
-                "event_manager.h": "c"
+                "event_manager.h": "c",
+                "main.h": "c",
+                "mlv_all.h": "c"
         }
 }
