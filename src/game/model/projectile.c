@@ -198,23 +198,181 @@ static void initialize_enemy_projectiles_from_weapon_type(Projectile *projectile
         projectile->list.bullets[0].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet - 50;
         break;
 
-        /**
-        case RED_BULLET:
-            projectile->list.bullets_count = 1;
-            projectile->active_bullet_type = RED_BULLET;
+    case RED_TORPEDO:
+        projectile->list.bullets_count = 1;
+        projectile->active_bullet_type = RED_TORPEDO;
 
-            projectile->damage = 1;
-            projectile->speed = 5;
-            projectile->delay_fire_bullet = 150;
+        projectile->damage = 1;
+        projectile->speed = 5;
+        projectile->delay_fire_bullet = 150;
 
-            projectile->list.bullets[0].bullet_animation = construct_animation("assets/sprites/Ships/EnemyFleet/Kla'ed/Projectiles/Red Bullet.png", 1, dimension, FORWARD);
-            resize_animation(&projectile->list.bullets[0].bullet_animation, construct_dimension(64, 64));
+        projectile->list.bullets[0].bullet_animation = construct_animation("assets/sprites/Ships/EnemyFleet/Kla'ed/Projectiles/Red Torpedo.png", 3, dimension, FORWARD);
+        projectile->list.bullets[0].dimension = construct_dimension(32, 64);
+        resize_animation(&projectile->list.bullets[0].bullet_animation, projectile->list.bullets[0].dimension);
 
-            projectile->list.bullets[0].dimension = dimension;
-            projectile->list.bullets[0].position = construct_position(position.x + dimension.width / 2 - 70, position.y + 15);
-            projectile->list.bullets[0].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet - 50;
-            break;
-        */
+        projectile->list.bullets[0].position = construct_position(position.x + dimension.width / 2 - 16, position.y + get_height(dimension) - 32);
+        projectile->list.bullets[0].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet - 50;
+        break;
+
+    case RED_WAVE:
+        projectile->list.bullets_count = 1;
+        projectile->active_bullet_type = RED_WAVE;
+
+        projectile->damage = 1;
+        projectile->speed = 5;
+        projectile->delay_fire_bullet = 150;
+
+        projectile->list.bullets[0].bullet_animation = construct_animation("assets/sprites/Ships/EnemyFleet/Kla'ed/Projectiles/Red Wave.png", 6, dimension, FORWARD);
+        projectile->list.bullets[0].dimension = construct_dimension(128, 64);
+        resize_animation(&projectile->list.bullets[0].bullet_animation, projectile->list.bullets[0].dimension);
+
+        projectile->list.bullets[0].position = construct_position(position.x + dimension.width / 2 - 16, position.y + get_height(dimension) - 32);
+        projectile->list.bullets[0].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet - 50;
+        break;
+
+    case WHITE_BOMB:
+        projectile->list.bullets_count = 1;
+        projectile->active_bullet_type = WHITE_BOMB;
+
+        projectile->damage = 1;
+        projectile->speed = 5;
+        projectile->delay_fire_bullet = 150;
+
+        projectile->list.bullets[0].bullet_animation = construct_animation("assets/sprites/Ships/EnemyFleet/Nautolan/Projectiles/White Bomb.png", 16, dimension, FORWARD);
+        projectile->list.bullets[0].dimension = construct_dimension(32, 64);
+        resize_animation(&projectile->list.bullets[0].bullet_animation, projectile->list.bullets[0].dimension);
+
+        projectile->list.bullets[0].position = construct_position(position.x + dimension.width / 2 - 16, position.y + get_height(dimension) - 32);
+        projectile->list.bullets[0].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet - 50;
+        break;
+
+    case WHITE_BULLET:
+        projectile->list.bullets_count = 1;
+        projectile->active_bullet_type = WHITE_BULLET;
+
+        projectile->damage = 1;
+        projectile->speed = 5;
+        projectile->delay_fire_bullet = 150;
+
+        projectile->list.bullets[0].bullet_animation = construct_animation("assets/sprites/Ships/EnemyFleet/Nautolan/Projectiles/White Bullet.png", 8, dimension, FORWARD);
+        projectile->list.bullets[0].dimension = construct_dimension(32, 64);
+        resize_animation(&projectile->list.bullets[0].bullet_animation, projectile->list.bullets[0].dimension);
+
+        projectile->list.bullets[0].position = construct_position(position.x + dimension.width / 2 - 16, position.y + get_height(dimension) - 32);
+        projectile->list.bullets[0].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet - 50;
+        break;
+
+    case WHITE_ROCKET:
+        projectile->list.bullets_count = 1;
+        projectile->active_bullet_type = WHITE_ROCKET;
+
+        projectile->damage = 1;
+        projectile->speed = 5;
+        projectile->delay_fire_bullet = 150;
+
+        projectile->list.bullets[0].bullet_animation = construct_animation("assets/sprites/Ships/EnemyFleet/Nautolan/Projectiles/White Rocket.png", 6, dimension, FORWARD);
+        projectile->list.bullets[0].dimension = construct_dimension(32, 64);
+        resize_animation(&projectile->list.bullets[0].bullet_animation, projectile->list.bullets[0].dimension);
+
+        projectile->list.bullets[0].position = construct_position(position.x + dimension.width / 2 - 16, position.y + get_height(dimension) - 32);
+        projectile->list.bullets[0].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet - 50;
+        break;
+
+    case WHITE_WAVE:
+        projectile->list.bullets_count = 1;
+        projectile->active_bullet_type = WHITE_WAVE;
+
+        projectile->damage = 1;
+        projectile->speed = 5;
+        projectile->delay_fire_bullet = 150;
+
+        projectile->list.bullets[0].bullet_animation = construct_animation("assets/sprites/Ships/EnemyFleet/Nautolan/Projectiles/White Wave.png", 6, dimension, FORWARD);
+        projectile->list.bullets[0].dimension = construct_dimension(128, 64);
+        resize_animation(&projectile->list.bullets[0].bullet_animation, projectile->list.bullets[0].dimension);
+
+        projectile->list.bullets[0].position = construct_position(position.x + dimension.width / 2 - 32, position.y + get_height(dimension) - 32);
+        projectile->list.bullets[0].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet - 50;
+        break;
+
+    case WHTIE_SPINNING:
+        projectile->list.bullets_count = 1;
+        projectile->active_bullet_type = WHTIE_SPINNING;
+
+        projectile->damage = 1;
+        projectile->speed = 5;
+        projectile->delay_fire_bullet = 150;
+
+        projectile->list.bullets[0].bullet_animation = construct_animation("assets/sprites/Ships/EnemyFleet/Nautolan/Projectiles/White Spinning.png", 8, dimension, FORWARD);
+        projectile->list.bullets[0].dimension = construct_dimension(32, 32);
+        resize_animation(&projectile->list.bullets[0].bullet_animation, projectile->list.bullets[0].dimension);
+
+        projectile->list.bullets[0].position = construct_position(position.x + dimension.width / 2 - 16, position.y + get_height(dimension) - 32);
+        projectile->list.bullets[0].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet - 50;
+        break;
+
+    GREEN_BOLT:
+        projectile->list.bullets_count = 1;
+        projectile->active_bullet_type = GREEN_BOLT;
+
+        projectile->damage = 1;
+        projectile->speed = 5;
+        projectile->delay_fire_bullet = 150;
+
+        projectile->list.bullets[0].bullet_animation = construct_animation("assets/sprites/Ships/EnemyFleet/Nautolan/Projectiles/Green Bolt.png", 5, dimension, FORWARD);
+        projectile->list.bullets[0].dimension = construct_dimension(32, 32);
+        resize_animation(&projectile->list.bullets[0].bullet_animation, projectile->list.bullets[0].dimension);
+
+        projectile->list.bullets[0].position = construct_position(position.x + dimension.width / 2 - 16, position.y + get_height(dimension) - 32);
+        projectile->list.bullets[0].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet - 50;
+        break;
+
+    GREEN_RAY:
+        projectile->list.bullets_count = 1;
+        projectile->active_bullet_type = GREEN_RAY;
+
+        projectile->damage = 1;
+        projectile->speed = 5;
+        projectile->delay_fire_bullet = 150;
+
+        projectile->list.bullets[0].bullet_animation = construct_animation("assets/sprites/Ships/EnemyFleet/Nautolan/Projectiles/Green Ray.png", 4, dimension, FORWARD);
+        projectile->list.bullets[0].dimension = construct_dimension(32, 64);
+        resize_animation(&projectile->list.bullets[0].bullet_animation, projectile->list.bullets[0].dimension);
+
+        projectile->list.bullets[0].position = construct_position(position.x + dimension.width / 2 - 16, position.y + get_height(dimension) - 32);
+        projectile->list.bullets[0].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet - 50;
+        break;
+
+    GREEN_ROCKET:
+        projectile->list.bullets_count = 1;
+        projectile->active_bullet_type = GREEN_ROCKET;
+
+        projectile->damage = 1;
+        projectile->speed = 5;
+        projectile->delay_fire_bullet = 150;
+
+        projectile->list.bullets[0].bullet_animation = construct_animation("assets/sprites/Ships/EnemyFleet/Nautolan/Projectiles/Green Rocket.png", 4, dimension, FORWARD);
+        projectile->list.bullets[0].dimension = construct_dimension(32, 64);
+        resize_animation(&projectile->list.bullets[0].bullet_animation, projectile->list.bullets[0].dimension);
+
+        projectile->list.bullets[0].position = construct_position(position.x + dimension.width / 2 - 16, position.y + get_height(dimension) - 32);
+        projectile->list.bullets[0].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet - 50;
+        break;
+
+    GREEN_TORPEDO:
+        projectile->list.bullets_count = 1;
+        projectile->active_bullet_type = GREEN_TORPEDO;
+
+        projectile->damage = 1;
+        projectile->speed = 5;
+        projectile->delay_fire_bullet = 150;
+
+        projectile->list.bullets[0].bullet_animation = construct_animation("assets/sprites/Ships/EnemyFleet/Nautolan/Projectiles/Green Torpedo.png", 4, dimension, FORWARD);
+        projectile->list.bullets[0].dimension = construct_dimension(32, 64);
+        resize_animation(&projectile->list.bullets[0].bullet_animation, projectile->list.bullets[0].dimension);
+
+        projectile->list.bullets[0].position = construct_position(position.x + dimension.width / 2 - 16, position.y + get_height(dimension) - 32);
+        projectile->list.bullets[0].start_fire_time = MLV_get_time() + projectile->delay_fire_bullet - 50;
+        break;
 
     default:
         fprintf(stderr, "Error: unknown projectile type %d\n", projectile->active_bullet_type);

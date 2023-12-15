@@ -17,16 +17,8 @@ typedef enum
     ZAPPER,
 
     RED_RAY,
-    /**
-    RED_BIG_BULLET,
-    RED_BULLET,
     RED_TORPEDO,
     RED_WAVE,
-
-    GREEN_BOLT,
-    GREEN_RAY,
-    GREEN_ROCKET,
-    GREEN_TORPEDO,
 
     WHITE_BOMB,
     WHITE_BULLET,
@@ -34,7 +26,11 @@ typedef enum
     WHITE_ROCKET,
     WHTIE_SPINNING,
     WHITE_WAVE,
-    */
+
+    GREEN_BOLT,
+    GREEN_RAY,
+    GREEN_ROCKET,
+    GREEN_TORPEDO,
     nb_weapon
 } Weapon_Type;
 

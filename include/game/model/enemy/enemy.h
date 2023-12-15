@@ -21,15 +21,13 @@ typedef enum
 typedef enum
 {
     BATTLECRUISER,
-    /**
-     BOMBER,
-     DREADNOUGHT,
-     FIGHTER,
-     FRIGATE,
-     SCOUT,
-     SUPPORT,
-     TORPEDO,
-     */
+    BOMBER,
+    DREADNOUGHT,
+    FIGHTER,
+    FRIGATE,
+    SCOUT,
+    SUPPORT,
+    TORPEDO,
     nb_enemy_type
 } EnemyType;
 

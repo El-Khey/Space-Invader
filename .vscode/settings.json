@@ -36,6 +36,7 @@
                 "backup_menu_page.h": "c",
                 "button.h": "c",
                 "score_menu_page.h": "c",
-                "typeinfo": "c"
+                "typeinfo": "c",
+                "event_manager.h": "c"
         }
 }
