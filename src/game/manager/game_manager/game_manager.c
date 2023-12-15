@@ -103,23 +103,8 @@ int is_game_paused(GameManager *game_manager)
     return game_manager->is_game_paused;
 }
 
-static void save_scores(Players players, char *filename)
-{
-    FILE *file = fopen(filename, "wb");
-
-    if (file == NULL)
-    {
-        return;
-    }
-
-    fwrite(&players, sizeof(Players), 1, file);
-
-    fclose(file);
-}
-
 void quit_game(GameManager *game_manager)
 {
-    save_scores(game_manager->players, "./.bin/scores/scores.bin");
     free_players(&game_manager->players);
 
     /**

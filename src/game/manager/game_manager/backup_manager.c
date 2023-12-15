@@ -7,16 +7,18 @@ static void read_saved_games(BackupManager *manager);
 BackupManager construct_backup_manager()
 {
     BackupManager manager;
-    manager.backups = (Backup *)malloc(sizeof(Backup) * MAX_BACKUPS);
+    manager.backup_list.backups = (Backup *)malloc(sizeof(Backup) * MAX_BACKUPS);
 
-    manager.backups_count = 0;
+    manager.backup_list.backups_count = 0;
+    manager.best_score_list.best_scores_count = 0;
+
     read_saved_games(&manager);
     read_best_scores(&manager);
 
     return manager;
 }
 
-void save_game(GameManager *game, int slot)
+void save_game(GameManager *game_manager, int slot)
 {
     Backup backup;
     char filename[256];
@@ -27,7 +29,7 @@ void save_game(GameManager *game, int slot)
         return;
     }
 
-    backup.game_state = *game;
+    backup.game_state = *game_manager;
     backup.timestamp = time(NULL);
     backup.slot = slot;
 
@@ -50,7 +52,7 @@ void load_game(BackupManager *manager, GameManager *game, int slot)
 {
     int i = 0;
 
-    *game = manager->backups[slot].game_state;
+    *game = manager->backup_list.backups[slot].game_state;
     game->is_game_paused = 0;
 
     load_window_backup(&game->window);
@@ -95,109 +97,89 @@ static void read_saved_games(BackupManager *manager)
             continue;
         }
 
-        if (fread(&(manager->backups[i]), sizeof(Backup), 1, file) != 1)
+        if (fread(&(manager->backup_list.backups[i]), sizeof(Backup), 1, file) != 1)
         {
             fprintf(stderr, "Error while reading backup %d\n", i);
             continue;
         }
 
         fclose(file);
-        manager->backups_count++;
+        manager->backup_list.backups_count++;
     }
 }
 
-void sort_by_score(BestScore *scores, int size)
+void read_best_scores(BackupManager *backup_manager)
 {
-    int i, j;
-    BestScore temp;
-
-    for (i = 0; i < size - 1; i++)
-    {
-        for (j = 0; j < size - i - 1; j++)
-        {
-            if (scores[j].score < scores[j + 1].score)
-            {
-                temp = scores[j];
-                scores[j] = scores[j + 1];
-                scores[j + 1] = temp;
-            }
-        }
-    }
-}
-
-void read_best_scores(BackupManager *backup_manager, GameManager game_manager)
-{
-    FILE *file = fopen("best_score.txt", "rb");
-
+    FILE *file = fopen("./.bin/scores/best_scores.bin", "rb");
     if (file == NULL)
     {
-        fprintf(stderr, "Erreur lors de l'ouverture du fichier.\n");
+        fprintf(stderr, "Error opening file.\n");
         return;
     }
 
-    for (i = 0; i < MAX_BACKUPS; i++)   
+    if (fread(&backup_manager->best_score_list, sizeof(BestScoreList), 1, file) != 1)
     {
-        if (fread(&(backup_manager->best_score[i]), sizeof(BestScore), 1, file) != 1) 
-        {
-            fprintf(stderr, "Error while reading score %d\n", i);
-        }
-        
-        backup_manager->best_scores_count++;
+        fprintf(stderr, "Error while reading best scores.\n");
     }
-    
-    sort_by_score(backup_manager->best_score,backup_manager->backups_count);
     fclose(file);
 }
 
-void write_best_scores(GameManager game_manager, BackupManager *backup_manager)
+static void write_best_scores(BackupManager *backup_manager)
 {
-    FILE *file = fopen("best_score.txt", "w");
-    int i, j, k;
-    BestScore tmp;
-
+    FILE *file = fopen("./.bin/scores/best_scores.bin", "wb");
     if (file == NULL)
     {
-        fprintf(stderr, "Erreur lors de l'ouverture du fichier.\n");
+        fprintf(stderr, "Error opening file.\n");
         return;
     }
 
-    for (i = 0; i < game_manager.players.nb_players; i++)
+    if (fwrite(&backup_manager->best_score_list, sizeof(BestScoreList), 1, file) != 1)
     {
-        for (j = 0; i < backup_manager->best_scores_count; j++)
+        fprintf(stderr, "Error while writing best scores.\n");
+    }
+
+    fclose(file);
+}
+
+int compare_best_scores(const void *a, const void *b)
+{
+    const BestScore *scoreA = (const BestScore *)a;
+    const BestScore *scoreB = (const BestScore *)b;
+
+    return (scoreB->score - scoreA->score);
+}
+
+void save_best_scores(BackupManager *backup_manager, GameManager game_manager)
+{
+    int i = 0;
+    for (; i < game_manager.players.nb_players; i++)
+    {
+        if (backup_manager->best_score_list.best_scores_count < MAX_BACKUPS ||
+            game_manager.players.players[i].score > backup_manager->best_score_list.best_scores[MAX_BACKUPS - 1].score)
         {
-            if (backup_manager->best_scores_count < MAX_BACKUPS)
+            if (backup_manager->best_score_list.best_scores_count < MAX_BACKUPS)
             {
-                if (backup_manager->best_scores[j].score < game_manager.players.players[i].score)
+                backup_manager->best_score_list.best_scores[backup_manager->best_score_list.best_scores_count].score = game_manager.players.players[i].score;
+                strcpy(backup_manager->best_score_list.best_scores[backup_manager->best_score_list.best_scores_count].name, game_manager.players.players[i].username);
+                backup_manager->best_score_list.best_scores[backup_manager->best_score_list.best_scores_count].timestamp = time(NULL);
+
+                backup_manager->best_score_list.best_scores_count++;
             }
             else
             {
-                if (backup_manager->best_scores[j].score < game_manager.players.players[i].score)
-                {
-                    // Insert the sorted score
-                    for (k = backup_manager->best_scores_count; k > j; k--)
-                    {
-                        backup_manager->best_scores[k] = backup_manager->best_scores[k - 1];
-                    }
-                    backup_manager->best_scores[j].score = game_manager.players.players[i].score;
-                    strcpy(backup_manager->best_scores[j].name, game_manager.players.players[i].username);
-                    backup_manager->best_scores_count++;
-                }
+                backup_manager->best_score_list.best_scores[MAX_BACKUPS - 1].score = game_manager.players.players[i].score;
+                strcpy(backup_manager->best_score_list.best_scores[MAX_BACKUPS - 1].name, game_manager.players.players[i].username);
+                backup_manager->best_score_list.best_scores[MAX_BACKUPS - 1].timestamp = time(NULL);
             }
+
+            qsort(backup_manager->best_score_list.best_scores, backup_manager->best_score_list.best_scores_count, sizeof(BestScore), compare_best_scores);
         }
     }
 
-    else
-    {
-        if (backup_manager->best_scores[j].score < game_manager.players.players[i].score)
-        {
-            backup_manager->best_scores[j].score = game_manager.players.players[i].score;
-            strcpy(backup_manager->best_scores[j].name, game_manager.players.players[i].username);
-        }
-    }
-    fclose(file);
+    write_best_scores(backup_manager);
 }
 
 void free_backup_manager(BackupManager *manager)
 {
-    free(manager->backups);
+    free(manager->backup_list.backups);
 }

@@ -9,7 +9,7 @@ enemy_controller construct_enemy_controller()
     */
 
     enemy_controller.last_enemy_spawn_time = 0;
-    enemy_controller.delay_between_spawn = 2000;
+    enemy_controller.delay_between_spawn = 3000;
 
     enemy_controller.enemy_spawned = 0;
     enemy_controller.enemy_spawn_count = MAX_ENEMY_SPAWN_COUNT;

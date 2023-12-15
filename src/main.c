@@ -107,6 +107,7 @@ static void update_menu(MenuPage *menu_page)
     BackupManager backup_manager = construct_backup_manager();
 
     menu_page->backup_menu = construct_backup_menu_page(backup_manager);
+    menu_page->score_menu = construct_score_menu_page(backup_manager);
     MLV_change_frame_rate(60);
 
     menu_page->start_menu_time = MLV_get_time();

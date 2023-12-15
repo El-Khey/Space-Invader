@@ -12,7 +12,6 @@ MenuPage construct_menu_page(MenuType type)
 
     menu.main_menu = construct_main_menu_page();
     menu.difficulty_menu = construct_difficulty_menu_page();
-    menu.score_menu = construct_score_menu_page();
 
     menu.elapsed_time = 0;
     menu.start_menu_time = 0;
