@@ -42,6 +42,12 @@ static void handle_heros_projectiles_and_enemy_collision(Player *player, enemy_c
                     player->heros.list.projectiles[i].list.bullets[k] = player->heros.list.projectiles[i].list.bullets[player->heros.list.projectiles[i].list.bullets_count - 1];
                     player->heros.list.projectiles[i].list.bullets_count--;
 
+                    if (player->heros.list.projectiles[i].list.bullets_count == 0)
+                    {
+                        player->heros.list.projectiles[i] = player->heros.list.projectiles[player->heros.list.projectiles_count - 1];
+                        player->heros.list.projectiles_count--;
+                    }
+
                     if (is_enemy_dead(enemy_controller->enemies[j]))
                     {
                         player->score += 1;
@@ -74,6 +80,12 @@ static void handle_enemy_projectiles_collision(enemy_controller *enemy_controlle
 
                     enemy_controller->enemies[i].list.projectiles[j].list.bullets[k] = enemy_controller->enemies[i].list.projectiles[j].list.bullets[enemy_controller->enemies[i].list.projectiles[j].list.bullets_count - 1];
                     enemy_controller->enemies[i].list.projectiles[j].list.bullets_count--;
+
+                    if (enemy_controller->enemies[i].list.projectiles[j].list.bullets_count == 0)
+                    {
+                        enemy_controller->enemies[i].list.projectiles[j] = enemy_controller->enemies[i].list.projectiles[enemy_controller->enemies[i].list.projectiles_count - 1];
+                        enemy_controller->enemies[i].list.projectiles_count--;
+                    }
 
                     update_heros_active_ship(heros);
                 }
@@ -141,6 +153,12 @@ static void handle_heros_projectiles_and_bonus_collision(Heros *heros, bonus_con
 
                     heros->list.projectiles[i].list.bullets[k] = heros->list.projectiles[i].list.bullets[heros->list.projectiles[i].list.bullets_count - 1];
                     heros->list.projectiles[i].list.bullets_count--;
+
+                    if (heros->list.projectiles[i].list.bullets_count == 0)
+                    {
+                        heros->list.projectiles[i] = heros->list.projectiles[heros->list.projectiles_count - 1];
+                        heros->list.projectiles_count--;
+                    }
                 }
             }
         }
@@ -181,6 +199,13 @@ static void handle_asteroid_and_heros_projectiles_collision(Projectiles *list, a
 
                     list->projectiles[i].list.bullets[j] = list->projectiles[i].list.bullets[list->projectiles[i].list.bullets_count - 1];
                     list->projectiles[i].list.bullets_count--;
+
+                    if (list->projectiles[i].list.bullets_count == 0)
+                    {
+                        list->projectiles[i] = list->projectiles[list->projectiles_count - 1];
+                        list->projectiles_count--;
+                    }
+
                     break;
                 }
             }
