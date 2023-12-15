@@ -20,7 +20,7 @@ ScoreMenu construct_score_menu_page(BackupManager backup_manager)
 
     for (; i < button_count; i++)
     {
-        char slot_name[350];
+        char slot_name[150];
         sprintf(slot_name, "%s : %d - %s", backup_manager.best_score_list.best_scores[i].name, backup_manager.best_score_list.best_scores[i].score, convert_timestamp(backup_manager.best_score_list.best_scores[i].timestamp));
         page.best_scores_buttons[i] = construct_button_with_text(slot_name, construct_position(WINDOW_WIDTH / 2 - BUTTON_WIDTH / 2, button_y + i * (BUTTON_HEIGHT + 7)), construct_dimension(BUTTON_WIDTH, BUTTON_HEIGHT), foreground, background);
         page.best_scores_buttons[i].text.font_size = 15;

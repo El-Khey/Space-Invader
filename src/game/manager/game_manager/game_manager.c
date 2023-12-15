@@ -115,7 +115,6 @@ void quit_game(GameManager *game_manager)
     {
         game_manager->window.end_game_over_time = MLV_get_time();
         game_manager->window.total_game_over_time += game_manager->window.end_game_over_time - game_manager->window.start_game_over_time;
-        printf("total game over time : %d\n", game_manager->window.total_game_over_time);
     }
 
     free_players(&game_manager->players);
