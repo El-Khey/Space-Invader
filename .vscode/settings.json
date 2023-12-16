@@ -39,6 +39,11 @@
                 "typeinfo": "c",
                 "event_manager.h": "c",
                 "main.h": "c",
-                "mlv_all.h": "c"
+                "mlv_all.h": "c",
+                "time.h": "c",
+                "frame_rate.h": "c",
+                "struct_timespec.h": "c",
+                "stdlib.h": "c",
+                "stdio.h": "c"
         }
 }

@@ -1,6 +1,8 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+#define _POSIX_C_SOURCE 200809L
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
@@ -17,4 +19,4 @@
 #define PRIMARY_RED_COLOR MLV_rgba(255, 41, 41, 255)
 #define PRIMARY_BLUE_COLOR MLV_rgba(50, 89, 255, 255)
 
-#endif /** MAIN_H */
+#endif

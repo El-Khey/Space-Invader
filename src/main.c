@@ -3,12 +3,12 @@
 #include "../include/game/manager/event_manager/event_manager.h"
 #include "../include/game/manager/game_manager/game_manager.h"
 #include "../include/menu/controller/menu_controller.h"
+#include "../include/utils/frame_rate/frame_rate.h"
 
 #include "../include/menu/menu.h"
 #include "../include/main.h"
 
 static void update_menu(MenuPage *menu_page);
-static void launch_game(MenuPage *menu_page, BackupManager backup_manager);
 
 static void handle_settings_action(GameManager *game_manager, MouseManager mouse_manager)
 {
@@ -56,6 +56,7 @@ static void launch_game(MenuPage *menu_page, BackupManager backup_manager)
 {
     EventManager event_manager = construct_event_manager();
     GameManager game_manager;
+    FrameRate frame_rate = construct_frame_rate(60);
 
     if (menu_page->backup_menu.selected_backup_slot_index != -1)
     {
@@ -68,6 +69,7 @@ static void launch_game(MenuPage *menu_page, BackupManager backup_manager)
 
     while (!game_manager.quit_game)
     {
+        set_frame_rate_start_time(&frame_rate);
         handle_events(&event_manager, game_manager.game_mode);
 
         if (!is_game_paused(&game_manager))
@@ -90,7 +92,7 @@ static void launch_game(MenuPage *menu_page, BackupManager backup_manager)
             handle_game_over_screen_events(&game_manager, backup_manager, game_manager.views.game_over_screen, event_manager.mouse_manager, &menu_page->total_menu_time);
         }
 
-        MLV_delay_according_to_frame_rate();
+        delay_according_to_frame_rate(&frame_rate);
         MLV_actualise_window();
     }
 
@@ -103,14 +105,15 @@ static void update_menu(MenuPage *menu_page)
 {
     MouseManager mouse_manager = construct_mouse_manager();
     BackupManager backup_manager = construct_backup_manager();
+    FrameRate frame_rate = construct_frame_rate(60);
 
     menu_page->backup_menu = construct_backup_menu_page(backup_manager);
     menu_page->score_menu = construct_score_menu_page(backup_manager);
-    MLV_change_frame_rate(60);
 
     menu_page->start_menu_time = MLV_get_time();
     while (menu_page->type != GAME_START)
     {
+        set_frame_rate_start_time(&frame_rate);
         menu_page->elapsed_time = MLV_get_time() - menu_page->start_menu_time;
 
         draw_menu_page(*menu_page, get_mouse_position(mouse_manager));
@@ -118,7 +121,7 @@ static void update_menu(MenuPage *menu_page)
         handle_mouse_events(&mouse_manager);
         handle_menu_events(menu_page, mouse_manager);
 
-        MLV_delay_according_to_frame_rate();
+        delay_according_to_frame_rate(&frame_rate);
         MLV_actualise_window();
     }
 
