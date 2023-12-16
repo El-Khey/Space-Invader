@@ -24,6 +24,12 @@ void generate_asteroids(asteroid_controller *controller)
     }
 }
 
+/**
+ * Fonction pour gérer la destruction d'un astéroïde.
+ *
+ * @param controller Le contrôleur des astéroïdes.
+ * @param index L'indice de l'astéroïde à gérer.
+ */
 static void handle_asteroid_death(asteroid_controller *controller, int index)
 {
     if (is_asteroid_dead(controller->asteroids[index]))
@@ -45,6 +51,12 @@ static void handle_asteroid_death(asteroid_controller *controller, int index)
     }
 }
 
+/**
+ * Fonction pour vérifier si un astéroïde est hors de l'écran.
+ *
+ * @param asteroid L'astéroïde à vérifier.
+ * @return 1 si l'astéroïde est hors de l'écran, 0 sinon.
+ */
 static int is_asteroid_out_of_screen(Asteroid asteroid)
 {
     return asteroid.position.x < -asteroid.dimension.width || asteroid.position.x > WINDOW_WIDTH + asteroid.dimension.width || asteroid.position.y > WINDOW_HEIGHT + asteroid.dimension.height;

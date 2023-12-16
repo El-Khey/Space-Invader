@@ -127,24 +127,43 @@ void read_best_scores(BackupManager *backup_manager)
     fclose(file);
 }
 
+/**
+ * @brief Écrit les meilleurs scores dans un fichier binaire.
+ *
+ * Cette fonction prend en paramètre un pointeur vers un objet BackupManager
+ * et écrit la liste des meilleurs scores dans un fichier binaire.
+ *
+ * @param backup_manager Le gestionnaire de sauvegarde contenant la liste des meilleurs scores.
+ */
 static void write_best_scores(BackupManager *backup_manager)
 {
     FILE *file = fopen("./.bin/scores/best_scores.bin", "wb");
     if (file == NULL)
     {
-        fprintf(stderr, "Error opening file.\n");
+        fprintf(stderr, "Erreur lors de l'ouverture du fichier.\n");
         return;
     }
 
     if (fwrite(&backup_manager->best_score_list, sizeof(BestScoreList), 1, file) != 1)
     {
-        fprintf(stderr, "Error while writing best scores.\n");
+        fprintf(stderr, "Erreur lors de l'écriture des meilleurs scores.\n");
     }
 
     fclose(file);
 }
 
-int compare_best_scores(const void *a, const void *b)
+/**
+ * Compare les meilleurs scores en fonction de leur valeur.
+ *
+ * Cette fonction est utilisée comme fonction de comparaison pour le tri des meilleurs scores.
+ * Elle compare deux scores en utilisant leur valeur, en ordre décroissant.
+ *
+ * @param a Le premier score à comparer.
+ * @param b Le deuxième score à comparer.
+ * @return Une valeur négative si le score A est inférieur au score B, une valeur positive si le score A est supérieur au score B,
+ *         et zéro si les scores sont égaux.
+ */
+static int compare_best_scores(const void *a, const void *b)
 {
     const BestScore *scoreA = (const BestScore *)a;
     const BestScore *scoreB = (const BestScore *)b;

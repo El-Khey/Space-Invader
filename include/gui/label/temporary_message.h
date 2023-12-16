@@ -12,48 +12,48 @@ typedef struct
 } TemporaryMessage;
 
 /**
- * @brief Construct a new Temporary Message object
+ * @brief Construit un nouvel objet de message temporaire.
  *
- * @param text The text to be displayed
- * @param duration The duration of the message in milliseconds
+ * @param text Le texte à afficher.
+ * @param duration La durée du message en millisecondes.
  * @return TemporaryMessage
  */
 TemporaryMessage construct_temporary_message(Text text, int duration);
 
 /**
- * @brief Reset the start time of the message
+ * @brief Réinitialise le temps de début du message.
  *
- * @param message The message to be modified
+ * @param message Le message à modifier.
  */
 void reset_temporary_message(TemporaryMessage *message);
 
 /**
- * @brief Set the duration of the message
+ * @brief Définit la durée d'affichage d'un message temporaire.
  *
- * @param message The message to be modified
- * @param duration The new duration of the message
+ * @param message Le message temporaire dont on souhaite définir la durée.
+ * @param duration La durée en millisecondes pendant laquelle le message sera affiché.
  */
 void temporary_message_set_duration(TemporaryMessage *message, int duration);
 
 /**
- * @brief Set the text of the message
+ * @brief Définit le texte du message.
  *
- * @param message The message to be modified
- * @param text The new text of the message
+ * @param message Le message à modifier.
+ * @param text Le nouveau texte du message.
  */
 void temporary_message_set_text(TemporaryMessage *message, Text text);
 
 /**
- * @brief Draw the message on the screen
+ * @brief Dessine le message à l'écran.
  *
- * @param message The message to be drawn
+ * @param message Le message à dessiner.
  */
 void draw_temporary_message(TemporaryMessage message);
 
 /**
- * @brief
+ * @brief Libère la mémoire allouée pour le message temporaire.
  *
- * @param message
+ * @param message Le message à libérer.
  */
 void free_temporary_message(TemporaryMessage *message);
 

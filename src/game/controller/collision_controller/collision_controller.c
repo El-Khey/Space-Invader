@@ -1,6 +1,18 @@
 #include "../../../../include/game/controller/collision_controller/collision_controller.h"
 #include "../../../../include/game/controller/players_controller.h"
 
+/**
+ * @brief Gère la collision entre le héros et les ennemis à courte portée.
+ *
+ * Cette fonction vérifie s'il y a une collision entre la hitbox du héros et la hitbox de chaque ennemi dans le contrôleur d'ennemis.
+ * Si une collision est détectée, la fonction met à jour la santé de l'ennemi et du héros en conséquence.
+ * Si la santé de l'ennemi atteint 0, il est considéré comme vaincu.
+ * Si le bouclier du héros n'est pas actif, la santé du héros est réduite par les dégâts de l'ennemi.
+ * Enfin, la fonction met à jour le vaisseau actif du héros.
+ *
+ * @param heros Pointeur vers l'objet héros.
+ * @param enemy_controller Pointeur vers l'objet contrôleur d'ennemis.
+ */
 static void handle_heros_and_enemy_close_range_collision(Heros *heros, enemy_controller *enemy_controller)
 {
     int i;
@@ -24,7 +36,16 @@ static void handle_heros_and_enemy_close_range_collision(Heros *heros, enemy_con
 }
 
 /**
- * @brief We pass the player here to be able to update the score and the gold of the player that killed the enemy
+ * @brief Gère la collision entre les projectiles du héros et les ennemis.
+ *
+ * Cette fonction vérifie s'il y a une collision entre chaque projectile tiré par le héros et chaque ennemi à l'écran.
+ * Si une collision est détectée, la santé de l'ennemi est réduite par les dégâts du projectile.
+ * La balle qui a causé la collision est supprimée de la liste des balles.
+ * Si toutes les balles d'un projectile sont supprimées, le projectile lui-même est supprimé de la liste des projectiles.
+ * Si un ennemi est tué, le score du joueur est augmenté et l'or du joueur est mis à jour en conséquence.
+ *
+ * @param player L'objet joueur.
+ * @param enemy_controller L'objet contrôleur d'ennemis.
  */
 static void handle_heros_projectiles_and_enemy_collision(Player *player, enemy_controller *enemy_controller)
 {
@@ -62,6 +83,19 @@ static void handle_heros_projectiles_and_enemy_collision(Player *player, enemy_c
     }
 }
 
+/**
+ * @brief Gère la collision entre les projectiles ennemis et le héros.
+ *
+ * Cette fonction vérifie s'il y a une collision entre les projectiles ennemis et la hitbox du héros.
+ * Si une collision est détectée, la santé du héros est réduite par les dégâts du projectile.
+ * Si le bouclier du héros n'est pas actif, les dégâts sont appliqués à la santé du héros.
+ * La balle en collision est supprimée de la liste des balles du projectile.
+ * Si la liste des balles devient vide, le projectile est supprimé de la liste des projectiles de l'ennemi.
+ * Enfin, le vaisseau actif du héros est mis à jour.
+ *
+ * @param enemy_controller L'objet du contrôleur des ennemis.
+ * @param heros L'objet du héros.
+ */
 static void handle_enemy_projectiles_collision(enemy_controller *enemy_controller, Heros *heros)
 {
     int i, j, k;
@@ -94,6 +128,12 @@ static void handle_enemy_projectiles_collision(enemy_controller *enemy_controlle
     }
 }
 
+/**
+ * Gère la sélection d'un bonus et applique l'effet correspondant au héros.
+ *
+ * @param heros Le héros.
+ * @param bonus Le bonus.
+ */
 static void handle_bonus_selection(Heros *heros, Bonus bonus)
 {
     switch (bonus.type)
@@ -119,11 +159,20 @@ static void handle_bonus_selection(Heros *heros, Bonus bonus)
         break;
 
     default:
-        fprintf(stderr, "Error: unknown bonus type : %d\n", bonus.type);
+        fprintf(stderr, "Erreur : type de bonus inconnu : %d\n", bonus.type);
         break;
     }
 }
 
+/**
+ * @brief Gère la collision entre le héros du joueur et les bonus.
+ *
+ * Cette fonction vérifie si la hitbox du héros du joueur entre en collision avec l'un des bonus apparus.
+ * Si une collision est détectée, le bonus correspondant est marqué comme sélectionné et son effet est appliqué au héros du joueur.
+ *
+ * @param player Un pointeur vers la structure Player représentant le joueur.
+ * @param bonus_controller Un pointeur vers la structure bonus_controller gérant les bonus.
+ */
 static void handle_heros_and_bonus_collision(Player *player, bonus_controller *bonus_controller)
 {
     int i;
@@ -137,6 +186,17 @@ static void handle_heros_and_bonus_collision(Player *player, bonus_controller *b
     }
 }
 
+/**
+ * @brief Gère la collision entre les projectiles du héros et les objets bonus.
+ *
+ * Cette fonction vérifie s'il y a une collision entre chaque projectile tiré par le héros et chaque objet bonus apparu.
+ * Si une collision est détectée, l'objet bonus est marqué comme sélectionné et l'action appropriée est effectuée.
+ * La balle qui a collisionné avec l'objet bonus est supprimée de la liste des balles.
+ * Si toutes les balles sont supprimées, le projectile lui-même est supprimé de la liste des projectiles.
+ *
+ * @param heros L'objet du héros.
+ * @param bonus_controller L'objet du contrôleur des bonus.
+ */
 static void handle_heros_projectiles_and_bonus_collision(Heros *heros, bonus_controller *bonus_controller)
 {
     int i, j, k;
@@ -165,6 +225,17 @@ static void handle_heros_projectiles_and_bonus_collision(Heros *heros, bonus_con
     }
 }
 
+/**
+ * @brief Gère la collision entre les astéroïdes et le vaisseau du joueur à courte portée.
+ *
+ * Cette fonction vérifie s'il y a une collision entre la boîte de collision du vaisseau du joueur et les boîtes de collision des astéroïdes
+ * gérés par le contrôleur d'astéroïdes. Si une collision est détectée, la fonction met à jour la santé du joueur et la santé de l'astéroïde en conséquence.
+ * Si le bouclier du joueur n'est pas actif et que l'astéroïde n'est pas mort, la santé du joueur est réduite de la valeur des dégâts de l'astéroïde.
+ * La santé de l'astéroïde est définie à 0 et le vaisseau actif du héros du joueur est mis à jour.
+ *
+ * @param player Pointeur vers la structure Player représentant les données du joueur.
+ * @param asteroid_controller Pointeur vers la structure asteroid_controller gérant les astéroïdes.
+ */
 static void handle_asteroid_and_heros_close_range_collision(Player *player, asteroid_controller *asteroid_controller)
 {
     int i;
@@ -184,6 +255,15 @@ static void handle_asteroid_and_heros_close_range_collision(Player *player, aste
     }
 }
 
+/**
+ * @brief Gère la collision entre les astéroïdes et les projectiles du héros.
+ *
+ * Cette fonction vérifie s'il y a une collision entre chaque projectile de la liste et chaque astéroïde du contrôleur d'astéroïdes.
+ * Si une collision est détectée, la santé de l'astéroïde est définie à 0 et le projectile est supprimé de la liste.
+ *
+ * @param list La liste des projectiles.
+ * @param asteroid_controller Le contrôleur d'astéroïdes.
+ */
 static void handle_asteroid_and_heros_projectiles_collision(Projectiles *list, asteroid_controller *asteroid_controller)
 {
     int i, j, k;
@@ -213,18 +293,41 @@ static void handle_asteroid_and_heros_projectiles_collision(Projectiles *list, a
     }
 }
 
+/**
+ * Gère la collision entre le héros du joueur et les astéroïdes.
+ *
+ * Cette fonction appelle deux fonctions d'aide pour gérer la collision à courte portée
+ * entre le héros et les astéroïdes, et la collision entre les projectiles du héros
+ * et les astéroïdes.
+ *
+ * @param player L'objet joueur.
+ * @param asteroid_controller L'objet contrôleur d'astéroïdes.
+ */
 static void handle_heros_asteroid_collision(Player *player, asteroid_controller *asteroid_controller)
 {
     handle_asteroid_and_heros_close_range_collision(player, asteroid_controller);
     handle_asteroid_and_heros_projectiles_collision(&player->heros.list, asteroid_controller);
 }
 
+/**
+ * Gère la collision entre le héros et les bonus.
+ *
+ * @param player Le joueur.
+ * @param bonus_controller Le contrôleur des bonus.
+ */
 static void handle_heros_bonus_collision(Player *player, bonus_controller *bonus_controller)
 {
     handle_heros_and_bonus_collision(player, bonus_controller);
     handle_heros_projectiles_and_bonus_collision(&player->heros, bonus_controller);
 }
 
+/**
+ * Gère la collision entre le héros et les ennemis.
+ * Cette fonction appelle les fonctions de gestion des collisions de proximité, des projectiles du héros et des projectiles ennemis.
+ *
+ * @param player Le joueur contenant le héros.
+ * @param enemy_controller Le contrôleur des ennemis.
+ */
 static void handle_heros_enemy_collision(Player *player, enemy_controller *enemy_controller)
 {
     handle_heros_and_enemy_close_range_collision(&player->heros, enemy_controller);

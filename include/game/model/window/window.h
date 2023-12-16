@@ -11,50 +11,74 @@
 #include "../../../utils/animation/animation.h"
 
 #define NUMBER_OF_BACKGROUNDS 2
-
+/**
+ * @brief Structure représentant un arrière-plan animé.
+ */
 typedef struct
 {
-    Position layers_position;
-
-    Animation layer_01_void;
-    Animation layer_02_stars;
-    Animation layer_03_stars;
-
+    Position layers_position; /**< Position des couches de l'arrière-plan. */
+    Animation layer_01_void;  /**< Animation de la première couche. */
+    Animation layer_02_stars; /**< Animation de la deuxième couche d'étoiles. */
+    Animation layer_03_stars; /**< Animation de la troisième couche d'étoiles. */
 } AnimatedBackground;
 
+/**
+ * @struct Window
+ * @brief Représente la fenêtre du jeu.
+ *
+ * Cette structure contient les informations relatives à la fenêtre du jeu, telles que sa dimension, sa position,
+ * les fonds d'écran animés, le temps écoulé, le temps de pause, le temps de fin de partie, etc.
+ */
 typedef struct
 {
-    Dimension dimension;
-    Position position;
+    Dimension dimension; /**< La dimension de la fenêtre */
+    Position position;   /**< La position de la fenêtre */
 
-    AnimatedBackground animated_backgrounds[NUMBER_OF_BACKGROUNDS];
+    AnimatedBackground animated_backgrounds[NUMBER_OF_BACKGROUNDS]; /**< Les fonds d'écran animés */
 
-    int elapsed_time;
+    int elapsed_time; /**< Le temps écoulé */
 
-    int start_pause_time;
-    int end_pause_time;
-    int total_pause_time;
+    int start_pause_time; /**< Le temps de début de pause */
+    int end_pause_time;   /**< Le temps de fin de pause */
+    int total_pause_time; /**< Le temps total de pause */
 
-    int start_game_over_time;
-    int end_game_over_time;
-    int total_game_over_time;
+    int start_game_over_time; /**< Le temps de début de fin de partie */
+    int end_game_over_time;   /**< Le temps de fin de fin de partie */
+    int total_game_over_time; /**< Le temps total de fin de partie */
 } Window;
-
+/**
+ * @brief Construit une nouvelle fenêtre.
+ *
+ * Cette fonction construit et retourne une nouvelle fenêtre.
+ *
+ * @return La fenêtre construite.
+ */
 Window construct_window();
 
-void update_background_position(Window *window);
 /**
- * @brief Load the window backup
- * This function is used to load the window animation when the game is started from a backup.
+ * @brief Met à jour la position de l'arrière-plan de la fenêtre.
  *
- * @param window The window
+ * Cette fonction met à jour la position de l'arrière-plan de la fenêtre en fonction du déplacement du joueur.
+ *
+ * @param window La fenêtre à mettre à jour.
+ */
+void update_background_position(Window *window);
+
+/**
+ * @brief Charge la sauvegarde de la fenêtre.
+ *
+ * Cette fonction est utilisée pour charger l'animation de la fenêtre lorsque le jeu est démarré à partir d'une sauvegarde.
+ *
+ * @param window La fenêtre.
  */
 void load_window_backup(Window *window);
 
 /**
- * @brief Free the window
+ * @brief Libère la mémoire occupée par la fenêtre.
  *
- * @param window The window to free
+ * Cette fonction libère la mémoire occupée par la fenêtre spécifiée.
+ *
+ * @param window La fenêtre à libérer.
  */
 void free_window(Window *window);
 

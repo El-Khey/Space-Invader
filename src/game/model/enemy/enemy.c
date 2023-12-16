@@ -44,6 +44,15 @@ void load_enemy_backup(Enemy *enemy)
     }
 }
 
+/**
+ * @brief Initialise la classe de l'ennemi.
+ *
+ * Cette fonction initialise la classe de l'ennemi en fonction de la valeur de l'attribut enemy_class.
+ * Elle appelle les fonctions d'initialisation spécifiques à chaque classe d'ennemi.
+ * Si la classe d'ennemi est inconnue, elle affiche un message d'erreur.
+ *
+ * @param enemy Un pointeur vers la structure Enemy représentant l'ennemi.
+ */
 static void initialize_enemy_class(Enemy *enemy)
 {
     switch (enemy->enemy_class)
@@ -61,7 +70,7 @@ static void initialize_enemy_class(Enemy *enemy)
         break;
 
     default:
-        fprintf(stderr, "Error: unknown enemy class : %d\n", enemy->enemy_class);
+        fprintf(stderr, "Erreur : classe d'ennemi inconnue : %d\n", enemy->enemy_class);
         break;
     }
 }

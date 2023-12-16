@@ -11,27 +11,33 @@
 #define TEXT_LENGTH_MAX 20
 #define BEST_SCORES 10
 
+/**
+ * @struct ScoreMenu
+ * @brief Représente le menu des scores.
+ *
+ * Cette structure contient les informations nécessaires pour afficher et gérer le menu des scores.
+ * Elle comprend un bouton de retour, un tableau de boutons pour les meilleurs scores et le nombre de meilleurs scores.
+ */
 typedef struct
 {
-    Button button_back;
-    Button best_scores_buttons[MAX_BACKUP_BUTTONS];
-    int best_scores_count;
+    Button button_back;                             /** Bouton de retour */
+    Button best_scores_buttons[MAX_BACKUP_BUTTONS]; /** Tableau de boutons pour les meilleurs scores */
+    int best_scores_count;                          /** Nombre de meilleurs scores */
 } ScoreMenu;
 
 /**
- * @brief Construct a new Score Menu Page object
+ * @brief Construit un nouvel objet Page de menu des scores
  *
  * @return ScoreMenu
  */
 ScoreMenu construct_score_menu_page(BackupManager backup_manager);
 
 /**
- * @brief Draw the score menu page
+ * @brief Dessine la page du menu des scores
  *
- * @param score_menu The score menu page to draw
- * @param mouse_position The mouse position
+ * @param score_menu La page du menu des scores à dessiner
+ * @param mouse_position La position de la souris
  */
-
 void draw_score_menu_page(ScoreMenu score_menu, Position mouse_position);
 
 #endif

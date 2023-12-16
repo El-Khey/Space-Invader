@@ -8,92 +8,92 @@
 #include <string.h>
 #include <stdlib.h>
 
+/**
+ * @struct Text
+ * @brief Représente un texte avec ses propriétés telles que le contenu, la dimension, la position, la couleur, la police et la taille de la police.
+ */
 typedef struct
 {
-    char *text;
-
-    Dimension dimension;
-    Position position;
-
-    MLV_Color color;
-
-    MLV_Font *font;
-    int font_size;
-
-    char *font_path;
+    char *text;          /**< Le contenu du texte */
+    Dimension dimension; /**< La dimension du texte */
+    Position position;   /**< La position du texte */
+    MLV_Color color;     /**< La couleur du texte */
+    MLV_Font *font;      /**< La police du texte */
+    int font_size;       /**< La taille de la police du texte */
+    char *font_path;     /**< Le chemin de la police du texte */
 } Text;
 
 /**
- * @brief Construct a Text object
+ * @brief Construit un objet Texte
  *
- * @param text The text to construct
- * @param position The position of the text
- * @param font_path The path of the font
- * @param font_size The size of the font
- * @param color The color of the text
- * @return Text
+ * @param text Le texte à construire
+ * @param position La position du texte
+ * @param font_path Le chemin de la police de caractères
+ * @param font_size La taille de la police de caractères
+ * @param color La couleur du texte
+ * @return Texte
  */
 Text construct_text(char *text, Position position, char *font_path, int font_size, MLV_Color color);
 
 /**
- * @brief Set the text content
+ * @brief Définit le contenu du texte
  *
- * @param text The text to set the content
- * @param content The content to set
+ * @param text Le texte dont on veut définir le contenu
+ * @param content Le contenu à définir
  */
 void set_text_content(Text *text, char *content);
 
 /**
- * @brief Set the text position
+ * @brief Définit la position du texte
  *
- * @param text The text to set the position
- * @param position The position to set
+ * @param text Le texte dont on veut définir la position
+ * @param position La position à définir
  */
 void set_text_position(Text *text, Position position);
 
 /**
- * @brief Get the text width
+ * @brief Obtient la largeur du texte
  *
- * @param text The text to get the width
+ * @param text Le texte dont on veut obtenir la largeur
  * @return int
  */
 int get_text_width(Text text);
 
 /**
- * @brief Get the text height
+ * @brief Obtient la hauteur du texte
  *
- * @param text The text to get the height
+ * @param text Le texte dont on veut obtenir la hauteur
  * @return int
  */
 int get_text_height(Text text);
 
 /**
- * @brief Draw a text
+ * @brief Dessine un texte
  *
- * @param text The text to draw
+ * @param text Le texte à dessiner
  */
 void draw_text(Text text);
 
 /**
- * @brief Draw a text with a shadow
+ * @brief Dessine un texte avec une ombre
  *
- * @param text The text to draw
- * @param shadow_offset The offset of the shadow
+ * @param text Le texte à dessiner
+ * @param shadow_offset Le décalage de l'ombre
  */
 void draw_text_with_shadow(Text text, int shadow_offset);
 
 /**
- * @brief Format milliseconds to a string
+ * @brief Formate les millisecondes en une chaîne de caractères
  *
- * @param buffer The buffer to store the formatted string
- * @param milliseconds The milliseconds to format
+ * @param buffer Le tampon pour stocker la chaîne formatée
+ * @param milliseconds Les millisecondes à formater
  */
 void format_milliseconds(char *buffer, int milliseconds);
 
 /**
- * @brief Destroy a text
+ * @brief Détruit un texte
  *
- * @param text The text to destroy
+ * @param text Le texte à détruire
  */
 void free_text(Text *text);
 

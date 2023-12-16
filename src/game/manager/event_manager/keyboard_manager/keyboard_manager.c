@@ -12,6 +12,14 @@ KeyboardManager construct_keyboard_manager()
     return keyboard_manager;
 }
 
+/**
+ * @brief Initialise les événements du clavier.
+ *
+ * Cette fonction initialise les touches du clavier utilisées dans le jeu.
+ * Elle met toutes les touches à 0 (non enfoncées) au démarrage du jeu.
+ *
+ * @param keyboard_event Le pointeur vers la structure KeyboardEvent à initialiser.
+ */
 static void init_keyboard_event(KeyboardEvent *keyboard_event)
 {
     keyboard_event->arrow_keys.key_left = 0;
@@ -29,6 +37,15 @@ static void init_keyboard_event(KeyboardEvent *keyboard_event)
     keyboard_event->attack_keys.key_attack_3 = 0;
 }
 
+/**
+ * @brief Gère les événements du clavier pour le joueur 1.
+ *
+ * Cette fonction met à jour l'état des touches du clavier pour le joueur 1 en fonction des événements clavier détectés.
+ * Les touches fléchées (gauche, droite, haut, bas) sont mappées aux touches correspondantes du clavier.
+ * Les touches d'attaque (1, 2, 3) sont mappées aux touches correspondantes du clavier.
+ *
+ * @param keyboard_manager Le gestionnaire de clavier.
+ */
 static void handle_player_1_keyboard_events(KeyboardManager *keyboard_manager)
 {
     int player_id = 0;
@@ -43,6 +60,15 @@ static void handle_player_1_keyboard_events(KeyboardManager *keyboard_manager)
     keyboard_manager->event[player_id].attack_keys.key_attack_3 = MLV_get_keyboard_state(MLV_KEYBOARD_m) == MLV_PRESSED;
 }
 
+/**
+ * @brief Gère les événements du clavier pour le joueur 2.
+ *
+ * Cette fonction met à jour l'état des touches du clavier pour le joueur 2 en fonction des événements clavier détectés.
+ * Les touches fléchées (gauche, droite, haut, bas) sont mappées aux touches correspondantes du clavier.
+ * Les touches d'attaque (1, 2, 3) sont mappées aux touches correspondantes du clavier.
+ *
+ * @param keyboard_manager Le gestionnaire de clavier.
+ */
 static void handle_player_2_keyboard_events(KeyboardManager *keyboard_manager)
 {
     int player_id = 1;

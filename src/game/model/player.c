@@ -62,6 +62,13 @@ static void init_view_elements(Player *player)
     }
 }
 
+/**
+ * @brief Dessine la vue du joueur.
+ *
+ * Cette fonction dessine tous les éléments visuels de la vue du joueur, y compris le nom d'utilisateur, le score, l'avatar, la barre de vie, la barre d'énergie et l'or.
+ *
+ * @param player Le joueur dont la vue doit être dessinée.
+ */
 static void draw_player_view(Player player)
 {
     int i = 0;

@@ -14,11 +14,27 @@ InputBox construct_input_box(Position position, Dimension dimension, char *defau
     return input_wrapper;
 }
 
+/**
+ * Active la boîte de saisie d'entrée.
+ *
+ * Cette fonction active la boîte de saisie d'entrée spécifiée en paramètre.
+ * L'activation de la boîte de saisie permet à l'utilisateur de saisir du texte.
+ *
+ * @param input_wrapper Le pointeur vers la structure InputBox contenant la boîte de saisie d'entrée.
+ */
 static void activate_input_box(InputBox *input_wrapper)
 {
     MLV_activate_input_box(input_wrapper->input_box);
 }
 
+/**
+ * Gère les événements de la boîte de saisie d'entrée.
+ *
+ * Cette fonction récupère les événements de la boîte de saisie d'entrée spécifiée en paramètre.
+ * Elle met à jour la valeur de la boîte de saisie et active la boîte de saisie.
+ *
+ * @param input_wrapper Le pointeur vers la structure InputBox contenant la boîte de saisie d'entrée.
+ */
 static void handle_input_box_events(InputBox *input_wrapper)
 {
     MLV_get_event(NULL, NULL, NULL, &input_wrapper->value, &input_wrapper->input_box, NULL, NULL, NULL, NULL);

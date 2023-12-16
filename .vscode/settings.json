@@ -44,6 +44,7 @@
                 "frame_rate.h": "c",
                 "struct_timespec.h": "c",
                 "stdlib.h": "c",
-                "stdio.h": "c"
+                "stdio.h": "c",
+                "bonus_controller.h": "c"
         }
 }

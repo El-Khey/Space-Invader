@@ -20,6 +20,11 @@ void load_shield_backup(Shield *shield)
     initialize_shield_from_type(shield);
 }
 
+/**
+ * Initialise le bouclier en fonction de son type.
+ *
+ * @param shield Le bouclier à initialiser.
+ */
 static void initialize_shield_from_type(Shield *shield)
 {
     switch (shield->type)
@@ -58,7 +63,7 @@ static void initialize_shield_from_type(Shield *shield)
         break;
 
     default:
-        fprintf(stderr, "Error: unknown shield type\n");
+        fprintf(stderr, "Erreur : type de bouclier inconnu\n");
         break;
     }
 

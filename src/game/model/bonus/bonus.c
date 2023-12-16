@@ -22,6 +22,11 @@ void load_bonus_backup(Bonus *bonus)
     initialize_bonus(bonus);
 }
 
+/**
+ * @brief Initialise le bonus en fonction de son type.
+ *
+ * @param bonus Le bonus à initialiser.
+ */
 static void initialize_bonus(Bonus *bonus)
 {
     switch (bonus->type)
