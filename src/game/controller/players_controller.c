@@ -157,6 +157,7 @@ static void handle_ship_customization_selection(Player *player, EventManager eve
                 set_text_content(&player->view.gold.gold_text, convert_int_to_string(player->gold));
                 player->heros.active_weapon = i;
                 player->heros.list.active_bullet_type = player->heros.active_weapon;
+                player->heros.is_firing = 0;
             }
         }
     }

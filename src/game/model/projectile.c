@@ -136,7 +136,7 @@ static void initialize_heros_projectiles_from_weapon_type(Projectile *projectile
         break;
 
     case ZAPPER:
-        projectile->list.bullets_count = 7;
+        projectile->list.bullets_count = 2;
         projectile->active_bullet_type = ZAPPER;
 
         projectile->damage = 1;

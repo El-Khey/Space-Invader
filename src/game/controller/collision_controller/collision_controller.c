@@ -285,8 +285,6 @@ static void handle_asteroid_and_heros_projectiles_collision(Projectiles *list, a
                         list->projectiles[i] = list->projectiles[list->projectiles_count - 1];
                         list->projectiles_count--;
                     }
-
-                    break;
                 }
             }
         }

@@ -17,10 +17,10 @@ Player construct_player(int id, char *username)
                        ? construct_heros(heros_position, heros_dimension)
                        : construct_heros(construct_position(get_x(heros_position) + 50 + get_width(heros_dimension), get_y(heros_position)), heros_dimension);
 
-    init_view_elements(&player);
-
     player.gold = 0;
     player.score = 0;
+
+    init_view_elements(&player);
 
     return player;
 }
