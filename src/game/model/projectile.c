@@ -42,7 +42,7 @@ static void initialize_heros_projectiles_from_weapon_type(Projectile *projectile
         projectile->list.bullets_count = 2;
         projectile->active_bullet_type = AUTO_CANNON;
 
-        projectile->damage = 2000;
+        projectile->damage = 2;
         projectile->speed = 9;
         projectile->delay_fire_bullet = 150;
 
@@ -65,7 +65,7 @@ static void initialize_heros_projectiles_from_weapon_type(Projectile *projectile
         projectile->list.bullets_count = 2;
         projectile->active_bullet_type = BIG_SPACE;
 
-        projectile->damage = 1;
+        projectile->damage = 4;
         projectile->speed = 7;
         projectile->delay_fire_bullet = 150;
 
@@ -88,7 +88,7 @@ static void initialize_heros_projectiles_from_weapon_type(Projectile *projectile
         projectile->list.bullets_count = 6;
         projectile->active_bullet_type = ROCKETS;
 
-        projectile->damage = 1;
+        projectile->damage = 2;
         projectile->speed = 7;
         projectile->delay_fire_bullet = 150;
 
@@ -136,7 +136,7 @@ static void initialize_heros_projectiles_from_weapon_type(Projectile *projectile
         break;
 
     case ZAPPER:
-        projectile->list.bullets_count = 2;
+        projectile->list.bullets_count = 7;
         projectile->active_bullet_type = ZAPPER;
 
         projectile->damage = 1;

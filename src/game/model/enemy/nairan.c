@@ -7,8 +7,8 @@ void initialize_nairan_enemy(Enemy *enemy)
     case BATTLECRUISER:
         enemy->speed = 3;
         enemy->damage = 1;
-        enemy->health = 100;
-        enemy->score = 100;
+        enemy->health = 10;
+        enemy->score = 7;
 
         enemy->list.active_bullet_type = GREEN_RAY;
 
@@ -22,8 +22,8 @@ void initialize_nairan_enemy(Enemy *enemy)
     case BOMBER:
         enemy->speed = 3;
         enemy->damage = 1;
-        enemy->health = 100;
-        enemy->score = 100;
+        enemy->health = 5;
+        enemy->score = 9;
 
         enemy->list.active_bullet_type = RED_RAY;
 
@@ -33,11 +33,12 @@ void initialize_nairan_enemy(Enemy *enemy)
 
         enemy->enemy_animation.engine_effect_boost = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Engine/Bomber.png", 8, enemy->dimension, BACKWARD);
         break;
+
     case DREADNOUGHT:
-        enemy->speed = 3;
-        enemy->damage = 1;
-        enemy->health = 100;
-        enemy->score = 100;
+        enemy->speed = 2;
+        enemy->damage = 6;
+        enemy->health = 35;
+        enemy->score = 35;
 
         enemy->list.active_bullet_type = GREEN_BOLT;
 
@@ -47,11 +48,12 @@ void initialize_nairan_enemy(Enemy *enemy)
 
         enemy->enemy_animation.engine_effect_boost = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Engine/Dreadnought.png", 8, enemy->dimension, BACKWARD);
         break;
+
     case FIGHTER:
-        enemy->speed = 3;
-        enemy->damage = 1;
-        enemy->health = 100;
-        enemy->score = 100;
+        enemy->speed = 2;
+        enemy->damage = 5;
+        enemy->health = 25;
+        enemy->score = 25;
 
         enemy->list.active_bullet_type = GREEN_ROCKET;
 
@@ -61,11 +63,12 @@ void initialize_nairan_enemy(Enemy *enemy)
 
         enemy->enemy_animation.engine_effect_boost = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Engine/Fighter.png", 8, enemy->dimension, BACKWARD);
         break;
+
     case FRIGATE:
         enemy->speed = 3;
         enemy->damage = 1;
-        enemy->health = 100;
-        enemy->score = 100;
+        enemy->health = 15;
+        enemy->score = 5;
 
         enemy->list.active_bullet_type = RED_RAY;
 
@@ -75,11 +78,12 @@ void initialize_nairan_enemy(Enemy *enemy)
 
         enemy->enemy_animation.engine_effect_boost = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Engine/Frigate.png", 8, enemy->dimension, BACKWARD);
         break;
+
     case SCOUT:
         enemy->speed = 3;
         enemy->damage = 1;
-        enemy->health = 100;
-        enemy->score = 100;
+        enemy->health = 5;
+        enemy->score = 2;
 
         enemy->list.active_bullet_type = RED_RAY;
 
@@ -89,11 +93,12 @@ void initialize_nairan_enemy(Enemy *enemy)
 
         enemy->enemy_animation.engine_effect_boost = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Engine/Scout.png", 8, enemy->dimension, BACKWARD);
         break;
+
     case SUPPORT:
-        enemy->speed = 3;
+        enemy->speed = 4;
         enemy->damage = 1;
-        enemy->health = 100;
-        enemy->score = 100;
+        enemy->health = 5;
+        enemy->score = 15;
 
         enemy->list.active_bullet_type = RED_RAY;
 
@@ -103,11 +108,12 @@ void initialize_nairan_enemy(Enemy *enemy)
 
         enemy->enemy_animation.engine_effect_boost = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Engine/Support.png", 8, enemy->dimension, BACKWARD);
         break;
+
     case TORPEDO:
         enemy->speed = 3;
         enemy->damage = 1;
-        enemy->health = 100;
-        enemy->score = 100;
+        enemy->health = 15;
+        enemy->score = 15;
 
         enemy->list.active_bullet_type = RED_RAY;
 
@@ -120,23 +126,23 @@ void initialize_nairan_enemy(Enemy *enemy)
 
     default:
         /**
-         * @brief In case of error, we set the enemy to a default value
-         * This is a security to avoid a crash of the game if the enemy type is not set correctly for example the scout
-         * type is not present for all class of enemy
-         *
+         * @brief En cas d'erreur, nous définissons l'ennemi à une valeur par défaut.
+         * Ceci est une mesure de sécurité pour éviter un crash du jeu si le type d'ennemi n'est pas correctement défini,
+         * par exemple si le type scout n'est pas présent pour toutes les classes d'ennemis.
          */
         enemy->speed = 3;
         enemy->damage = 1;
-        enemy->health = 100;
-        enemy->score = 100;
+        enemy->health = 10;
+        enemy->score = 7;
 
-        enemy->list.active_bullet_type = RED_RAY;
+        enemy->list.active_bullet_type = GREEN_RAY;
 
-        enemy->enemy_animation.ship[BASE] = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Base/Frigate.png", 1, enemy->dimension, BACKWARD);
-        enemy->enemy_animation.ship[ATTACK] = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Weapons/Frigate.png", 5, enemy->dimension, BACKWARD);
-        enemy->enemy_animation.ship[DESTRUCTION] = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Destruction/Frigate.png", 16, enemy->dimension, BACKWARD);
+        enemy->enemy_animation.ship[BASE] = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Base/Battlecruiser.png", 1, enemy->dimension, BACKWARD);
+        enemy->enemy_animation.ship[ATTACK] = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Weapons/Battlecruiser.png", 9, enemy->dimension, BACKWARD);
+        enemy->enemy_animation.ship[DESTRUCTION] = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Destruction/Battlecruiser.png", 18, enemy->dimension, BACKWARD);
 
-        enemy->enemy_animation.engine_effect_boost = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Engine/Frigate.png", 8, enemy->dimension, BACKWARD);
+        enemy->enemy_animation.engine_effect_boost = construct_animation("assets/sprites/Ships/EnemyFleet/Nairan/Engine/Battlecruiser.png", 8, enemy->dimension, BACKWARD);
+        break;
     }
 
     play_animation(&enemy->enemy_animation.engine_effect_boost);
