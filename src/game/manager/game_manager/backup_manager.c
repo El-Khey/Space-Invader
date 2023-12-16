@@ -65,16 +65,19 @@ void load_game(BackupManager *manager, GameManager *game, int slot)
     for (i = 0; i < game->controllers.enemy_controller.enemy_spawned; i++)
     {
         load_enemy_backup(&game->controllers.enemy_controller.enemies[i]);
+        game->controllers.enemy_controller.last_enemy_spawn_time = MLV_get_time();
     }
 
     for (i = 0; i < game->controllers.asteroid_controller.asteroid_spawned; i++)
     {
         load_asteroid_backup(&game->controllers.asteroid_controller.asteroids[i]);
+        game->controllers.asteroid_controller.last_asteroid_spawn_time = MLV_get_time();
     }
 
     for (i = 0; i < game->controllers.bonus_controller.bonus_spawned; i++)
     {
         load_bonus_backup(&game->controllers.bonus_controller.bonus[i]);
+        game->controllers.bonus_controller.last_bonus_spawn_time = MLV_get_time();
     }
 
     game->views.settings_bar_view = construct_settings_bar_view();
