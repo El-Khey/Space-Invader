@@ -119,7 +119,7 @@ void initialize_nautolan_enemy(Enemy *enemy)
 
         enemy->enemy_animation.ship[BASE] = construct_animation("assets/sprites/Ships/EnemyFleet/Nautolan/Base/Torpedo.png", 1, enemy->dimension, BACKWARD);
         enemy->enemy_animation.ship[ATTACK] = construct_animation("assets/sprites/Ships/EnemyFleet/Nautolan/Weapons/Torpedo.png", 16, enemy->dimension, BACKWARD);
-        enemy->enemy_animation.ship[DESTRUCTION] = construct_animation("assets/sprites/Ships/EnemyFleet/Nautolan/Destruction/Torpedo.png", 9, enemy->dimension, BACKWARD);
+        enemy->enemy_animation.ship[DESTRUCTION] = construct_animation("assets/sprites/Ships/EnemyFleet/Nautolan/Destruction/Torpedo.png", 8, enemy->dimension, BACKWARD);
 
         enemy->enemy_animation.engine_effect_boost = construct_animation("assets/sprites/Ships/EnemyFleet/Nautolan/Engine/Torpedo.png", 16, enemy->dimension, BACKWARD);
         break;
