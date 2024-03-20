@@ -23,7 +23,7 @@ settings_bar_view construct_settings_bar_view()
     settings_bar_view.content.dimension = construct_dimension(SETTINGS_BAR_VIEW_WIDTH, SETTINGS_BAR_VIEW_HEIGHT);
     settings_bar_view.clock_container.dimension = construct_dimension(CLOCK_CONTAINER_WIDTH, CLOCK_CONTAINER_HEIGHT);
 
-    /** Calculate the center positions */
+    /** Calcule le centre de la barre de réglages */
     center_x = (get_width(settings_bar_view.content.dimension) - (NB_BUTTONS * (BUTTON_WIDTH + BUTTON_PADDING) - BUTTON_PADDING)) / 2;
     center_y = (get_height(settings_bar_view.content.dimension) - BUTTON_HEIGHT) / 2;
 
@@ -70,14 +70,11 @@ void set_music_button_state(settings_bar_view *settings_bar_view)
 
 void draw_settings_bar_view(settings_bar_view *settings_bar_view, int elapsed_time)
 {
-    /** Clock container background */
     draw_rounded_filled_rectangle(settings_bar_view->clock_container.position, settings_bar_view->clock_container.dimension, 5, MLV_COLOR_WHITE);
 
-    /** Update the clock and draw it */
     format_milliseconds(settings_bar_view->clock_container.time_text.text, elapsed_time);
     draw_text(settings_bar_view->clock_container.time_text);
 
-    /** Settings bar background */
     draw_rounded_filled_rectangle(settings_bar_view->content.position, settings_bar_view->content.dimension, 22, MLV_COLOR_WHITE);
 
     draw_button_image(settings_bar_view->content.pause_button);

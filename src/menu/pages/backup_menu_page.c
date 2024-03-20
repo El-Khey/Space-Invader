@@ -17,18 +17,18 @@ BackupMenu construct_backup_menu_page(BackupManager backup_manager)
     page.button_back = construct_button_with_text("Retour", construct_position(50, WINDOW_HEIGHT - 100), construct_dimension(220, BUTTON_HEIGHT), foreground, background);
     page.selected_backup_slot_index = -1;
 
-    button_count = backup_manager.backups_count > 10 ? 10 : backup_manager.backups_count;
+    button_count = backup_manager.backup_list.backups_count > 10 ? 10 : backup_manager.backup_list.backups_count;
     button_y = (WINDOW_HEIGHT - (button_count * (BUTTON_HEIGHT + 20))) / 2 + 95;
 
     for (; i < button_count; i++)
     {
         char slot_name[50];
-        sprintf(slot_name, "-Slot %d- %s", i, convert_timestamp(backup_manager.backups[i].timestamp));
+        sprintf(slot_name, "-Slot %d- %s", i, convert_timestamp(backup_manager.backup_list.backups[i].timestamp));
         page.backup_buttons[i] = construct_button_with_text(slot_name, construct_position(WINDOW_WIDTH / 2 - BUTTON_WIDTH / 2, button_y + i * (BUTTON_HEIGHT + 7)), construct_dimension(BUTTON_WIDTH, BUTTON_HEIGHT), foreground, background);
         page.backup_buttons[i].text.font_size = 15;
     }
 
-    page.backups_count = backup_manager.backups_count;
+    page.backups_count = backup_manager.backup_list.backups_count;
     return page;
 }
 

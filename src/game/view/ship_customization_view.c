@@ -25,6 +25,12 @@ ShipCustomizationView construct_ship_customization(int player_id)
     return ship_customization;
 }
 
+/**
+ * Cette fonction retourne le chemin d'accès au sprite correspondant au type de moteur donné.
+ *
+ * @param engine_type Le type de moteur.
+ * @return Le chemin d'accès au sprite correspondant au type de moteur donné.
+ */
 static char *get_engine_sprite_path(int engine_type)
 {
     switch (engine_type)
@@ -38,11 +44,17 @@ static char *get_engine_sprite_path(int engine_type)
     case SUPERCHARGED_ENGINE:
         return "assets/sprites/Pickups/Engines/Supercharged.png";
     default:
-        fprintf(stderr, "Error in get_engine_sprite_path: unknown engine type %d\n", engine_type);
+        fprintf(stderr, "Erreur dans get_engine_sprite_path: type de moteur inconnu %d\n", engine_type);
         return "assets/sprites/Pickups/Engines/Base.png";
     }
 }
 
+/**
+ * Cette fonction retourne le chemin d'accès au sprite correspondant au type d'arme donné.
+ *
+ * @param weapon_type Le type d'arme.
+ * @return Le chemin d'accès au sprite correspondant au type d'arme donné.
+ */
 static char *get_weapon_sprite_path(int weapon_type)
 {
     switch (weapon_type)
@@ -56,7 +68,7 @@ static char *get_weapon_sprite_path(int weapon_type)
     case ZAPPER:
         return "assets/sprites/Pickups/Weapons/Zapper.png";
     default:
-        fprintf(stderr, "Error in get_weapon_sprite_path: unknown weapon type %d\n", weapon_type);
+        fprintf(stderr, "Erreur dans get_weapon_sprite_path: type d'arme inconnu %d\n", weapon_type);
         return "assets/sprites/Pickups/Weapons/Auto Cannon.png";
     }
 }

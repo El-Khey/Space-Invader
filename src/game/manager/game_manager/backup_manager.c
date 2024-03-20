@@ -7,14 +7,18 @@ static void read_saved_games(BackupManager *manager);
 BackupManager construct_backup_manager()
 {
     BackupManager manager;
-    manager.backups = (Backup *)malloc(sizeof(Backup) * MAX_BACKUPS);
+    manager.backup_list.backups = (Backup *)malloc(sizeof(Backup) * MAX_BACKUPS);
 
-    manager.backups_count = 0;
+    manager.backup_list.backups_count = 0;
+    manager.best_score_list.best_scores_count = 0;
+
     read_saved_games(&manager);
+    read_best_scores(&manager);
+
     return manager;
 }
 
-void save_game(GameManager *game, int slot)
+void save_game(GameManager *game_manager, int slot)
 {
     Backup backup;
     char filename[256];
@@ -25,7 +29,7 @@ void save_game(GameManager *game, int slot)
         return;
     }
 
-    backup.game_state = *game;
+    backup.game_state = *game_manager;
     backup.timestamp = time(NULL);
     backup.slot = slot;
 
@@ -48,7 +52,7 @@ void load_game(BackupManager *manager, GameManager *game, int slot)
 {
     int i = 0;
 
-    *game = manager->backups[slot].game_state;
+    *game = manager->backup_list.backups[slot].game_state;
     game->is_game_paused = 0;
 
     load_window_backup(&game->window);
@@ -61,16 +65,19 @@ void load_game(BackupManager *manager, GameManager *game, int slot)
     for (i = 0; i < game->controllers.enemy_controller.enemy_spawned; i++)
     {
         load_enemy_backup(&game->controllers.enemy_controller.enemies[i]);
+        game->controllers.enemy_controller.last_enemy_spawn_time = MLV_get_time();
     }
 
     for (i = 0; i < game->controllers.asteroid_controller.asteroid_spawned; i++)
     {
         load_asteroid_backup(&game->controllers.asteroid_controller.asteroids[i]);
+        game->controllers.asteroid_controller.last_asteroid_spawn_time = MLV_get_time();
     }
 
     for (i = 0; i < game->controllers.bonus_controller.bonus_spawned; i++)
     {
         load_bonus_backup(&game->controllers.bonus_controller.bonus[i]);
+        game->controllers.bonus_controller.last_bonus_spawn_time = MLV_get_time();
     }
 
     game->views.settings_bar_view = construct_settings_bar_view();
@@ -93,18 +100,108 @@ static void read_saved_games(BackupManager *manager)
             continue;
         }
 
-        if (fread(&(manager->backups[i]), sizeof(Backup), 1, file) != 1)
+        if (fread(&(manager->backup_list.backups[i]), sizeof(Backup), 1, file) != 1)
         {
             fprintf(stderr, "Error while reading backup %d\n", i);
             continue;
         }
 
         fclose(file);
-        manager->backups_count++;
+        manager->backup_list.backups_count++;
     }
+}
+
+void read_best_scores(BackupManager *backup_manager)
+{
+    FILE *file = fopen("./.bin/scores/best_scores.bin", "rb");
+    if (file == NULL)
+    {
+        fprintf(stderr, "Error opening file.\n");
+        return;
+    }
+
+    if (fread(&backup_manager->best_score_list, sizeof(BestScoreList), 1, file) != 1)
+    {
+        fprintf(stderr, "Error while reading best scores.\n");
+    }
+    fclose(file);
+}
+
+/**
+ * @brief Écrit les meilleurs scores dans un fichier binaire.
+ *
+ * Cette fonction prend en paramètre un pointeur vers un objet BackupManager
+ * et écrit la liste des meilleurs scores dans un fichier binaire.
+ *
+ * @param backup_manager Le gestionnaire de sauvegarde contenant la liste des meilleurs scores.
+ */
+static void write_best_scores(BackupManager *backup_manager)
+{
+    FILE *file = fopen("./.bin/scores/best_scores.bin", "wb");
+    if (file == NULL)
+    {
+        fprintf(stderr, "Erreur lors de l'ouverture du fichier.\n");
+        return;
+    }
+
+    if (fwrite(&backup_manager->best_score_list, sizeof(BestScoreList), 1, file) != 1)
+    {
+        fprintf(stderr, "Erreur lors de l'écriture des meilleurs scores.\n");
+    }
+
+    fclose(file);
+}
+
+/**
+ * Compare les meilleurs scores en fonction de leur valeur.
+ *
+ * Cette fonction est utilisée comme fonction de comparaison pour le tri des meilleurs scores.
+ * Elle compare deux scores en utilisant leur valeur, en ordre décroissant.
+ *
+ * @param a Le premier score à comparer.
+ * @param b Le deuxième score à comparer.
+ * @return Une valeur négative si le score A est inférieur au score B, une valeur positive si le score A est supérieur au score B,
+ *         et zéro si les scores sont égaux.
+ */
+static int compare_best_scores(const void *a, const void *b)
+{
+    const BestScore *scoreA = (const BestScore *)a;
+    const BestScore *scoreB = (const BestScore *)b;
+
+    return (scoreB->score - scoreA->score);
+}
+
+void save_best_scores(BackupManager *backup_manager, GameManager game_manager)
+{
+    int i = 0;
+    for (; i < game_manager.players.nb_players; i++)
+    {
+        if (backup_manager->best_score_list.best_scores_count < MAX_BACKUPS ||
+            game_manager.players.players[i].score > backup_manager->best_score_list.best_scores[MAX_BACKUPS - 1].score)
+        {
+            if (backup_manager->best_score_list.best_scores_count < MAX_BACKUPS)
+            {
+                backup_manager->best_score_list.best_scores[backup_manager->best_score_list.best_scores_count].score = game_manager.players.players[i].score;
+                strcpy(backup_manager->best_score_list.best_scores[backup_manager->best_score_list.best_scores_count].name, game_manager.players.players[i].username);
+                backup_manager->best_score_list.best_scores[backup_manager->best_score_list.best_scores_count].timestamp = time(NULL);
+
+                backup_manager->best_score_list.best_scores_count++;
+            }
+            else
+            {
+                backup_manager->best_score_list.best_scores[MAX_BACKUPS - 1].score = game_manager.players.players[i].score;
+                strcpy(backup_manager->best_score_list.best_scores[MAX_BACKUPS - 1].name, game_manager.players.players[i].username);
+                backup_manager->best_score_list.best_scores[MAX_BACKUPS - 1].timestamp = time(NULL);
+            }
+
+            qsort(backup_manager->best_score_list.best_scores, backup_manager->best_score_list.best_scores_count, sizeof(BestScore), compare_best_scores);
+        }
+    }
+
+    write_best_scores(backup_manager);
 }
 
 void free_backup_manager(BackupManager *manager)
 {
-    free(manager->backups);
+    free(manager->backup_list.backups);
 }

@@ -6,7 +6,7 @@ bonus_controller construct_bonus_controller()
     bonus_controller bonus_controller;
 
     bonus_controller.last_bonus_spawn_time = 0;
-    bonus_controller.delay_between_spawn = 2000;
+    bonus_controller.delay_between_spawn = rand() % 3000 + 5000;
 
     bonus_controller.bonus_spawned = 0;
     bonus_controller.bonus_spawn_count = MAX_BONUS_SPAWN_COUNT;
@@ -23,7 +23,15 @@ void generate_bonus(bonus_controller *controller)
         controller->bonus_spawned++;
     }
 }
-
+/**
+ * Gère la sélection d'un bonus.
+ *
+ * Cette fonction est appelée pour gérer la sélection d'un bonus spécifique dans le contrôleur de bonus.
+ * Si le bonus est sélectionné, il est retiré de la liste des bonus et remplacé par le dernier bonus de la liste.
+ *
+ * @param controller Le contrôleur de bonus.
+ * @param index L'indice du bonus à sélectionner.
+ */
 static void handle_bonus_selection(bonus_controller *controller, int index)
 {
     if (is_bonus_selected(controller->bonus[index]))
@@ -33,6 +41,14 @@ static void handle_bonus_selection(bonus_controller *controller, int index)
     }
 }
 
+/**
+ * Vérifie si un bonus est hors de l'écran.
+ *
+ * Cette fonction vérifie si la position d'un bonus est en dehors des limites de l'écran.
+ *
+ * @param bonus Le bonus à vérifier.
+ * @return 1 si le bonus est hors de l'écran, 0 sinon.
+ */
 static int is_bonus_out_of_screen(Bonus bonus)
 {
     return bonus.position.x < -bonus.dimension.width || bonus.position.x > WINDOW_WIDTH + bonus.dimension.width || bonus.position.y > WINDOW_HEIGHT + bonus.dimension.height;

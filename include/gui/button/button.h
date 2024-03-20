@@ -10,144 +10,147 @@
 #include "../../utils/text/text.h"
 #include "../../gui/shape/shape.h"
 
+/**
+ * @struct Button
+ * @brief Représente un bouton dans l'interface graphique.
+ *
+ * Cette structure contient les informations nécessaires pour afficher et gérer un bouton.
+ * Elle inclut une image, une animation, une position, une dimension, un texte, ainsi que les couleurs de fond et de premier plan.
+ */
 typedef struct
 {
-    Image image;
-    Animation animation;
-
-    Position position;
-    Dimension dimension;
-
-    Text text;
-
-    MLV_Color background;
-    MLV_Color foreground;
+    Image image;          /**< L'image du bouton */
+    Animation animation;  /**< L'animation du bouton */
+    Position position;    /**< La position du bouton */
+    Dimension dimension;  /**< Les dimensions du bouton */
+    Text text;            /**< Le texte du bouton */
+    MLV_Color background; /**< La couleur de fond du bouton */
+    MLV_Color foreground; /**< La couleur de premier plan du bouton */
 } Button;
 
-typedef Button GUI_Object;
-
 /**
- * @brief Construct a new Button object with an image
+ * @brief Construit un nouvel objet Button avec une image
  *
- * @param image The image of the button
- * @param position The position of the button
- * @param dimension The dimension of the button
+ * @param image L'image du bouton
+ * @param position La position du bouton
+ * @param dimension La dimension du bouton
  * @return Button
  */
 Button construct_button_with_image(Image image, Position position, Dimension dimension);
 
 /**
- * @brief Construct a new Button object with an animation
+ * @brief Construit un nouvel objet Button avec une animation
  *
- * @param animation The animation of the button
- * @param position The position of the button
- * @param dimension The dimension of the button
+ * @param animation L'animation du bouton
+ * @param position La position du bouton
+ * @param dimension La dimension du bouton
  * @return Button
  */
 Button construct_button_with_animation(Animation animation, Position position, Dimension dimension);
 
 /**
- * @brief Construct a new Button object with a text
+ * @brief Construit un nouvel objet Button avec un texte
  *
- * @param text The text of the button
- * @param position The position of the button
- * @param dimension The dimension of the button
+ * @param text Le texte du bouton
+ * @param position La position du bouton
+ * @param dimension La dimension du bouton
  * @return Button
  */
 Button construct_button_with_text(char *text, Position position, Dimension dimension, MLV_Color foreground, MLV_Color background);
 
 /**
- * @brief Set the position of the button
+ * @brief Définit la position du bouton
  *
- * @param button The button to set the position of
- * @param position The position to set the button position to
+ * @param button Le bouton dont on veut définir la position
+ * @param position La position à définir pour le bouton
  */
 void set_button_position(Button *button, Position position);
 
 /**
- * @brief Set the dimension of the button
+ * @brief Définit la dimension du bouton
  *
- * @param button The button to set the dimension of
- * @param dimension The dimension to set the button dimension to
+ * @param button Le bouton dont on veut définir la dimension
+ * @param dimension La dimension à définir pour le bouton
  */
 void set_button_dimension(Button *button, Dimension dimension);
 
 /**
- * @brief Draw the button with a hover effect
+ * @brief Dessine le bouton avec un effet de survol
  *
- * @param button The button to draw
- * @param mouse_position The mouse position
- * @param foreground The foreground color
- * @param background The background color
+ * @param button Le bouton à dessiner
+ * @param mouse_position La position de la souris
+ * @param border_color La couleur de la bordure
+ * @param background La couleur de fond
  */
 void draw_filled_button_with_hover_effect(Button button, Position mouse_position, MLV_Color border_color, MLV_Color background);
 
 /**
- * @brief Draw the hovered button
+ * @brief Dessine le bouton survolé
  *
- * @param button The button to draw
- * @param mouse_position The mouse position
- * @param border_color The border color
- * @param background The background color
+ * @param button Le bouton à dessiner
+ * @param mouse_position La position de la souris
+ * @param border_color La couleur de la bordure
+ * @param background La couleur de fond
  */
 void draw_hovered_button(Button button, Position mouse_position, MLV_Color border_color, MLV_Color background);
+
 /**
- * @brief Check if the button is hovered
+ * @brief Vérifie si le bouton est survolé
  *
- * @param button The button to check if it is hovered
- * @param p The position to check if the button is hovered
+ * @param button Le bouton à vérifier s'il est survolé
+ * @param p La position à vérifier si le bouton est survolé
  * @return int
  */
 int is_button_hovered(Button button, Position p);
 
 /**
- * @brief Check if the button is clicked
+ * @brief Vérifie si le bouton est cliqué
  *
- * @param button The button to check if it is clicked
- * @param mouse_manager The mouse manager to check if the button is clicked
+ * @param button Le bouton à vérifier s'il est cliqué
+ * @param mouse_manager Le gestionnaire de souris pour vérifier si le bouton est cliqué
  * @return int
  */
 int is_button_clicked(Button button, MouseManager mouse_manager);
 
 /**
- * @brief Draw the button
+ * @brief Dessine l'image du bouton
  *
- * @param button The button to draw
+ * @param button Le bouton à dessiner
  */
 void draw_button_image(Button button);
 
 /**
- * @brief Draw the button text
+ * @brief Dessine le texte du bouton
  *
- * @param button The button to draw the text of
+ * @param button Le bouton dont on veut dessiner le texte
  */
 void draw_button_text(Button button);
 
 /**
- * @brief Draw the button animation
+ * @brief Dessine l'animation du bouton
  *
- * @param button The button to draw the animation of
+ * @param button Le bouton dont on veut dessiner l'animation
  */
 void draw_button_animation(Button button);
 
 /**
- * @brief Free the button image
+ * @brief Libère l'image du bouton
  *
- * @param button The button to free the image of
+ * @param button Le bouton dont on veut libérer l'image
  */
 void free_button_image(Button *button);
 
 /**
- * @brief Free the button text
+ * @brief Libère le texte du bouton
  *
- * @param button The button to free the text of
+ * @param button Le bouton dont on veut libérer le texte
  */
 void free_button_text(Button *button);
 
 /**
- * @brief Free the button animation
+ * @brief Libère l'animation du bouton
  *
- * @param button The button to free the animation of
+ * @param button Le bouton dont on veut libérer l'animation
  */
 void free_button_animation(Button *button);
 

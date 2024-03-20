@@ -20,6 +20,11 @@ void load_shield_backup(Shield *shield)
     initialize_shield_from_type(shield);
 }
 
+/**
+ * Initialise le bouclier en fonction de son type.
+ *
+ * @param shield Le bouclier à initialiser.
+ */
 static void initialize_shield_from_type(Shield *shield)
 {
     switch (shield->type)
@@ -34,21 +39,21 @@ static void initialize_shield_from_type(Shield *shield)
 
     case SHIELD_FRONT_AND_SIDE:
         shield->animation = construct_animation("assets/sprites/Ships/MainShip/Shields/Front and Side.png", 6, shield->dimension, FORWARD);
-        shield->shield_duration = 10000;
+        shield->shield_duration = 5000;
         shield->active_time = MLV_get_time() + shield->shield_duration;
         shield->is_active = 1;
 
         break;
     case SHIELD_FRONT:
         shield->animation = construct_animation("assets/sprites/Ships/MainShip/Shields/Front.png", 10, shield->dimension, FORWARD);
-        shield->shield_duration = 10000;
+        shield->shield_duration = 15000;
         shield->active_time = MLV_get_time() + shield->shield_duration;
         shield->is_active = 1;
 
         break;
     case SHIELD_INVINCIBILITY:
         shield->animation = construct_animation("assets/sprites/Ships/MainShip/Shields/Invincibility.png", 10, shield->dimension, FORWARD);
-        shield->shield_duration = 10000;
+        shield->shield_duration = 3000;
         shield->active_time = MLV_get_time() + shield->shield_duration;
         shield->is_active = 1;
 
@@ -58,7 +63,7 @@ static void initialize_shield_from_type(Shield *shield)
         break;
 
     default:
-        fprintf(stderr, "Error: unknown shield type\n");
+        fprintf(stderr, "Erreur : type de bouclier inconnu\n");
         break;
     }
 

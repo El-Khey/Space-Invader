@@ -3,77 +3,80 @@
 
 #include "../../main.h"
 
+/**
+ * @brief Structure représentant les dimensions d'un objet.
+ */
 typedef struct
 {
-    int width;
-    int height;
+    int width;  /**< La largeur de l'objet. */
+    int height; /**< La hauteur de l'objet. */
 } Dimension;
 
 /**
- * @brief Construct a Dimension object with the given width and height
+ * @brief Construit un objet Dimension avec la largeur et la hauteur données
  *
- * @param width The width of the dimension
- * @param height The height of the dimension
+ * @param width La largeur de la dimension
+ * @param height La hauteur de la dimension
  * @return Dimension
  */
 Dimension construct_dimension(int width, int height);
 
 /**
- * @brief Resize the given dimension to the given width and height
+ * @brief Redimensionne la dimension donnée avec la largeur et la hauteur données
  *
- * @param dimension The dimension to resize
- * @param width The width to resize the dimension
- * @param height The height to resize the dimension
+ * @param dimension La dimension à redimensionner
+ * @param width La largeur pour redimensionner la dimension
+ * @param height La hauteur pour redimensionner la dimension
  */
 void resize_dimension(Dimension *dimension, int width, int height);
 
 /**
- * @brief Get the width object
+ * @brief Obtient la largeur de la dimension
  *
- * @param dimension The dimension
+ * @param dimension La dimension
  * @return int
  */
 int get_width(Dimension dimension);
 
 /**
- * @brief Get the height object
+ * @brief Obtient la hauteur de la dimension
  *
- * @param dimension The dimension
+ * @param dimension La dimension
  * @return int
  */
 int get_height(Dimension dimension);
 
 /**
- * @brief Set the width object
+ * @brief Définit la largeur de la dimension
  *
- * @param dimension The dimension
- * @param width
+ * @param dimension La dimension
+ * @param width La largeur
  */
 void set_width(Dimension *dimension, int width);
 
 /**
- * @brief Set the height object
+ * @brief Définit la hauteur de la dimension
  *
- * @param dimension The dimension
- * @param height
+ * @param dimension La dimension
+ * @param height La hauteur
  */
 void set_height(Dimension *dimension, int height);
 
 /**
- * @brief
+ * @brief Réduit la dimension donnée en utilisant le facteur donné
  *
- * @param dimension
- * @param factor
+ * @param dimension La dimension
+ * @param factor Le facteur de réduction
  * @return Dimension
  */
 Dimension scale_down_dimension(Dimension dimension, int factor);
 
 /**
- * @brief Print the given dimension on the screen
- * The dimension is printed in the following format: Dimension: widthxheight
- * Should be used for debugging purposes only
+ * @brief Affiche la dimension donnée à l'écran
+ * La dimension est affichée dans le format suivant : Dimension: largeurxhauteur
+ * Doit être utilisé uniquement à des fins de débogage
  *
- * @param dimension The dimension to print
+ * @param dimension La dimension à afficher
  */
 void print_dimension(Dimension dimension);
 

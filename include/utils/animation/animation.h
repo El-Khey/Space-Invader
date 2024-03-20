@@ -8,97 +8,105 @@
 #include "../dimension/dimension.h"
 #include "../image/image.h"
 
+/**
+ * @struct Animation
+ * @brief Structure représentant une animation.
+ *
+ * Cette structure contient les informations nécessaires pour représenter une animation,
+ * telles que le sprite, les frames, l'animation elle-même, le joueur d'animation, etc.
+ */
 typedef struct
 {
-    MLV_Image *sprite;            /** MLV_Image structure to store the sprite */
-    MLV_Image **frames;           /** MLV_Image structure to store the frames of the animation */
-    MLV_Animation *animation;     /** MLV_Animation structure to store the */
-    MLV_Animation_player *player; /** MLV_Animation_player structure to play the animation */
+    MLV_Image *sprite;            /** Structure MLV_Image pour stocker le sprite */
+    MLV_Image **frames;           /** Structure MLV_Image pour stocker les frames de l'animation */
+    MLV_Animation *animation;     /** Structure MLV_Animation pour stocker l'animation */
+    MLV_Animation_player *player; /** Structure MLV_Animation_player pour jouer l'animation */
 
-    int frame_count;    /** Number of frames in the animation */
-    int frame_duration; /** Duration of each frame in milliseconds */
+    int frame_count;    /** Nombre de frames dans l'animation */
+    int frame_duration; /** Durée de chaque frame en millisecondes */
 
-    int nb_layers;   /** Number of layers of the animation */
-    int nb_channels; /** Number of channels of the animation */
+    int nb_layers;   /** Nombre de couches de l'animation */
+    int nb_channels; /** Nombre de canaux de l'animation */
 
-    int frame_rate; /** Frame rate of the animation */
-    int layer;      /** Layer of the animation */
+    int frame_rate; /** Fréquence d'images de l'animation */
+    int layer;      /** Couche de l'animation */
 
-    int start_time; /** Start time of the animation */
-    int end_time;   /** End time of the animation */
+    int start_time; /** Heure de début de l'animation */
+    int end_time;   /** Heure de fin de l'animation */
 
-    Dimension dimension;          /** Dimension of the animation */
-    AnimationDirection direction; /** Direction of the animation */
+    Dimension dimension;          /** Dimension de l'animation */
+    AnimationDirection direction; /** Direction de l'animation */
 } Animation;
 
 /**
- * @brief Construct a new Animation object from a file
- * The animation is loaded from the given file and the given parameters
+ * @brief Construit un nouvel objet Animation à partir d'un fichier.
+ * L'animation est chargée à partir du fichier donné et des paramètres donnés.
  *
- * @param animation_file The file to load the animation from
- * @param frame_count The number of frames in the animation
- * @param dimension The dimension of the animation
- * @param direction The direction of the animation
+ * @param animation_file Le fichier à partir duquel charger l'animation
+ * @param frame_count Le nombre de frames dans l'animation
+ * @param dimension La dimension de l'animation
+ * @param direction La direction de l'animation
  * @return Animation
  */
 Animation construct_animation(char *path, int frame_count, Dimension dimension, AnimationDirection direction);
 
 /**
- * @brief Resize the given animation to the given dimension
+ * @brief Redimensionne l'animation donnée à la dimension donnée.
  *
- * @param animation The animation to resize
- * @param dimension The dimension to resize the animation
+ * @param animation L'animation à redimensionner
+ * @param dimension La dimension pour redimensionner l'animation
  */
 void resize_animation(Animation *animation, Dimension dimension);
 
 /**
- * @brief Play the given animation forward
+ * @brief Joue l'animation donnée en avant.
  *
- * @param animation The animation to play
+ * @param animation L'animation à jouer
  */
 void play_animation(Animation *animation);
 
 /**
- * @brief Play the given animation backward
+ * @brief Joue l'animation donnée en arrière.
  *
- * @param animation The animation to play
+ * @param animation L'animation à jouer
  */
 void play_revert_animation(Animation *animation);
 
 /**
- * @brief Stop the given animation
+ * @brief Arrête l'animation donnée.
  *
- * @param animation The animation to stop
+ * @param animation L'animation à arrêter
  */
 void stop_animation(Animation *animation);
 
 /**
- * @brief Rewind the animation
+ * @brief Rembobine l'animation.
  *
- * @param animation The animation to rewind
+ * @param animation L'animation à rembobiner
  */
 void rewind_animation(Animation *animation);
 
 /**
- * @brief Check if the given animation is finished
+ * @brief Vérifie si l'animation donnée est terminée.
  *
- * @param animation The animation to check
- * @param current_time The current time
+ * @param animation L'animation à vérifier
+ * @param current_time Le temps actuel
+ * @return 1 si l'animation est terminée, 0 sinon
  */
 int is_animation_finished(Animation animation, int current_time);
 
 /**
- * @brief Draw the given animation at the given position
+ * @brief Dessine l'animation donnée à la position donnée.
  *
- * @param animation The animation to draw
- * @param position The position to draw the animation
+ * @param animation L'animation à dessiner
+ * @param position La position où dessiner l'animation
  */
 void draw_animation(Animation animation, Position position);
 
 /**
- * @brief Free the given animation
+ * @brief Libère l'animation donnée.
  *
- * @param animation The animation to free
+ * @param animation L'animation à libérer
  */
 void free_animation(Animation *animation);
 

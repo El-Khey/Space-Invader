@@ -7,6 +7,12 @@
 #include "../../utils/utils.h"
 #include "../model/player.h"
 
+/**
+ * Met à jour les joueurs dans le gestionnaire de jeu en fonction des événements.
+ *
+ * @param game_manager Le gestionnaire de jeu.
+ * @param event_manager Le gestionnaire d'événements.
+ */
 void update_players(GameManager *game_manager, EventManager event_manager);
 
 #endif

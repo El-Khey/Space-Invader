@@ -17,10 +17,10 @@ Player construct_player(int id, char *username)
                        ? construct_heros(heros_position, heros_dimension)
                        : construct_heros(construct_position(get_x(heros_position) + 50 + get_width(heros_dimension), get_y(heros_position)), heros_dimension);
 
-    init_view_elements(&player);
-
     player.gold = 0;
     player.score = 0;
+
+    init_view_elements(&player);
 
     return player;
 }
@@ -62,6 +62,13 @@ static void init_view_elements(Player *player)
     }
 }
 
+/**
+ * @brief Dessine la vue du joueur.
+ *
+ * Cette fonction dessine tous les éléments visuels de la vue du joueur, y compris le nom d'utilisateur, le score, l'avatar, la barre de vie, la barre d'énergie et l'or.
+ *
+ * @param player Le joueur dont la vue doit être dessinée.
+ */
 static void draw_player_view(Player player)
 {
     int i = 0;

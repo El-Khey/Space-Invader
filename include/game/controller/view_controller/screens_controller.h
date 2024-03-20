@@ -6,24 +6,26 @@
 #include "../../manager/game_manager/backup_manager.h"
 
 /**
- * @brief Handle the events of the pause screen
- * The BackupManager is used to save the game when the player click on the save and quit button,
- * the backup manager has the slot id of the save file that is why it is passed as a parameter
+ * @brief Gère les événements de l'écran de pause.
+ * Le BackupManager est utilisé pour sauvegarder la partie lorsque le joueur clique sur le bouton "sauvegarder et quitter",
+ * le gestionnaire de sauvegarde a l'identifiant de l'emplacement de sauvegarde du fichier, c'est pourquoi il est passé en paramètre.
  *
- * @param game_manager The game manager
- * @param pause_screen The pause screen
- * @param mouse_manager The mouse manager
- * @param backup_manager The backup manager
+ * @param game_manager Le gestionnaire de jeu
+ * @param pause_screen L'écran de pause
+ * @param mouse_manager Le gestionnaire de souris
+ * @param backup_manager Le gestionnaire de sauvegarde
  */
 void handle_pause_screen_events(GameManager *game_manager, PauseScreen pause_screen, MouseManager mouse_manager, BackupManager backup_manager);
 
 /**
- * @brief Handle the events of the game over screen
+ * @brief Gère les événements de l'écran de fin de partie.
  *
- * @param game_manager The game manager
- * @param game_over_screen The game over screen
- * @param mouse_manager The mouse manager
+ * @param game_manager Le gestionnaire de jeu
+ * @param backup_manager Le gestionnaire de sauvegarde
+ * @param game_over_screen L'écran de fin de partie
+ * @param mouse_manager Le gestionnaire de souris
+ * @param menu_time Le temps du menu
  */
-void handle_game_over_screen_events(GameManager *game_manager, GameOverScreen game_over_screen, MouseManager mouse_manager);
+void handle_game_over_screen_events(GameManager *game_manager, BackupManager backup_manager, GameOverScreen game_over_screen, MouseManager mouse_manager, int *menu_time);
 
 #endif

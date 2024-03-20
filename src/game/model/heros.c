@@ -92,6 +92,12 @@ static void initialize_engine_animations(EngineAnimation *engine_animations, Dim
     play_animation(&engine_animations[SUPERCHARGED_ENGINE].engine_effect_boost);
 }
 
+/**
+ * Initialise l'animation des armes du héros.
+ *
+ * @param heros Le héros dont les armes doivent être initialisées.
+ * @param dimension La dimension des armes.
+ */
 static void initialize_weapon_animation(Heros *heros, Dimension dimension)
 {
     heros->weapons_animations[AUTO_CANNON].weapon_shooting = construct_animation("assets/sprites/Ships/MainShip/Weapons/Auto Cannon.png", 7, dimension, FORWARD);
@@ -100,6 +106,11 @@ static void initialize_weapon_animation(Heros *heros, Dimension dimension)
     heros->weapons_animations[ZAPPER].weapon_shooting = construct_animation("assets/sprites/Ships/MainShip/Weapons/Zapper.png", 7, dimension, FORWARD);
 }
 
+/**
+ * Dessine les projectiles du héros.
+ *
+ * @param list La liste des projectiles du héros.
+ */
 static void draw_heros_projectiles(Projectiles list)
 {
     int i = 0;

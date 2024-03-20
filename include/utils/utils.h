@@ -8,54 +8,55 @@
 #include "./dimension/dimension.h"
 
 /**
- * @brief Returns the maximum of two integers
+ * @brief Retourne le maximum de deux entiers
  *
- * @param a The first integer
- * @param b The second integer
+ * @param a Le premier entier
+ * @param b Le deuxième entier
  * @return int
  */
 int max(int a, int b);
 
 /**
- * @brief Returns the minimum of two integers
+ * @brief Retourne le minimum de deux entiers
  *
- * @param a The first integer
- * @param b The second integer
+ * @param a Le premier entier
+ * @param b Le deuxième entier
  * @return int
  */
 int min(int a, int b);
 
 /**
- * @brief
+ * @brief Vérifie si une position avec une dimension est à l'intérieur d'un rectangle
  *
- * @param position
- * @param rect_dimension
- * @param rect_position
+ * @param pos La position
+ * @param dim La dimension
+ * @param rect_pos La position du rectangle
+ * @param rect_dim La dimension du rectangle
  * @return int
  */
 int is_position_with_dimension_inside_rect(Position pos, Dimension dim, Position rect_pos, Dimension rect_dim);
 
 /**
- * @brief Convert an integer to a string
+ * @brief Convertit un entier en une chaîne de caractères
  *
- * @param number The number to convert
+ * @param number Le nombre à convertir
  * @return char*
  */
 char *convert_int_to_string(int number);
 
 /**
- * @brief Concatenate two strings
+ * @brief Concatène deux chaînes de caractères
  *
- * @param s1 The first string
- * @param s2 The second string
+ * @param s1 La première chaîne de caractères
+ * @param s2 La deuxième chaîne de caractères
  * @return char*
  */
 char *concat(char *s1, char *s2);
 
 /**
- * @brief Convert a timestamp to a string
+ * @brief Convertit un horodatage en une chaîne de caractères
  *
- * @param timestamp The timestamp
+ * @param timestamp L'horodatage
  * @return char*
  */
 char *convert_timestamp(time_t timestamp);

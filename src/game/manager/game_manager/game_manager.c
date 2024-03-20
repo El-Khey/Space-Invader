@@ -1,13 +1,12 @@
 #include "../../../../include/game/manager/game_manager/game_manager.h"
 #include "../../../../include/game/controller/players_controller.h"
+#include "../../../../include/menu/pages/score_menu_page.h"
+
+#define MAX_BEST_SCORES 10
 
 GameManager construct_game_manager(Players players, GameMode game_mode, GameDifficulty game_difficulty)
 {
     GameManager game_manager;
-
-    game_manager.window.elapsed_time = 0;
-    game_manager.window.start_pause_time = 0;
-    game_manager.window.end_pause_time = 0;
 
     game_manager.is_game_paused = 0;
     game_manager.is_game_over = 0;
@@ -31,7 +30,7 @@ GameManager construct_game_manager(Players players, GameMode game_mode, GameDiff
     return game_manager;
 }
 
-void update_game(GameManager *game_manager, EventManager *event_manager)
+void update_game(GameManager *game_manager, EventManager *event_manager, int total_menu_time)
 {
     update_background_position(&game_manager->window);
 
@@ -52,7 +51,7 @@ void update_game(GameManager *game_manager, EventManager *event_manager)
     update_players(game_manager, *event_manager);
     if (!is_game_over(game_manager))
     {
-        game_manager->window.elapsed_time = MLV_get_time() - game_manager->window.total_pause_time;
+        game_manager->window.elapsed_time = MLV_get_time() - game_manager->window.total_pause_time - total_menu_time - game_manager->window.total_game_over_time;
     }
 }
 
@@ -72,10 +71,15 @@ void restart_game(GameManager *game_manager)
     game_manager->controllers.asteroid_controller = construct_asteroid_controller();
     game_manager->controllers.bonus_controller = construct_bonus_controller();
 
-    game_manager->window.total_pause_time = MLV_get_time();
     game_manager->window.elapsed_time = 0;
+
+    game_manager->window.total_pause_time = 0;
     game_manager->window.start_pause_time = 0;
     game_manager->window.end_pause_time = 0;
+
+    game_manager->window.total_game_over_time = 0;
+    game_manager->window.start_game_over_time = 0;
+    game_manager->window.end_game_over_time = 0;
 
     game_manager->is_game_paused = 0;
     game_manager->is_game_over = 0;
@@ -100,24 +104,21 @@ int is_game_paused(GameManager *game_manager)
     return game_manager->is_game_paused;
 }
 
-static void save_scores(Players players, char *filename)
-{
-    FILE *file = fopen(filename, "wb");
-
-    if (file == NULL)
-    {
-        return;
-    }
-
-    fwrite(&players, sizeof(Players), 1, file);
-
-    fclose(file);
-}
-
 void quit_game(GameManager *game_manager)
 {
-    save_scores(game_manager->players, "./.bin/scores/scores.bin");
+    if (is_game_paused(game_manager))
+    {
+        game_manager->window.end_pause_time = MLV_get_time();
+        game_manager->window.total_pause_time += game_manager->window.end_pause_time - game_manager->window.start_pause_time;
+    }
+    else if (is_game_over(game_manager))
+    {
+        game_manager->window.end_game_over_time = MLV_get_time();
+        game_manager->window.total_game_over_time += game_manager->window.end_game_over_time - game_manager->window.start_game_over_time;
+    }
+
     free_players(&game_manager->players);
+
     /**
         free_enemy_controller(&game_manager->controllers.enemy_controller);
         free_bonus_controller(&game_manager->controllers.bonus_controller);
@@ -142,6 +143,11 @@ int is_game_over(GameManager *game_manager)
         {
             return 0;
         }
+    }
+
+    if (game_manager->window.start_game_over_time == 0)
+    {
+        game_manager->window.start_game_over_time = MLV_get_time();
     }
 
     return 1;
